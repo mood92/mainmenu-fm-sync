@@ -1,0 +1,56 @@
+commit: d400907071c4663a517fe303e06fa4f0f32ec94e
+job status: failure
+
+== SDK tags seen
+008446cfe9fc7a1dbe405393addd05d8414d508f	refs/tags/AC79NN_SDK_V1.2.10_2025-11-14
+d1b74ca25e4f0f86b8044c0f4a1225ca1736e973	refs/tags/AC79NN_SDK_V1.2.11_2025-12-24
+5aff27a9169234db27cf02c977fed8152e8164f6	refs/tags/AC79NN_SDK_V1.2.12_2026-03-07
+64afb30b805af5f5d3c2e6471e970c3fd0ba40ad	refs/tags/AC79NN_SDK_V1.2.13_2026-04-20
+5fa84a9b2f723a5e9337ad79dc2ad741fc98fe2d	refs/tags/AC79NN_SDK_V1.2.14_2026-10-13
+b02c8c9354c077238ccbf764e36eff53782e1c16	refs/tags/AC79NN_SDK_V1.2.1_2023-12-13
+d179b4484759423312073f5fbb232501aa491047	refs/tags/AC79NN_SDK_V1.2.1_2023-12-13^{}
+baafd10b1f007dcfeb9e615401fd15eec0137885	refs/tags/AC79NN_SDK_V1.2.2_2024-11-12
+517af94211a27a924953419693e83a02c15c2c62	refs/tags/AC79NN_SDK_V1.2.2_2024-11-12^{}
+beefe1e53fb38ec9a38ad121ed9b16e03fe15e2b	refs/tags/AC79NN_SDK_V1.2.3_2025-04-03
+5a298b3a8b28900c9568581c6a9f862029b10212	refs/tags/AC79NN_SDK_V1.2.4_2025-05-23
+cf07406e1a403f6541f07e671759d5889fc05484	refs/tags/AC79NN_SDK_V1.2.5_2025-06-20
+af5d53361f040fc56b6bc32cbed2eca3eef150ae	refs/tags/AC79NN_SDK_V1.2.6_2025-07-23
+cb05e3a407875d02d161e7f7d9cba68df06e60e4	refs/tags/AC79NN_SDK_V1.2.7_2025-08-07
+889318318cbbe9c80eb0cd96c3c37b43579f6ab1	refs/tags/AC79NN_SDK_V1.2.8_2025-09-05
+3ff432aeca2d84e7397a97f1ce109a54cb709724	refs/tags/AC79NN_SDK_V1.2.9_2025-09-25
+V1.2.0 not found
+
+== build log (last 150 lines)
+font MD_F3: h 5, 32..126, 69 glyphs, 570 B
+font MD_BIG: h 8, 48..57, 10 glyphs, 90 B
+font MD_ICON: h 5, 97..117, 5 glyphs, 126 B
+tables: /home/runner/work/mainmenu-fm-sync/mainmenu-fm-sync/build/gen/felucca_tables.h
+loader: image 7736 B at 0x1c0a800, bss end 0x1c0f208
+loader: ota.bin 6493 B
+generated waves into /home/runner/work/mainmenu-fm-sync/mainmenu-fm-sync/build/genwav
+samples: 1 sets, 24 zones, 74424 B ADPCM (cached)
+seek: 16 samples x 127 START states
+build: FELUCCA_BLE builds run the toolchain in Docker (the SDK is mounted at /sdk)
+build: DRUM_BUNDLE: the Bluetooth build failed
+
+== images
+ls: cannot access 'build/*.bin': No such file or directory
+ls: cannot access 'build/*.fwsc': No such file or directory
+ls: cannot access 'out/*': No such file or directory
+
+== build/loader/loader.elf
+There are 6 section headers, starting at offset 0x26a4:
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .text             PROGBITS        01c0a800 000100 001e38 00  AX  0   0  2
+  [ 2] .bss              NOBITS          01c0c640 001f38 002bc8 00  WA  0   0 16
+  [ 3] .shstrtab         STRTAB          00000000 00267c 000026 00      0   0  1
+  [ 4] .symtab           SYMTAB          00000000 001f38 000470 10      5  63  4
+  [ 5] .strtab           STRTAB          00000000 0023a8 0002d4 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  D (mbind), p (processor specific)
