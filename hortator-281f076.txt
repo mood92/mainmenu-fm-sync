@@ -1,0 +1,63 @@
+commit: 281f07623fc641f23de43bf9adfeb0395974dccd
+job status: success
+outcomes: toolchain=success sdk=failure tests=success build=failure
+drum_test: all passed
+sound_pack_test: all passed
+delay_test: all passed (0 failed)
+reverb_test: all passed
+usb_audio_test: all passed
+midi_clock_test: all passed
+sync_test: all passed
+sync_test: all passed
+metro_test: all passed
+led_dim_test: all passed
+enc_test: all passed
+perform_test: all passed
+motion_test: all passed
+lock_test: all passed
+micro_test: all passed
+song_test: all passed
+var_test: all passed
+phys_test: all passed
+filter_test: all passed
+insert_test: all passed
+fm_test: all passed
+organ_test: all passed
+ktrx_test: all passed
+sdtrx_test: all passed
+b2trx_test: all passed
+trxperc_test: all passed
+trxn_test: all passed
+trxmetal_test: all passed
+bdefm_test: all passed
+efmn_test: all passed
+efmmetal_test: all passed
+acid: all checks passed
+bench_host: all passed
+drum_test with Q24 overflow checks: all passed
+ui_test: all passed
+accel_test: all passed
+gfx_test: all passed
+bt_core_test: all passed
+smc_test: all passed
+ok    FAILED: BLUETOOTH ON says POWER OFF AND ON TO RETRY, nothing called
+
+== SDK tags seen
+# https://gitee.com/Jieli-Tech/fw-AC79_AIoT_SDK.git
+23b097431f7347d06c44b3646f908bfdab5a6359	refs/for/release/AC79NN_SDK_V1.1.0
+81d4e7f906d26f5995bfe66967a0f96f97adb306	refs/for/release/AC79NN_SDK_V1.2.0
+5c33e71d9e4762595aea28587e76d4068f353870	refs/heads/AC791N_OTA_loader
+51712dd206536f165499f2313454b486b19a6175	refs/heads/release/AC79NN_SDK_V1.0.2
+9e7166fa9d8e3d0a8c671e848647c33a4e57f07f	refs/heads/release/AC79NN_SDK_V1.0.3
+586a4fd8fb541777e4052274ba32c99f20ecedc8	refs/heads/release/AC79NN_SDK_V1.1.0
+0617f4cc09685332aaf1104893718291c54ee5bb	refs/heads/release/AC79NN_SDK_V1.2.0
+efd4649e7261be9e4bf3103037347df631ff745e	refs/release/AC79NN_SDK_V1.0.3
+# https://github.com/Jieli-Tech/fw-AC79_AIoT_SDK.git
+
+== build log (last 150 lines)
+build.sh: no JieLi AC79 SDK in /home/runner/fw-AC79_AIoT_SDK
+
+== images
+ls: cannot access 'build/*.bin': No such file or directory
+ls: cannot access 'build/*.fwsc': No such file or directory
+ls: cannot access 'out/*': No such file or directory
