@@ -1,9 +1,9 @@
-sections: .text 409868, .data 264, .bss 88040, .pool 323340
+sections: .text 412196, .data 264, .bss 88040, .pool 323340
 
-== .text: 400902 B in sized symbols; by group
-    349542  other
+== .text: 403196 B in sized symbols; by group
+    351460  other
      28519  fx/filter/comp/dsp
-      8648  drum models (dm_)
+      9024  drum models (dm_)
       5105  editor/usb/ota
       3244  sequencer/song
       2452  samples/presets/tables
@@ -11,11 +11,11 @@ sections: .text 409868, .data 264, .bss 88040, .pool 323340
       1656  libc/runtime
   -- biggest 40 symbols in .text
      74424  SMP_DATA
-     23090  fm1_main
+     23092  fm1_main
      17388  ui_input
      13944  graph_paint
      13246  ed_dispatch
-      8648  DMODELS
+      9024  DMODELS
       8196  RS_PER
       8192  PITCH_INC
       7142  draw_graph
@@ -24,8 +24,8 @@ sections: .text 409868, .data 264, .bss 88040, .pool 323340
       4600  fm1_timer5_irq_main
       4096  GRIDS_EUCLID
       4064  SMP_SEEK_P
+      3222  PRE_FACTORY
       3208  LK_NONE
-      2916  PRE_FACTORY
       2700  draw_foot
       2560  COMP_LP_COEF
       2466  perf_block
