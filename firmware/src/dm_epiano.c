@@ -59,6 +59,6 @@ static void ep_render(track_t *t, dvoice_t *v, int32_t *out, uint32_t n)
         dm_end(v);
 }
 
-#define DM_EPIANO_DEF {"EPIAN", 2, 0, {PD("TUNE", F_SEMI, -24, 24, 0), PD("DECAY", F_INT, 0, 127, 70), \
+#define DM_EPIANO_DEF {"EPIAN", 2, 0, {PD("TUNE", F_SEMI, -24, 24, 0), PD("DECAY", F_INT, 0, 127, 88), \
     PE("CHORD", N_ORGCHORD, 0), PD("BODY", F_INT, 0, 127, 40), PD("TINE", F_INT, 0, 127, 60), \
     PD("TDEC", F_INT, 0, 127, 30), PD("TREM", F_INT, 0, 127, 25), PD("VEL", F_INT, 0, 127, 60)}, ep_trigger, ep_render, 2}

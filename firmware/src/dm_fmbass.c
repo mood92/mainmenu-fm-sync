@@ -52,6 +52,6 @@ static void fmb_render(track_t *t, dvoice_t *v, int32_t *out, uint32_t n)
         dm_end(v);
 }
 
-#define DM_FMBASS_DEF {"FMBAS", 1, 0, {PD("TUNE", F_SEMI, -24, 24, 0), PD("DECAY", F_INT, 0, 127, 58), \
+#define DM_FMBASS_DEF {"FMBAS", 1, 0, {PD("TUNE", F_SEMI, -24, 24, 0), PD("DECAY", F_INT, 0, 127, 68), \
     PD("INDEX", F_INT, 0, 127, 50), PE("RATIO", N_FMBRATIO, 1), PD("MDEC", F_INT, 0, 127, 45), \
     PD("SUB", F_INT, 0, 127, 50), PD("DRIVE", F_INT, 0, 127, 20), PD("VEL", F_INT, 0, 127, 50)}, fmb_trigger, fmb_render}

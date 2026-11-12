@@ -115,6 +115,6 @@ static void org_render(track_t *t, dvoice_t *v, int32_t *out, uint32_t n)
         dm_end(v);
 }
 
-#define DM_ORGAN_DEF {"ORGAN", 2, 0, {PD("TUNE", F_SEMI, -24, 24, 0), PD("DECAY", F_INT, 0, 127, 52), \
+#define DM_ORGAN_DEF {"ORGAN", 2, 0, {PD("TUNE", F_SEMI, -24, 24, 0), PD("DECAY", F_INT, 0, 127, 66), \
     PE("CHORD", N_ORGCHORD, 4), PD("DRAW", F_INT, 0, 127, 80), PD("CLICK", F_INT, 0, 127, 40), \
     PD("VIB", F_INT, 0, 127, 20), PD("ATK", F_INT, 0, 127, 8), PD("VEL", F_INT, 0, 127, 40)}, org_trigger, org_render, 2}
