@@ -115,5 +115,5 @@ jobs:
           git init -q; git config user.name build; git config user.email build@users.noreply.github.com
           git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
           if git fetch -q --depth 1 origin build-logs 2>/dev/null; then git checkout -q -b build-logs FETCH_HEAD; else git checkout -q --orphan build-logs; fi
-          cp /tmp/rep/report.txt "hortator-${GITHUB_SHA::7}.txt"; cp /tmp/rep/report.txt hortator-latest.txt
+          cp /tmp/rep/report.txt "hortator-${GITHUB_SHA::7}.txt"; cp /tmp/rep/report.txt hortator-latest.txt; cp /tmp/rep/size_plain.txt size-plain.txt 2>/dev/null; cp /tmp/rep/size_ble.txt size-ble.txt 2>/dev/null
           git add -A; git commit -q -m "hortator build report ${GITHUB_SHA::7}"; git push -q origin build-logs
