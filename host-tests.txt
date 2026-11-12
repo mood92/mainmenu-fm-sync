@@ -1863,7 +1863,7 @@ ok    RESON CHORD cap: once a place frees, the 3rd track gets CHORD
 ok    RESON on 4 tracks at most: a 5th track's MODEL knob stays OFF, with the message
 ok    RESON on 4 tracks at most: once a place frees, the 5th gets it
 ok    RESON caps on load: the first two keep CHORD, the next two play STRNG, the rest OFF (4 tracks at most)
-FAIL  ACID cap: a 3rd track's MODEL knob goes past ACID (full) to the next model in the list (SMPL)
+ok    ACID cap: a 3rd track's MODEL knob goes past ACID (full) to the next model in the list (SMPL)
 ok    ACID cap: back down, past ACID (full) to FM
 ok    ACID cap: once a place frees, the 3rd track gets ACID
 ok    ACID cap on load: the first two ACID tracks keep it, the others fall back to their kit model
@@ -2465,4 +2465,1124 @@ ok    LEARN: EDIT held opens no list (the press a tap), LEARN stays on
 ok    LEARN off: EDIT held opens the list again
 ok    SOUND: the track's preset named above the voice
 ok    SOUND: a SOUND knob turned marks the preset edited (*)
-ok    TRACKSSegmentation fault (core dumped)
+ok    TRACKS: the selected track's preset in the breadcrumb (right)
+ok    SOUND with no preset: PRESET -
+ok    list open: nothing auditioned yet (the track as it was, nothing hit)
+ok    list PRESETS one detent: the highlighted preset on the track at once (MODEL, 8 knobs), not edited, hit once
+ok    list audition: CHOKE, LEVEL, FILTER and the rest untouched
+ok    list KNOB 1: the cursor, auditioned (one hit)
+ok    list SELECT: the bank before's first, auditioned (another voice: one hit)
+ok    list KNOB 2: the next bank's first, auditioned
+ok    list: the track's own key plays the auditioned sound (the track stays)
+ok    list on an empty user slot: no audition (the last one kept, nothing hit), EMPTY SLOT said
+ok    list EDIT: the track's sound back (CHOKE, LEVEL, FILTER too)
+ok    (list: another voice auditioned)
+ok    list EDIT without LOAD: closed, MODEL, knobs, preset and * exactly as before, nothing hit
+ok    (list: the one 3 before auditioned)
+ok    list HOME without LOAD: closed, the sound back exactly
+ok    list ALGORITHM: track 1's sound back, track 2 auditions the highlighted preset (one hit)
+ok    list: track 1's white key: track 2's sound back, track 1 auditions it (the key's one hit)
+ok    list EDIT: both tracks as before
+ok    list LOAD (OCT+): the highlighted preset stays on the track (its preset, not edited), the list closed
+ok    (list: another voice auditioned)
+ok    list SAVE while auditioning: the sound from before saved (its voice, DECAY 10), the track back to it, now its preset (not edited)
+ok    list EDIT after SAVE: the saved sound stays
+ok    list: 7 preset rows
+ok    list: the controls start under the 7th row (their dotted rule)
+ok    list: two hint lines (OCT+ / SAVE, OCT- / EDIT), no K1 / K2 line
+ok    confirm: nothing beside its tab, left of it or under its shadow is wiped
+ok    TEMPO: nothing beside its tab, left of it or under its shadow is wiped
+ok    an unassigned knob touched: the breadcrumb does not keep the last knob's value
+ok    SONG: the column rules start under the first row's bar (no stubs over it), and run down
+ok    ABOUT: a logo frame sends the logo, not the whole screen
+ok    ABOUT: the credits stay
+ok    ABOUT: the first credit at the top (6, 78), the fork's under it
+ok    ABOUT: the last credit not yet shown
+ok    ABOUT: the scroll bar's thumb at the top
+ok    ABOUT: the credits in their rows, inside 240 px (top)
+ok    ABOUT: SELECT one detent: the credits one row up
+ok    ABOUT: the logo stays put while the credits scroll
+ok    ABOUT: two detents at once: two rows more (the fork's credit scrolled off)
+ok    ABOUT: three detents back: the top again
+ok    ABOUT: SELECT back at the top: it stays
+ok    ABOUT: every credit shows somewhere on the way down
+ok    ABOUT: the credits in their rows, inside 240 px (every position)
+ok    ABOUT: at the end the last credit on the last row
+ok    ABOUT: the scroll bar's thumb at the bottom
+ok    ABOUT: SELECT past the end: clamped, nothing redrawn
+ok    ABOUT scrolled: a logo frame sends the logo alone, the credits stay
+ok    ABOUT: OCT- back to the list
+ok    ABOUT reopened: the credits from the top
+ok    ABOUT: OCT- twice closes the menu
+ok    HOME bars: stopped, 4 boxes, bar 1 solid
+ok    HOME bars: playing, the current bar of 4 solid (1 2 3 4 1 2), the others outlines
+ok    HOME bars: STOP, bar 1 again
+ok    HOME bars: LEN 64, bar 2 solid; PLAY again: bar 1
+ok    MODEL list: MD (BDTRX .. CYEFM), MODERN (BOOM .. SAMPL), CLASSIC (K808 .. CLAVE), then ORGAN, which wraps to BDTRX
+ok    MODEL list: the same order backwards (BDTRX back to ORGAN)
+ok    MODEL list: each voice on its first preset, not edited
+ok    models keep their numbers (projects store them): K808 0, ACID 23, BDTRX 24, CYEFM 44
+ok    renamed engines: the MODEL message says BDTRX TMTRX SHTRX TMEFM BOOM CRACK HISS SKIN SAMPL
+ok    renamed engines: N_MODEL has the new names
+ok    every engine's name: 1..5 characters, the engine view's title (DMODELS) = N_MODEL
+ok    engine view: KTRX #01/46 (the first), FM #29, ACID #30, K808 #32 (a Classic), CLAVE #45, ORGAN #46/46 (the last)
+ok    engine view: K808 (enum 0) is not #01 (the list's place, not the model's number)
+ok    engine view: the total is the MODEL list's length
+ok    engine view: every model's number whole and clear, with CHOKE and LAYER (FM, ACID, KTRX graphs too)
+ok    engine view: every model's name left (F3 4x), its number under it, VOICES / CHOKE / LAYER under that, each whole and clear (CHOKE and LAYER on)
+ok    engine view: every model a graph right; the rendered hit (all but FM, ACID, BDTRX): columns, the span labelled HIT / N MS
+ok    rendered hit: the same sound the same pixels (after a knob's round trip, live hits, a forced redraw)
+ok    rendered hit: another DECAY another picture
+ok    rendered hit: no live state touched (tracks, voices, song, ages, blocks, metal bank, SKIN bodies, RNG)
+     rendered hit: 504256 samples rendered beside the pattern (none without the view)
+ok    rendered hit: the audio bit for bit the same with the engine view's renders as without
+     rendered hit: CYTRX done in 44 frames, 1024 samples a frame at most, the graph drawn in 2 of them
+ok    rendered hit: progressive, at most VG_STEP samples a frame (a long voice over several frames)
+ok    rendered hit: the graph redrawn at the knob's frame and when the render is done, not while it runs
+ok    rendered hit: idle frames render nothing, redraw nothing
+     SDTRX  300 MS span,  14496 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 15 frames
+     TMTRX  500 MS span,  24480 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 24 frames
+     CGTRX  300 MS span,  14304 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 14 frames
+     CPTRX  100 MS span,   5856 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  6 frames
+     RSTRX  300 MS span,  16832 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 17 frames
+     CBTRX  150 MS span,   9024 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  9 frames
+     CHTRX  300 MS span,  14080 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 14 frames
+     OHTRX  750 MS span,  30688 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 30 frames
+     CYTRX 1000 MS span,  44096 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 44 frames
+     SHTRX  150 MS span,   7680 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  8 frames
+     CLTRX  300 MS span,  14624 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 15 frames
+     B2TRX  400 MS span,  17728 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 18 frames
+     BDEFM  300 MS span,  16480 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 17 frames
+     SDEFM  300 MS span,  15680 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 16 frames
+     TMEFM  400 MS span,  18464 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 19 frames
+     CPEFM  400 MS span,  18688 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 19 frames
+     RSEFM  300 MS span,  16256 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 16 frames
+     CBEFM  300 MS span,  16256 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 16 frames
+     HHEFM  300 MS span,  16224 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 16 frames
+     CYEFM  300 MS span,  16480 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 17 frames
+     BOOM   500 MS span,  24672 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 25 frames
+     PUNCH  300 MS span,  14688 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 15 frames
+     SNAP   300 MS span,  16128 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 16 frames
+     CRACK  400 MS span,  18400 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 18 frames
+     METAL  150 MS span,  10112 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 10 frames
+     HISS   100 MS span,   8064 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  8 frames
+     SKIN  1000 MS span,  44096 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 44 frames
+     SAMPL  500 MS span,  19872 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 20 frames
+     K808   750 MS span,  34784 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 34 frames
+     K909   300 MS span,  13792 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 14 frames
+     S808   100 MS span,   7328 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  8 frames
+     S909   100 MS span,   7040 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  7 frames
+     C808   100 MS span,   6624 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  7 frames
+     C909   100 MS span,   5440 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  6 frames
+     HATC   100 MS span,   3264 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  4 frames
+     HATO   150 MS span,  10624 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 11 frames
+     CYMB   300 MS span,  17824 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1), 18 frames
+     COWB   100 MS span,   8160 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  8 frames
+     TOM    100 MS span,   8512 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  9 frames
+     CONGA  100 MS span,   4672 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  5 frames
+     RIM    100 MS span,   1056 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  2 frames
+     CLAVE  100 MS span,   2944 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  3 frames
+     ORGAN  100 MS span,   4672 samples,        0 host instructions (  0 a sample, ~  0.0 ms on the FM-1),  5 frames
+     rendered hit: the dearest hit K808 0 host instructions (~0.0 ms on the FM-1, over the frames); a frame's share at most ~0 (~0.00 ms)
+ok    rendered hit: a frame's share of any model's render under 3 ms on the FM-1 (~437000 host instructions)
+ok    TOOLS INIT ALL: the TRX classic kit, first presets, no choke
+ok    (TRACKS: the kit's models listed)
+ok    PERFORM (FX held, HOME under it): late KNOB 2 detents in the same pass leave DECAY alone
+ok    ..and are CRUSH's on the next pass (none lost)
+ok    PERFORM PAGE over FILTER: KNOB 1 is FILTER's macro only (TYPE untouched), SELECT turns no page
+ok    OCT+ held, GLO held into MUTE, OCT+ let go under it: no bank change
+ok    ..GLO let go: the STEP page, bank 1
+ok    OCT+ held across the MUTE screen, let go on the steps: no bank change
+ok    OCT+ held, FX held into PERFORM, OCT+ let go under it: no bank change
+ok    OCT+ tapped under PERFORM: no bank change
+ok    (OCT+ tapped alone on the steps: still the next bank)
+ok    (FX held: PERFORM up over HOME)
+ok    FX let go during a KNOB 2 turn: HOME's DECAY untouched on that pass
+ok    PERFORM (FX held): PRESETS loads no preset, ALGORITHM keeps the track
+ok    PERFORM PAGE: PRESETS loads no preset, ALGORITHM keeps the track
+ok    item 2: HOME, EDIT (SOUND, LAYER), FX, LFO: the selected track's key lit, every other key dark
+ok    item 2: GLOBAL, SAVE, GRIDS: no track key (the keys held only, as before)
+ok    item 2: FX, ALGORITHM to track 2: its key (G3) lit, F3 dark
+ok    item 2: EDIT, track 5's key pressed: selected, lit (held)
+ok    item 2: a key held is lit beside the track's
+ok    item 2: let go: track 5's key stays lit
+ok    item 2: KEYS on: no track key (the keyboard)
+ok    item 2: LFO: track 5's key
+ok    item 2: the menu over it: no track key
+ok    item 5: the HOME screen: OCT- / OCT+ dark, the hook idle (BACKLIGHT OFF)
+ok    item 5: STEP, bank 1 of 3: OCT+ breathes (a bank after), OCT- dark
+ok    item 5: bank 2 of 3: both breathe
+ok    item 5: bank 3 of 3: OCT- breathes, OCT+ dark
+ok    item 5: OCT+ held (the accent): lit
+ok    item 5: KEYS at octave 0: dark
+ok    item 5: KEYS at octave +1: OCT+ lit (not breathing)
+ok    item 5: SOUND: OCT+ breathes (the LAYER pages)
+ok    item 5: LAYER: OCT- lit (back to SOUND)
+ok    item 5: GLOBAL: dark
+ok    item 5: a dialog: OCT- (NO) lit, OCT+ (YES) breathes
+ok    item 5: the menu: OCT- (BACK) lit, OCT+ (OK) breathes
+ok    item 5: ABOUT: OCT- (back) lit alone
+ok    item 5: MIDI LEARN: OCT- (CLEAR) lit, OCT+ (DONE) breathes
+ok    item 5: NAME: OCT- (CANCEL) lit, OCT+ (RENAME) breathes
+ok    item 5: the PRESETS list on a factory preset: OCT+ (LOAD) breathes, OCT- (DELETE) dark
+ok    item 5: .. on a used user slot: OCT- (DELETE) breathes too
+ok    OFF: on steps full, the rest dark
+ok    DIM LO (the old ON): on steps full, the unlit beats mid (5 of 20 frames), the other keys and the idle buttons glow (a short pulse every frame)
+ok    DIM HI: as DIM LO, brighter: the beats 6 of 20, the glow's pulse longer
+ok    INV: the active ones dark, the idle keys and buttons lit
+ok    INV LO: the active ones dark, the idle ones mid (2 of 20)
+ok    INV HI: the active ones dark, the idle ones mid (5 of 20)
+ok    ENV: STEPS mode (LED lit): on SOUND a white key toggles the selected track's step, selects no track, plays nothing
+ok    ENV again: TRACKS mode: the key selects its track as before
+ok    ENV toggled twice: every family's keys, LEDs and key mode as before
+ok    ENV held + OCT+ / OCT-: the next / previous bank; ENV let go after them: still STEPS
+ok    (ENV tapped back to STEPS)
+ok    ENV off on SOUND: OCT+ is the page's (LAYER), no bank
+ok    STEPS on SOUND: OCT+ alone goes to LAYER on its release (not the press)
+ok    STEPS on LAYER: OCT- back to SOUND
+ok    STEPS: OCT+ held + a step key: its accent, OCT+'s release no LAYER
+ok    STEPS on an LFO page: OCT+ alone cycles the RATE MODE
+ok    STEPS on SEQ STEP: OCT+ alone is the next bank, as today
+ok    (KEYS on)
+ok    ENV with KEYS on: KEYS off, STEPS on
+ok    SCL in STEPS: STEPS off, KEYS on
+ok    ENV: not in the settings (not saved), off at power-on
+ok    STEPS: the HOME screen and TRACKS (armed) keys are the selected track's steps
+ok    STEPS + REC ALL playing: the keys toggle steps, record no hits
+ok    ENV while a step key is held: TRACKS mode, the release leaves the step on, a turn edits the knob (no lock)
+ok    locks: on every SOUND, LAYER, FX, SLICER, RESON, FILTER, LFO, LFO DEST page, HOME and TRACKS a held step + a recordable knob writes a lock (its own value + 1), the knob and the base untouched; MODEL, TYPE, WAVE, DEST, SRC and the rest change nothing
+ok    locks: a turn 0.1 s after the press writes the lock, turns the off step on; the release toggles nothing
+ok    locks: step held: a locked cell shows the lock inverted, the others their value; LOCK STEP 5; let go: the knobs' values
+ok    locks: a held turn with 1024 events: LOCKS FULL, nothing added
+ok    locks: step held + OCT- tap on SOUND clears that step's SOUND locks only (FILTER's, the next step's and motion kept)
+ok    (LAYER)
+ok    locks: step held + OCT- held 0.6 s clears all its locks; the release after does nothing (still LAYER)
+ok    locks: OCT- with no step held on LAYER: back to SOUND
+ok    locks: SEQ STEP in STEPS: held + KNOB 1 / 2 / 3 are PROB / RATCH / ACC, no lock
+ok    locks: while a song plays (or is armed) a held key gives no lock step: no lock
+ok    locks: STEPS, bank 1: a mark under step 4's box only (not under motion's step 8)
+ok    locks: bank 2: the mark under step 19's box (the bank's 3rd)
+ok    locks: ENV off (TRACKS): no marks
+ok    MOTION page: KNOB 2 MOTION 40, KNOB 3 LOCKS 212 (the selected track's)
+ok    ENV: one press toggles STEPS at every phase of the tick counter (8 presses, 8 toggles)
+ok    locks: step held + OCT- tap clears at every phase of the tick counter
+ok    one ENV press (tick bit 1 set), step 5 held + KNOB 2: a lock on step 5
+ok    ENV: one press toggles after ENV + OCT+, a held step, a page change, the menu, power-on
+ok    STEPS: a padlock in the top bar on every page (SOUND, FX, LFO, SEQ, HOME); TRACKS: none
+ok    locks: the LOCK STEP 5 line whole on every page a step can be held in STEPS (top bar; HOME's strip too)
+ui_test: all passed
+In file included from tests/accel_test.c:16:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ui_draw 3 ms: clicks to sweep 0..127
+clicks/s     5   10   20   30   40   60  100  150
+hortator   127  127   65   45   34   24   18   18
+upstream   127  127  127  127   65   64   27   21
+ui_draw 30 ms: clicks to sweep 0..127
+clicks/s     5   10   20   30   40   60  100  150
+hortator   127  127   79   44   40   25   24   27
+upstream   127  127  127  127  127   57   33   27
+slow turns (5, 10 clicks/s), up and down: one step a click, every read                           ok
+medium and fast turns (20..150 clicks/s): no more clicks to sweep 0..127 than upstream's         ok
+20..60 clicks/s on a light page: at most 3/4 of upstream's clicks to sweep                       ok
+a single click after a pause: one step; the first click of a reversal: one step                  ok
+KNOB ACCEL OFF: one step a click at any speed                                                    ok
+MODEL after 30 clicks at 100/s: 30 entries on (of 46)
+a list of names (MODEL, 45): one entry a click at 100 clicks/s                                   ok
+accel_test: all passed
+In file included from tests/gfx_test.c:4:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    md_text: 'A' at 2x is the MD 3x5 A, each font pixel a 2x2 block
+ok    md_text: the pen after 'A' at 2x is 8
+ok    md_text: only ink pixels are written (the A's holes keep the background)
+ok    md_text_w: ':' is 1 px wide (2 at 2x)
+ok    md_text: ':' at 2x advances 4
+ok    md_text: lower case draws as caps
+ok    md_text: a glyph the font lacks draws as '?'
+ok    md_text: $ @ ^ { } ~ have glyphs of their own
+ok    md_text_w: BIG '1' is 3 wide (6 at 2x)
+ok    md_text_w: '12' at 2x = 3 + 1 + 3 font px = 14 (no trailing gap)
+ok    line_dot: every other pixel along the line
+ok    theme_index: old GREEN AMBER CYAN RED MONO -> BLACK ON GREEN, MD RED, WHITE ON BLUE, MD RED, RED ON BLACK; THEME_TAG | i -> i; anything else -> MD RED
+ok    theme_set: C_BG / C_INK are the theme's (WHITE ON BLUE)
+ok    themes: MD RED #e0472b / #38100a
+ok    dither: parity follows the screen row (canvas row 0 = screen row 7: (0,0) clear, (1,0) ink)
+ok    dither: canvas row 0 = screen row 8: (0,0) ink
+ok    hdot / vdot: 1 on, 1 off, from the first coordinate
+ok    knob: the value blob at the minimum sits at 7:30 inside the ring (centre 17,23)
+ok    knob: 12 o'clock tick 2 px above the ring
+ok    knob: no LFO dot without an LFO (only the tick in its box)
+ok    knob: the value blob at the maximum sits at 4:30 (centre 23,23)
+ok    knob: the LFO value as a hollow 3x3 dot outside the ring (12 o'clock: 8 ink, the centre clear)
+ok    popup: 1 px top / left edge, 2 px right / bottom edge, notched corner
+ok    tab: width = text + 6, 13 px tall ink box
+ok    keycap: a 1 px box round the key, the action 4 px after it
+ok    button: on = ink box with clear text, off = outline with ink text
+ok    trigs: every gap between neighbours keeps >= 2 clear columns, playhead included
+ok    trigs: box 4 starts at x 58 (+2 per beat); trig = solid 10x10, empty = outline
+ok    trigs: beat dots under steps 1 and 5
+gfx_test: all passed
+In file included from tests/bt_core_test.c:7:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    MIDI mode: a note-on lands in the input ring as source 3
+ok    MIDI mode: a note-on on the drum channel fires the track with that NOTE
+ok    MIDI mode: a note on another channel fires nothing
+ok    MIDI mode: the USB filter drops SysEx, active sensing, reset, a mismatched CIN, data >= 0x80, system common
+ok    MIDI mode: channel voice and the realtime F8 FA FB FC pass (realtime as its status only)
+ok    CLK BLE: a BLE Start and Clock drive the sequencer
+ok    CLK USB: a BLE Start and Clock do nothing
+ok    CLK: BLE is value 3, LINK 4 in this build (appended)
+ok    CLK BLE: the BPM knob (SELECT on HOME's TRACKS mode) says CLK BLE
+ok    CLK TRS: the BPM knob says CLK TRS
+ok    CLK BLE survives a project save and load in this build
+ok    ring: with 9 slots free a BLE packet goes in
+ok    ring: with only 8 slots free the BLE packet is refused, counted, the overflow flag not set
+ok    MODE AUTO, not connected: MIDI
+ok    MODE AUTO, connected to SMC-Mixer: SMC DAW
+ok    SMC DAW mode: nothing goes into the ring
+ok    MODE AUTO, connected to another name: MIDI
+ok    MODE AUTO, a name shorter than SMC: MIDI
+ok    MODE SMC DAW: SMC whatever the name
+ok    MODE MIDI: MIDI with an SMC connected
+ok    MODE AUTO: the link down -> MIDI (the name's decision cleared)
+ok    MODE AUTO: the name is read once, on core_ble_link(1)
+ok    MODE AUTO: .. then SMC DAW
+ok    SOLO 2: song.solo bit 1; the tracks it silences (not the muted one) are cut
+ok    SOLO 6 too: nothing newly silent, nothing cut
+ok    unsolo 2 with 6 soloed: track 2 now silent, cut
+ok    unsolo 6: nothing cut, the mask clear
+ok    SOLO beyond the tracks: nothing
+ok    INIT ALL clears SOLO
+bt_core_test: all passed
+In file included from tests/smc_test.c:7:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    pitch bend ch 3: (d2 << 7 | d1) >> 7 = 99, within 2 of LEVEL 100: picked, LEVEL 99
+ok    pitch bend ch 9 (master), ch 16: nothing
+ok    pitch bend 0x3FFF: 127
+ok    fader 3 far from LEVEL 100: no change
+ok    fader 3 moved, still below 100: no change
+ok    fader 3 within 2 of 100: picked up, LEVEL 98
+ok    picked: LEVEL follows the fader (40)
+ok    a LEVEL the fader set: its latest position echoed once (E2 40 40), as smc-seq
+ok    .. the fader stays picked (20)
+ok    fader 6 crossed LEVEL 100 on its way up: picked, LEVEL 105
+ok    fader 6 crossed LEVEL 100 from above: picked, LEVEL 90
+ok    the first report after a link, far: no change (no crossing known)
+ok    a LEVEL change by the FM-1: E2 90 90 sent
+ok    .. and fader 3 is unpicked again (52: no change)
+ok    .. until it comes within 2 (91)
+ok    .. picked: only the echo (E2 91 91)
+ok    fader 3, track 3 selected, armed, playing: LEVEL 70 recorded as motion
+ok    fader 4 (not selected): LEVEL 60, not recorded
+ok    knob 1 +3 on a K808 track: TUNE 3 steps up
+ok    knob 1: the top bar says T1 TUNE <value><unit>
+ok    knob 2 counter-clockwise 1 (0x41): DECAY 1 down
+ok    knob 2 clamped at the top
+ok    knob 2 turned on at the top (nothing changed): the preset not marked edited (review fix 4)
+ok    knob 2 down 1: edited
+ok    an ACID track's knob 3 = CUTOF, 2 up
+ok    knob 4 = RESO, 5 down
+ok    knobs 5-8 (nothing learned), a zero delta, another channel: nothing
+ok    knob 2 on the selected, armed track while playing: recorded as motion
+ok    MUTE 4: track 4 muted
+ok    MUTE 4 again: unmuted
+ok    MUTE 4 with MUTE: NEXT BAR: queued (mute_q bit 3), P_MUTE as it was
+ok    SOLO 2: song.solo bit 1
+ok    SOLO 2 again: off
+ok    REC 5 while stopped: track 5 armed, no play requested
+ok    REC 5 again: disarmed, no request
+ok    SELECT 7: track 7 selected
+ok    BANK >: track 8
+ok    CHANNEL > at track 8: stays
+ok    BANK < / CHANNEL < at track 1: stays
+ok    CHANNEL > > <: track 2
+ok    REC on TRACKS: the selected track (2) armed, T2 REC ARMED, no play requested
+ok    REC again: disarmed
+ok    REC 3 while a song is armed: nothing armed, STOP TO EDIT
+ok    REC while a song is armed: nothing armed, STOP TO EDIT
+ok    REC 3 / REC while a song runs: nothing armed, STOP TO EDIT
+ok    STOP while stopped: nothing
+ok    PLAY while stopped: play requested
+ok    PLAY while playing: nothing
+ok    STOP while playing: stop requested
+ok    (stopped)
+ok    note-offs and velocity 0: nothing
+ok    REW, FF, arrows: nothing
+ok    a note on channel 2: nothing
+ok    not linked: nothing sent
+ok    link up: BT CONNECTED
+ok    the first frame after a link: 32 + 3 LEDs and 8 positions
+ok    .. each position its track's LEVEL (E0+n v v)
+ok    .. SELECT 1 lit, SELECT 2 dark, STOP lit, PLAY dark, REC dark, MUTE 1 dark
+ok    nothing changed: nothing sent
+ok    a mute: exactly one LED change (MUTE 4 lit)
+ok    NEXT BAR: MUTE 5 lit while its mute waits, MUTE 4 dark while its unmute waits
+ok    .. applied: nothing changes on the mixer
+ok    SOLO 3, SELECT 3, REC: SOLO 3, SELECT 3 lit, SELECT 1 dark, REC 3 lit, REC lit
+ok    playing: PLAY lit, STOP dark
+ok    no room in the queue: nothing tried (no refusal counted as a drop)
+ok    a refused send although room: tried, nothing taken
+ok    .. retried on the next frame: MUTE 6 lit
+ok    link down: BT LOST, nothing sent
+ok    a new link with room for 20: 20 sent, no send refused (out_drops counts only real losses)
+ok    .. the rest on the next frame: 35 LEDs and 8 positions in all
+ok    a new link: the faders unpicked (fader 2 at 120 leaves LEVEL 33)
+ok    MIDI mode: smc_in is not called (MUTE 4, fader 3 do nothing)
+ok    MIDI mode: no LEDs, no positions
+ok    back to SMC: everything sent again
+ok    SOLO 2, SOLO 4: song.solo 0x0A
+ok    the SMC link drops: solo cleared, no voice cut (panic_req 0)
+ok    MODE AUTO -> SMC DAW while soloed: solo kept
+ok    MODE MIDI while linked: solo cleared, no voice cut
+ok    SMC mode again: SOLO 5 works
+ok    linked in MIDI mode from the start: solo left alone
+ok    MODE MIDI while linked: the 35 LEDs off, nothing else
+ok    .. once: nothing after
+ok    LEDs off with room for 10: the rest on later frames, 35 in all
+ok    SMC mode again: the full refresh (35 LEDs, 8 positions), no LEDs-off left
+ok    the link drops in SMC mode: nothing sent
+ok    AUTO, a MIDI device linked: no LEDs off (SMC mode never began)
+ok    REC on HOME: REC ALL, every track armed, no play requested, REC ALL said
+ok    REC ALL: REC 1-8 lit, REC lit
+ok    REC 3 during REC ALL: REC ALL left, track 3 disarmed, the others still armed
+ok    REC, REC on HOME: REC ALL on and off, the arm state from before back
+ok    REC on TRACKS: the selected track (1) toggled: T1 REC OFF
+ok    knob 6 learned: one CC into the ring (source 3)
+ok    knob 6 +1: its parameter one value up, from where it was
+ok    knob 6 -1 twice: one value below where it began
+ok    knob 6: the top bar says T3 and the parameter
+ok    changed on the FM-1: the next click steps from there
+ok    knob 7, nothing learned: nothing
+ok    MIDI LEARN waiting: knob 8 is heard as CC 23
+ok    a dialog on the screen: knobs and buttons do nothing
+smc_test: all passed
+In file included from tests/bt_page_test.c:16:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    menu: BLUETOOTH is the row before ABOUT; eleven rows (BACKLIGHT, spec 2026-10-11-fixes §12)
+ok    menu: no USB AUDIO row in the Bluetooth build (2 CH always; a stored 10 CH is not read)
+ok    menu: the eleven rows end above the hints
+ok    menu: OCT+ on BLUETOOTH opens the page
+ok    the page opened: nothing started, no role asked
+ok    the page open (HOST): the scan wanted continuous (ON / NEAR / AWAY)
+ok    the page draws (head, state, rows, hints)
+ok    the rows: BLUETOOTH AUTOSTART ROLE MODE RECONNECT, then ADD (no device saved)
+ok    OCT-: back to the menu's list on BLUETOOTH; the page's scan ends
+ok    HOME held on the page: the menu closes, the page's scan ends
+ok    BLUETOOTH ON (KNOB 1 right): the role handed over (HOST), want on, the stack started once
+ok    ON again / frames: no more calls
+ok    BLUETOOTH OFF (KNOB 1 left): want 0
+ok    OCT+ toggles ON: the stack already started is not started again
+ok    OCT+ toggles OFF
+ok    FAILED: BLUETOOTH ON says POWER OFF AND ON TO RETRY, nothing called
+ok    safe start: BLUETOOTH ON says NOT IN SAFE START, nothing called
+ok    + ADD A DEVICE while BLUETOOTH is OFF: refused with a message
+ok    AUTOSTART: OFF by default (no settings record)
+ok    AUTOSTART: KNOB 1 right ON, left OFF (stays at the ends)
+ok    AUTOSTART: OCT+ toggles
+ok    AUTOSTART: nothing started; not written per change
+ok    AUTOSTART: the menu closed: saved (palette word bit 8, as the first Bluetooth page)
+ok    AUTOSTART survives a power cycle; the palette loads without the bit
+ok    HOST with a saved device: 5 rows, the device, ADD
+ok    ROLE: KNOB 1 right DEVICE, the BLE unit told, the store dirty
+ok    ROLE DEVICE: no device lines (5 rows)
+ok    ROLE DEVICE: the page asks no scan
+ok    the store is not written while playing
+ok    stopped: written
+ok    ROLE DEVICE survives a power cycle (the store)
+ok    ROLE: OCT+ toggles back to HOST
+ok    MODE: KNOB 1 steps AUTO SMC DAW MIDI FM-LINK, stops at FM-LINK
+ok    MODE FM-LINK: a flag in the store; the settings record keeps MIDI (an older firmware reads that)
+ok    MODE FM-LINK: the settings record says MIDI
+ok    MODE FM-LINK survives a power cycle
+ok    MODE: OCT+ wraps FM-LINK -> AUTO, the flag cleared
+ok    RECONNECT: AUTO FAST SLOW (stops at SLOW, OCT+ wraps); SLOW or AUTO while playing rests longer
+ok    RECONNECT: a value out of range reads AUTO
+ok    BLUETOOTH OFF: the state line says OFF
+ok    ON, nothing saved: ON, NO DEVICE SAVED
+ok    + ADD A DEVICE, OCT+: the list opens
+ok    the ADD list: SCANNING 8 S
+ok    the ADD list: MIDI ones first (by signal), then the others
+ok    the ADD list: seconds left go down (SCANNING 5 S)
+ok    8 s on: ADD: PICK A DEVICE
+ok    after its scan the ADD list stays put
+ok    OCT+ on SMC-Mixer: saved (a controller, its name), the list closed, the cursor on its line
+ok    the new device the CTRL slot's target
+ok    ADD again: the saved SMC-Mixer is not listed
+ok    an FM-1 picked: saved as FM-1 kind, first
+ok    an FM-1's line: FM-1 and its address' last four digits
+ok    the FM-1 the FM1 slot's target
+ok    one link up: ON, 1 CONNECTED
+ok    the lines: SMC ON (linked), FM-1 NEAR (seen lately)
+ok    nothing linked: ON, SEARCHING; the lines AWAY
+ok    OCT+ on an AWAY device: NOT AROUND, the order kept
+ok    OCT+ on a NEAR device: use it now (to the top)
+ok    KNOB 1 left on a line: FORGET <name>? on the state line
+ok    OCT-: no, nothing forgotten, still on the page
+ok    OCT+: yes, forgotten
+ok    the saved devices survive a power cycle (the store)
+ok    nothing found in 8 s: NOTHING FOUND
+ok    NOTHING FOUND, OCT+: scans again
+ok    the ADD list, OCT-: back to the page
+ok    carried over: the remembered device is the first saved device (a controller, its address type)
+ok    carried over: MODE and AUTOSTART as the settings record has them
+ok    no name yet: DEVICE and the address' last four digits
+ok    a scan lists it: its name kept, the store dirty
+ok    with a store: the store's list (not carried over again)
+ok    forgotten: stays forgotten (the settings record's device is not carried over a second time)
+ok    STARTING
+ok    the device role advertising: WAITING FOR A HOST
+ok    the device role linked: CONNECTED and the host
+ok    FAILED and the reason
+ok    the top bar's icon: none while Bluetooth is off
+ok    on, nothing linked: struck (1), drawn (the head redrawn)
+ok    a link up: lit (2), the strike gone
+ok    the device role linked: lit
+ok    off again: the head as before
+ok    nothing changed: no redraw
+ok    a link up: redrawn
+ok    MODE changed: redrawn
+ok    eight saved: 14 rows
+ok    the cursor on ADD: the rows scrolled
+ok    autostart: nothing before 5 s
+ok    autostart at 5 s: want on, the role, the stack started, BLUETOOTH ON
+ok    autostart: once
+ok    AUTOSTART OFF: nothing at 5 s
+ok    autostart: not in safe start
+ok    autostart: not while OCT- + OCT+ are held (UPDATE MODE's count), nor later
+ok    autostart skipped after a boot that was not clean: nothing called, BT AUTOSTART SKIPPED
+ok    autostart skipped: the message once
+ok    autostart skipped: BLUETOOTH ON by hand still starts it
+ok    autostart after a start by hand: nothing more
+ok    autostart with the stack FAILED: nothing called
+bt_page_test: all passed
+In file included from tests/bt_devs_test.c:17:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    sectors: the flash window read from hal/fm1_flash.h
+ok    sectors: 0x9F000 and 0xFE000, 4 KiB aligned, inside the store's flash window, no other object / the user samples / the lock banks / the staging / the stock store / the app
+ok    sectors: the record fits a sector's first two pages
+ok    store: none yet -> empty, nothing saved, nothing written
+ok    store: not written while the transport runs
+ok    store: stopped -> copy A written, B untouched
+ok    store: the sector's last 256 bytes stay erased (the loader's update-record sweep ignores it)
+ok    store: read back after a power cycle
+ok    store: the next write goes to B (A kept)
+ok    store: the newer copy (B) wins
+ok    store: then A again
+ok    store: a write torn before its magic -> the other copy in charge
+ok    store: a damaged copy (its check) is ignored
+ok    store: the sequence wraps (0 after 0xFFFFFFFF is newer)
+ok    store: another version is not read (empty)
+ok    store: no flash -> kept in RAM, nothing written
+ok    foreign: upstream Felucca's FM6 bank (type 7, magic FELU) in both sectors -> the store empty, as erased
+ok    foreign: the first write takes copy A, B's foreign record untouched
+ok    foreign: read back from A, B's foreign record ignored
+ok    foreign: random bytes, and the store's magic / version / length over random bytes -> empty (64 tries)
+ok    foreign: a zeroed sector -> empty
+ok    torn: a power cut at the erase, the first page, the rest or the magic -> A unchanged, A read back
+ok    torn: the write touched copy B only
+ok    only the store: settings, a project save (slots A and D) and MIDI LEARN write nothing at 0x9F000 / 0xFE000
+ok    only the store: its writes land in its two sectors, nowhere else
+ok    add_order: the last added first
+ok    add_order: the same address again moves to the top, once
+ok    add_order: the name and kind kept
+ok    evict: a ninth controller -> the least recently picked controller goes
+ok    evict: full, a new FM-1 -> the old FM-1 goes, the controllers stay
+ok    forget: the rest close up
+ok    forget: the entry it left is cleared
+ok    use: to the top
+ok    kind: Felucca FM-1 is an FM-1
+ok    kind: anything else is a controller
+ok    name_cut: a long name kept to 16
+ok    choose_order: both around -> the first picked
+ok    choose_order: the first away -> the next
+ok    choose_order: an FM-1 is not a controller
+ok    choose_grace: a dropped -> it stays the target (no stand-in)
+ok    choose_grace: 29 s on -> still waiting for it
+ok    choose_grace: 31 s on -> the next one around
+ok    choose_grace: the first back -> it takes the slot again
+ok    choose_grace: the order is the user's: a still first
+ok    forget_connected: the next around at once (no grace)
+ok    targets: the controller's slot -> the controller
+ok    targets: the FM-1's slot -> the FM-1
+ok    targets: no FM-1 saved -> no target
+ok    scan_want: linked to a lower one -> a background scan for the first (windowed: 1)
+ok    scan_want: on the first, the page closed -> none
+ok    scan_want: the page open -> a continuous scan (2)
+ok    state: linked -> 2, not seen for 21 s -> 0
+ok    state: seen a second ago -> around
+ok    targets_when_none_around: the first controller and the first FM-1 (scanned for)
+ok    targets_when_none_around: minutes later still (reconnect indefinitely)
+ok    mac: none stored -> made, marked, to be saved
+ok    mac: asked again (another moment) -> the same, nothing to save
+ok    mac: a random static address (the top two bits set at both ends)
+ok    mac: kept over a power cycle
+ok    rf: none kept
+ok    rf: put -> kept, to be saved
+ok    rf: the same again -> nothing to save (no flash write at each power-on)
+ok    rf: kept over a power cycle
+ok    rf: another record -> kept, saved
+ok    rf: 72 bytes of the store (68 and the mark)
+bt_devs: all checks passed
+In file included from tests/bt_midi_test.c:11:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    MIDI mode: a key's hit and its release go to the device (note on / off, the drum channel)
+ok    SMC DAW mode: nothing sent for the keys
+ok    FM-LINK mode: nothing sent
+ok    not linked: nothing queued or sent
+ok    the out queue full: the rest dropped and counted
+ok    the queue drained to the device
+ok    realtime from the keys' path: not queued (the clock has its own)
+ok    SYNC BLE, CLK INT, PLAY: Start, then the first Clock, one byte each
+ok    SYNC BLE: nothing to USB
+ok    SYNC BLE: 24 Clocks a beat, one sender (never 48)
+ok    PLAY while playing: Stop, then Start, once each
+ok    STOP: Stop, once, then nothing
+ok    SYNC BOTH: the device gets USB's Clocks, the same count (one clock)
+ok    SYNC OFF: no clock anywhere
+ok    SYNC USB: Clocks to USB, none to the device
+ok    FM-LINK, SYNC BOTH: no clock to the device (nothing queued), USB's Clocks go on
+ok    SMC DAW, SYNC BLE: no clock out
+ok    CLK USB: no own clock out (no loop)
+ok    CLK LINK, SYNC BOTH: no clock out
+ok    the device not reading: no more than 8 Clocks wait (the rest dropped, counted)
+ok    held: the channels the device played
+ok    the link down: CC 64 = 0 and CC 123 on each held channel into the ring (source 3)
+ok    released once
+ok    FM-LINK: what the device sends is ignored (no ring, no SMC)
+ok    FM-LINK: neither MIDI nor SMC mode
+ok    AUTO with an SMC: to the layout
+bt_midi_test: all passed
+In file included from tests/bt_fml_test.c:10:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    CLK LINK: the follower's role
+ok    the follower hears the leader and knows the offset
+ok    it says FM-LINK: FOLLOWING
+ok    the leader announces its start (both 80 ms on)
+ok    both play
+ok    the follower's BPM is the leader's (from 97)
+      the core's sequencer against the leader: 1.151 ms at most over 20 s
+ok    within 1.5 ms over 20 s, still playing (CLK LINK has no external clock's 500 ms timeout)
+ok    a linked follower's own STOP does nothing and says FOLLOWING LINK
+ok    the follower takes the leader's new BPM
+ok    in time at the new BPM
+ok    the link lost: the follower plays on at the leader's last BPM
+ok    STOP on the leader stops the follower
+ok    CLK INT: the leader's role, FM-LINK: LEADING
+ok    PLAY with a follower linked: not at once
+ok    both play, the follower at the leader's BPM
+      the follower against the core's sequencer: 1.131 ms at most over 10 s
+ok    within 1.5 ms
+ok    STOP stops both
+ok    no room: one message waits
+ok    room again: it goes first
+ok    no follower: PLAY starts at once
+ok    CLK LINK, no other FM-1: PLAY starts at once, at its own BPM
+ok    ... and keeps playing
+ok    CLK USB: the leader's role, FM-LINK: LEADING
+ok    the clock running, no Start: neither plays
+ok    the clock's Start: both play, the follower from beat 1
+ok    the follower at the clock's BPM
+      the follower against the clock's sequencer: 1.884 ms at most over 10 s
+ok    within 2 ms
+ok    a Start while playing: the follower starts again from beat 1 with it
+ok    ... within 2 ms
+ok    the clock's Stop stops both
+ok    CLK TRS, no other FM-1: the leader's role, nothing linked
+bt_fml: all checks passed
+In file included from tests/redraw_test.c:7:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+     SOUND, a knob turn a frame                   px/frame avg  32192  max  33617  full repaints 0  (~44.8 ms max at 12 MHz)
+     SOUND, step 5 held: a lock turn a frame      px/frame avg   3714  max  11257  full repaints 0  (~15.0 ms max at 12 MHz)
+ok    locks: a held step's knob turn sends no more than a plain turn + the top line
+     TRACKS: ENV tapped (STEPS: the padlock)      px/frame avg   1280  max   3840  full repaints 0  (~5.1 ms max at 12 MHz)
+ok    the padlock: an ENV tap sends no full repaint (the top bar, the keys' strip)
+     TRACKS full repaint                          px/frame avg  57600  max  57600  full repaints 1  (~76.8 ms max at 12 MHz)
+ok    TRACKS: a full repaint sends the screen about once (<= 58000 px)
+     HOME full repaint                            px/frame avg  57600  max  57600  full repaints 1  (~76.8 ms max at 12 MHz)
+ok    HOME: a full repaint sends the screen about once (<= 58000 px)
+     TRACKS playing, idle                         px/frame avg    118  max    647  full repaints 0  (~0.9 ms max at 12 MHz)
+ok    TRACKS playing idle: <= 4000 px a frame on average
+ok    TRACKS playing idle: no frame over 8000 px
+     TRACKS playing, idle, 8 meters moving        px/frame avg    261  max    800  full repaints 0  (~1.1 ms max at 12 MHz)
+ok    TRACKS playing idle, the meters moving: <= 4000 px a frame on average
+     TRACKS stopped, FM-1 knob 2 (LEVEL) a value a frame px/frame avg   3554  max   5213  full repaints 0  (~7.0 ms max at 12 MHz)
+ok    TRACKS: an FM-1 knob value <= 7000 px
+ok    TRACKS after the FM-1 knob: the screen = a full repaint's (0 px differ, rows 0..0)
+     TRACKS stopped, SMC knob a click a frame     px/frame avg   3734  max   5938  full repaints 0  (~7.9 ms max at 12 MHz)
+ok    TRACKS: an SMC knob click <= 15000 px
+ok    TRACKS: an SMC knob click never repaints everything
+     TRACKS stopped, the SMC message running out  px/frame avg     60  max   3658  full repaints 0  (~4.9 ms max at 12 MHz)
+ok    TRACKS: the message's end <= 15000 px, no full repaint
+ok    TRACKS after the SMC message: the screen = a full repaint's (0 px differ, rows 0..0)
+     TRACKS playing, SMC knob, the message out    px/frame avg   1385  max   5938  full repaints 0  (~7.9 ms max at 12 MHz)
+ok    TRACKS playing: SMC knob clicks and the message's end never repaint everything
+ok    TRACKS after the SMC message (playing): the screen = a full repaint's (0 px differ, rows 0..0)
+     HOME stopped, knob 1 a value a frame         px/frame avg   3028  max   4422  full repaints 0  (~5.9 ms max at 12 MHz)
+ok    HOME: a knob value <= 5000 px (the cell, the breadcrumb's text; the scope waits)
+ok    HOME after knob 1: the screen = a full repaint's (0 px differ, rows 0..0)
+     HOME stopped, idle                           px/frame avg  13440  max  26880  full repaints 0  (~35.8 ms max at 12 MHz)
+     HOME playing, idle                           px/frame avg  14512  max  28496  full repaints 0  (~38.0 ms max at 12 MHz)
+     HOME stopped, an SMC message and its end     px/frame avg   5024  max  26880  full repaints 0  (~35.8 ms max at 12 MHz)
+ok    HOME: a message and its end never repaint everything
+ok    HOME after a message: the screen = a full repaint's (0 px differ, rows 0..0)
+     TRACKS stopped, TEMPO and its end            px/frame avg    474  max  20520  full repaints 0  (~27.4 ms max at 12 MHz)
+ok    TRACKS: TEMPO's popup and its end never repaint everything
+ok    TRACKS after TEMPO: the screen = a full repaint's (0 px differ, rows 0..0)
+ok    trig strip: BANK 1 -> 2 (trigs 0b10100 / 0b111 accented): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    trig strip: BANK 2 -> 1: the screen = a full repaint's (0 px differ, rows 0..0)
+ok    trig strip after the BANK changes: the screen = a full repaint's (0 px differ, rows 0..0)
+ok    a message, TEMPO comes up: the message over it: the screen = a full repaint's (0 px differ, rows 0..0)
+ok    a message, TEMPO up, a BPM change: the message over it: the screen = a full repaint's (0 px differ, rows 0..0)
+ok    a message, TEMPO up, BPM changes: the message over it: the screen = a full repaint's (0 px differ, rows 0..0)
+ok    after the message and TEMPO: the screen = a full repaint's (0 px differ, rows 0..0)
+ok    HOME: PRESETS' popup up
+ok    HOME: PRESETS' popup still up
+ok    HOME, PRESETS' popup up, the strip's level and knobs moving: the popup over the strip: the screen = a full repaint's (0 px differ, rows 0..0)
+ok    HOME after PRESETS' popup: the screen = a full repaint's (0 px differ, rows 0..0)
+ok    no theme has the sentinel colour
+ok    a full repaint draws every pixel (38 pages x home x PERFORM x ZOOM x popups x 6 themes, MUTE, confirms, lists)
+ok    random use (seed 7919): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 15838): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 23757): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 31676): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 39595): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 47514): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 55433): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 63352): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 71271): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 79190): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 87109): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 95028): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 102947): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 110866): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 118785): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 126704): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 134623): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 142542): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 150461): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 158380): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 166299): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 174218): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 182137): the screen = a full repaint's (0 px differ, rows 0..0)
+ok    random use (seed 190056): the screen = a full repaint's (0 px differ, rows 0..0)
+redraw_test: all passed
+In file included from tests/learn_test.c:11:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    GLO held: the MUTE screen
+ok    MUTE screen + G4: LEARN on, the top bar says MIDI LEARN ON
+ok    G4 played nothing (the MUTE screen's key), its LED lit while LEARN is on
+ok    GLO let go: HOME again, LEARN still on
+ok    the line: LEARN: TURN OR PRESS
+ok    a knob turned on HOME edits as usual
+ok    .. and picks its parameter on the selected track
+ok    the line: T1 <knob>: SEND A CC
+ok    the next CC (any channel) is bound: CC74 -> T1 <knob>; it set nothing while picked
+ok    the pick ends: TURN OR PRESS again
+ok    CC74 value 0 (another channel): the knob's minimum
+ok    CC74 value 127: the knob's maximum
+ok    the knob again: picked, the line T1 <knob> = CC74
+ok    OCT+: done (LEARN DONE), nothing cleared
+ok    LEARN off: CC74 still sets its knob
+ok    GLO + G4 again: on
+ok    GLO + G4 once more: off (LEARN DONE)
+ok    a CC learned again: it moves (one CC, one parameter)
+ok    a parameter learned again: its old CC goes (one parameter, one CC)
+ok    (the old CC no longer sets it)
+ok    CC0 (bank select): CC NOT LEARNABLE, the pick stays
+ok    CC32: CC NOT LEARNABLE
+ok    CC120 (channel mode): CC NOT LEARNABLE
+ok    CC127: CC NOT LEARNABLE
+ok    a bank select and a CC in one block: the CC is bound
+ok    CC1 and CC119 are learnable, 0 32 120..127 never
+ok    32 learned
+ok    a 33rd: LEARN FULL, nothing replaced, the pick stays
+ok    full, a learned CC to an action: it moves
+ok    OCT- with a learned parameter picked: its CC cleared
+ok    (the parameter stays picked, waiting for a CC)
+ok    OCT- again: NO CC TO CLEAR
+ok    a CC binds it again (setting nothing)
+ok    OCT- with nothing picked: CLEAR ALL LEARNED? (LEARN stays on)
+ok    OCT- (NO): kept
+ok    OCT+ (YES): all cleared (LEARN CLEARED), LEARN still on
+ok    OCT- with nothing learned: NOTHING LEARNED, no confirm
+ok    OCT- + OCT+ in one frame: LEARN done, no confirm left up, nothing cleared
+ok    (a later OCT+ clears nothing)
+ok    the menu opens: LEARN off
+ok    REC held on SEQ while learning: REC picked (no CLEAR TRACK?)
+ok    another confirm (MOTION's CLEAR MOTION T1?): LEARN off
+ok    NAME opens: LEARN off
+ok    MODEL: NOT LEARNABLE, no pick
+ok    the next SOUND knob picks
+ok    the MUTE screen's knobs pick nothing
+ok    (a model with E5: picked)
+ok    MODEL to one without the picked knob: the pick dropped, the footer TURN OR PRESS
+ok    (a CC then learns nothing)
+ok    LFO 1/4: KNOB 4 is LFO 2's RATE, of the selected track (T3)
+ok    DEST, slot 1: its DEPTH (LFO 1's own DEPTH id)
+ok    DEST, slot 3: its DEPTH, named T3 D3.DEPTH
+ok    DEST, slot 3: its SRC
+ok    FX: DLY (the track's send)
+ok    RESON 2/2: KNOB 4 is KEYF, named T3 R.KEYF
+ok    INSERT: KNOB 2 is A, named by the TYPE: T3 I.DRIVE
+ok    INSERT 2/2: KNOB 2 is SRR, named T3 SRR
+ok    HOME's TRACKS mode: LEVEL
+ok    TRACKS: PAN
+ok    TRACKS: LEN
+ok    TRACKS KNOB 1 (TRACK): no pick
+ok    PAN (bipolar): 0 -> -64
+ok    PAN: 64 -> 0 (the middle)
+ok    PAN: 127 -> 63
+ok    LFO DEPTH (-64..64): 64 -> 0
+ok    LFO DEPTH: 63 -> -1
+ok    LFO DEPTH: 127 -> 64
+ok    LFO DEPTH: 0 -> -64
+ok    FILTER TYPE (an enum): every type reached, in order, by step
+ok    DIV: 0 -> its first in the shown order (4BAR)
+ok    DIV: 127 -> its last (1/32)
+ok    DIV: 64 -> the middle of the shown order (1/8)
+ok    LEN: 127 -> 64
+ok    LEN: 0 -> 1
+ok    a song plays: LEN (PATTERN) stays
+ok    a song plays: PAN still moves
+ok    the CC moves the track it was learned on (T2), not the selected one (T5)
+ok    (the LFO moves PAN: the block's copy off the base)
+ok    a CC under an LFO: the base moves (63), the block's end does not undo it
+ok    the LFO modulates around the new base in that block
+ok    again to 0 (-64): base -64, modulated from there
+ok    a CC on the LFO's own DEPTH: in effect in that block, PAN at its base
+ok    (and stays)
+ok    a CC to the value the base has: nothing done (no restore, no re-apply)
+ok    a CC on a track with no LFO on: set, the LFOs not re-applied
+ok    a CC on an off LFO's DEPTH: it holds PAN in that block
+ok    (motion plays: its base taken)
+ok    a CC while motion plays: the knob and motion's base (-64)
+ok    STOP: the knob stays at the CC's value (the base), no motion event recorded
+ok    USB (channel 10, the drum channel): sets
+ok    TRS (channel 16): sets
+ok    Bluetooth, MIDI mode: sets
+ok    Bluetooth, SMC DAW mode: the SMC layout's, not learned
+ok    SMC DAW mode: binds nothing while learning
+ok    Bluetooth MIDI mode: binds
+ok    (nothing picked: a CC not learned is ignored)
+ok    TRS: binds
+ok    a learn is saved: its own object (HLRN, version 2, 32 entries)
+ok    power cycle: the map back (CC74 T1, CC75 T6), LEARN off
+ok    (and works)
+ok    a learn while playing: in RAM at once, the flash waits
+ok    STOP: saved
+ok    a learn that changes nothing writes nothing
+ok    clear all: saved empty
+ok    power cycle: nothing learned
+ok    a blank flash: nothing learned
+ok    another record in the object (Felucca's presets): nothing learned
+ok    a later version: nothing learned
+ok    version 1: broken entries dropped, the good ones kept
+ok    a wrong count: nothing learned
+ok    version 2: broken entries dropped, the good ones kept (the 32nd too)
+ok    no flash at boot: nothing learned
+ok    no flash: learning works (RAM), nothing written
+ok    (and sets)
+ok    LEARN on: the line LEARN: TURN OR PRESS
+ok    PLAY while learning: PLAY picked, nothing plays
+ok    the line: PLAY: SEND CC/NOTE
+ok    a note binds it: NOTE<n> -> PLAY; the note played no drum, PLAY did nothing
+ok    (its note off after: nothing)
+ok    REC while learning: REC picked, nothing armed
+ok    a CC binds it: CC20 -> REC
+ok    ALGORITHM right while learning: NEXT TRACK picked, the track stays
+ok    CC21 -> NEXT TRACK
+ok    ALGORITHM left: PREV TRACK picked
+ok    NOTE40 -> PREV TRACK
+ok    FX held + G#3 while learning: FX R1/16 picked, the effect not played
+ok    CC22 -> FX R1/16 (bound: the effect not held by the learning press)
+ok    (its release after: nothing held)
+ok    FX held + A3: FX RPT T3 picked, T3 not repeating
+ok    NOTE41 -> FX RPT T3
+ok    the PERFORM screen (FX held), KNOB 1: FX FILTER picked (and turned, as a knob is)
+ok    a note does not bind a macro (a CC does)
+ok    CC23 -> FX FILTER
+ok    KNOB 3 on it: CC24 -> FX THROW
+ok    PLAY again: the line PLAY = NOTE<n>
+ok    OCT- with PLAY picked: its note cleared (PLAY CLEARED)
+ok    OCT- again: NOTHING TO CLEAR
+ok    (a note binds it again)
+ok    OCT+: LEARN done
+ok    OCT+ done: PLAY plays again
+ok    .. REC arms again (HOME: REC ALL)
+ok    .. ALGORITHM selects again
+ok    .. FX + G#3 holds REPEAT 1/16 again
+ok    (let go: nothing held)
+ok    (8 bound)
+ok    a learned note on: PLAY (plays)
+ok    its note off: nothing
+ok    on again: PLAY (stops); velocity 0 is a note off
+ok    PLAY learned to CC25: NOTE36 freed
+ok    a learned CC >= 64: PLAY
+ok    still >= 64: no edge, nothing
+ok    < 64: let go, nothing
+ok    64 again: PLAY (stops)
+ok    CC20 (REC) on HOME: REC ALL, as REC's tap there (every track armed, no play)
+ok    again: REC ALL off, nothing armed (as before it)
+ok    CC20 on TRACKS: the selected track armed (T1 REC ARMED)
+ok    CC21 (NEXT TRACK): T2 selected
+ok    NEXT again: T3
+ok    NOTE40 (PREV TRACK): T2
+ok    NEXT at T8: stays (clamped)
+ok    PREV at T1: stays
+ok    CC22 >= 64: REPEAT 1/16 held (as its key in the layer, FX not held)
+ok    CC22 < 64: let go
+ok    NOTE41: T3 repeats its step while held (the id once T3's mute)
+ok    its note off: open again
+ok    CC23 0: FILTER -100 (the LPF end)
+ok    CC23 64: FILTER 0 (off)
+ok    CC23 63: just under (LPF)
+ok    CC23 127: FILTER 100 (HPF)
+ok    CC24 127: THROW 100
+ok    CC24 0: THROW 0
+ok    a learned note on the drum channel: its action (HOME: REC ALL), its drum does not play
+ok    (a note not learned still plays its drum)
+ok    a note is bound once: NOTE36 from REC to PLAY, REC left with none, PLAY's CC25 gone
+ok    a note never binds a parameter
+ok    a parameter picked: a note binds nothing and plays as usual
+ok    REPEAT 1/16 held by a CC renders bit for bit as its key
+ok    T3's REPEAT STEP held by a note: as its key
+ok    TAPE held by a CC: as its key
+ok    (and the effect changes the mix)
+ok    (R1/16 held by CC22)
+ok    the menu opens: the MIDI-held effect ends
+ok    the menu closed: it does not come back (the controller still down)
+ok    (its release: nothing)
+ok    pressed again: held again
+ok    a confirm (CLEAR TRACK?): both end
+ok    (the confirm gone, released: nothing)
+ok    held by CC22 and its key: the key let go, the CC still holds it
+ok    the CC let go: ended
+ok    (learning: FX R1/16 picked, still held by CC22)
+ok    its binding cleared while held: the effect ends
+ok    (CC22 now nothing)
+ok    CC22 learned again (to TAPE) while R1/16 held: R1/16 ends, TAPE waits for a press
+ok    (pressed: TAPE)
+ok    NAME opens: ended
+ok    (released after: nothing)
+ok    version 1 (72 B, 16 entries): its CCs loaded
+ok    (and set)
+ok    a learn after: saved as version 2 (32 entries), the old CCs kept
+ok    power cycle: all three back
+ok    an LFO's knob is named with its LFO: T8 L1.PHASE: SEND A CC
+ok    (the top bar: CC76 -> T8 L1.PHASE)
+learn_test: all passed
+In file included from tests/preset_test.c:13:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+      model ORGAN
+FAIL  every model's default knobs = its first preset's (MATRX, CLTRX: no preset)
+ok    banks: MACHINEDRUM 55, MODERN 40, CLASSIC 56, then USER 96; a bad id: none
+ok    every preset: a name of 1..8 characters, unique; its knobs in its model's ranges; in its voice's bank; <= 4 per voice
+ok    SUBTHUMP first, BUZZCLAP CPEFM's default (TUNE +24), BOOMBD, ROUNDBD each bank's first, BLIP last
+ok    bank names, in order
+ok    a factory load: MODEL + 8 knobs = the preset's; FX (FILTER, INSERT, RESON, sends, SRR), SLICER, LEVEL, PAN, CHOKE 3, NOTE, LFO, steps unchanged
+ok    a bad id or an empty user slot: refused, nothing changes
+ok    ACID on 2 other tracks: an ACID preset refused (no third ACID)
+ok    a MODEL change keeps CHOKE (2)
+ok    a MODEL change: the reference moves to the new voice's first preset, not edited
+ok    MODEL turned on the panel: CHOKE stays none, the next voice's first preset
+ok    a preset load keeps CHOKE (4)
+ok    no voice has a default choke group
+ok    the power-on kit: no track chokes (the hats too); each track on its voice's first preset
+ok    no preset yet: the first detent lands on the track's voice's first preset (either way)
+ok    factory ids step one by one, both ways
+ok    no user preset: the last factory one wraps to the first, and back
+ok    user slots 6 and 10 used: the step goes through them (empty slots skipped), then wraps
+ok    from an empty (deleted) slot: on to the next used one
+ok    ACID on 2 other tracks: its presets skipped
+ok    ... not by one of the two ACID tracks
+ok    400 detents: always a loadable id
+ok    a blank flash: every user slot free, the first free is 0
+ok    SAVE to slot 1 (stopped)
+ok    it is the track's voice, named "K909 01"
+ok    SAVE leaves the track as it is (the UI points its reference at the slot)
+ok    power cycle: back from flash
+ok    loads onto another track
+ok    names: "SDTRX 94", "K909 95", "SDTRX 96" (8 characters at most)
+ok    renamed models' slots: "BOOM 07", "BOOM 91", "CGTRX 92"
+ok    a slot out of range: refused
+ok    DELETE: the slot empty, free again
+ok    power cycle: still deleted, the others kept
+ok    all 96 slots used: no free slot
+ok    96 slots: all back after a power cycle
+ok    saved while stopped: in flash at once ("UPR2" in its own object)
+ok    (playing)
+ok    saved while playing: in the list at once, not in flash yet
+ok    ... still not while playing
+ok    a power cut before STOP: only it is lost, the earlier save kept
+ok    MIDI LEARN's map byte-identical across the user saves
+ok    STOP: written (the save and the delete)
+ok    power cycle: as written
+ok    a SAVE right after a MIDI LEARN change (playing), then STOP: both written
+ok    power cycle: the learn map (2 entries) and the user bank (slots 2, 3) intact
+ok    another record in the object (UPR1's size): no user preset
+ok    another record in the object (UPR2's size): no user preset
+ok    (the FDRC record: 3688 B)
+ok    loads
+ok    the hats keep CHOKE 1
+ok    every track: no preset, not edited, every parameter as stored (sound unchanged)
+ok    the converted slot is an FDRE one now
+ok    (FDRE: 3840 B, one flash sector)
+ok    loads
+ok    each track's preset and edited mark saved and loaded (factory, edited, user, none)
+ok    a factory reference of another voice, an unknown uid: no preset; a stray mark: 0/1
+ok    the record: a factory preset by its uid, a user slot as 0x8000 | slot, none as none
+ok    (the simulated banks move it: its old id names another preset there)
+ok    other banks: the factory reference finds the same preset
+ok    other banks: the user reference finds the same slot
+ok    a removed preset (its uid gone): no preset
+ok    an unknown uid, uid 0, a user slot out of range, none: no preset
+ok    every id: encoded and decoded back; none stays none
+ok    loads (from flash)
+ok    loaded: the same factory preset, user slot and none
+ok    overwritten with another voice: the tracks keep their voice, knobs and id; shown as no preset ("-", never the TOM's name)
+ok    a TOM track loaded from it: its name ("TOM 04")
+ok    overwritten with the same voice: the slot's name
+ok    deleted: the tracks keep their knobs and id; the name shown is "-"
+ok    stepping on from the deleted slot works
+ok    (playing, motion moved DECAY off its base)
+ok    SAVE while motion plays: the knobs as set (the base), not motion's value
+ok    (playing, the lock on step 0 holds E2 at 99)
+ok    SAVE during a locked step: the knob's own value (50), not the lock's
+ok    an LFO on DECAY: not edited
+ok    a SOUND knob turned on HOME: edited
+ok    HOME: a knob turned on at its limit (nothing changed): not edited
+ok    loaded again: not edited
+ok    a learned CC on LEVEL: not edited
+ok    a learned CC on a SOUND knob: edited
+ok    a SOUND page knob (TONE): edited
+ok    a SOUND page knob turned on at its limit (nothing changed): not edited
+ok    MODEL turned on the EDIT page: the next voice's first preset, not edited
+ok    MODEL turned: the new voice's first preset, not edited
+ok    every 0.22.0 factory preset's uid: the same preset (name, voice) in the new banks
+ok    (the reorder moved MODERN's and CLASSIC's ids: 96 of them; MACHINEDRUM's 55 stay)
+ok    the record: each track's preset by its 0.22.0 uid
+ok    loads (from flash)
+ok    loaded: every track on its 0.22.0 preset (name, voice), the edited mark and knob kept
+ok    the FX stored: DIST CHO DLY REV, RESON (MODEL TUNE DECAY MIX TONE STRCT POS KEYF), FILTER (TYPE CUT RESO ENV DECAY), INSERT (TYPE A B C MIX), SRR; each fits a byte
+ok    not stored: SLICER, LAYER, LFOs and their DEST slots, LEVEL, PAN, NOTE, CHOKE, PRIO
+ok    the record: 4 + 96 x 33 + 32 = 3204 B, <= 3584 (one sector, below the loader's scan)
+ok    SAVE: the voice and the FX into the slot
+ok    a user load: the voice and the FX = the slot's; SLICER, LAYER, LFOs, slots, LEVEL, PAN, NOTE, CHOKE, PRIO unchanged
+ok    power cycle: the FX back from flash, loaded onto another track
+ok    RESON on 4 other tracks: a user load leaves RESON OFF (the rest of its FX loaded)
+ok    CHORD on 2 other tracks: the preset's CHORD loads as STRNG
+ok    room again: CHORD
+ok    (playing, motion moved CUT off its base)
+ok    SAVE while motion plays: CUT as set (100), not motion's 10
+ok    a user load while motion plays: CUT the preset's, and its base
+ok    STOP: CUT back to the base, the preset's
+ok    the list's audition of a user preset: its voice and FX
+ok    then a factory preset: its voice, the track's own FX
+ok    the list left (no LOAD): the track's own voice and FX back
+ok    LOAD: the user preset's FX kept
+ok    loaded from a user preset: FILTER CUT turned: edited
+ok    loaded again: not edited, CUT the preset's
+ok    SLICER turned: not edited
+ok    RESON MIX turned: edited
+ok    a learned CC on DLY: edited
+ok    a learned CC on LEVEL: not edited
+ok    loaded from a factory preset: FILTER CUT turned: not edited
+ok    .. a learned CC on DLY: not edited
+ok    (the UPR1 record: 1284 B)
+ok    UPR1 migrated: 1..96 kept; 97, 101, 128 into the lowest empty slots (2, 4, 5); a broken slot empty
+ok    their names follow the new slot ("K909 02", "K909 05")
+ok    nothing dropped: no PRESETS LOST
+ok    written as UPR2 at once
+ok    project references follow: old 101 -> 4, 97 -> 2, 128 -> 5, 6 stays, an empty old 98 -> none, 129 -> none
+ok    a migrated preset loads as the voice only: the track's FX kept
+ok    .. its FX turned: not edited (it holds none)
+ok    a project of the older bank loads (from RAM)
+ok    .. its tracks on the moved slot (old 101: "K909 04"), none (old 98, empty), 6 as it was
+ok    power cycle: the moves kept (no second migration), references still follow
+ok    a new SAVE over a migrated slot holds the FX
+ok    (the UPR1 record: 1284 B)
+ok    a full older bank: 97 and 98 into 11 and 21, 99..101 dropped, every slot used
+ok    said once: 3 PRESETS LOST
+ok    references: old 98 -> 21, a dropped one (99) -> none
+ok    power cycle: not said again, the bank as migrated
+ok    (the UPR1 record: 1284 B)
+ok    an older bank with only 98 and 111: into slots 1 and 2
+ok    (the UPR1 record: 1284 B)
+ok    one dropped: "1 PRESET LOST"
+preset_test: 1 FAILED
