@@ -1,0 +1,64 @@
+commit: e4f14c2a9f86aca92c49e5abf87d92979c2202ad
+job status: success
+outcomes: toolchain=success sdk=success build=failure
+
+== SDK tags seen
+# https://gitee.com/Jieli-Tech/fw-AC79_AIoT_SDK.git
+23b097431f7347d06c44b3646f908bfdab5a6359	refs/for/release/AC79NN_SDK_V1.1.0
+81d4e7f906d26f5995bfe66967a0f96f97adb306	refs/for/release/AC79NN_SDK_V1.2.0
+5c33e71d9e4762595aea28587e76d4068f353870	refs/heads/AC791N_OTA_loader
+51712dd206536f165499f2313454b486b19a6175	refs/heads/release/AC79NN_SDK_V1.0.2
+9e7166fa9d8e3d0a8c671e848647c33a4e57f07f	refs/heads/release/AC79NN_SDK_V1.0.3
+586a4fd8fb541777e4052274ba32c99f20ecedc8	refs/heads/release/AC79NN_SDK_V1.1.0
+0617f4cc09685332aaf1104893718291c54ee5bb	refs/heads/release/AC79NN_SDK_V1.2.0
+efd4649e7261be9e4bf3103037347df631ff745e	refs/release/AC79NN_SDK_V1.0.3
+# https://github.com/Jieli-Tech/fw-AC79_AIoT_SDK.git
+
+== build log (last 150 lines)
+Unable to find image 'debian:bookworm-slim' locally
+bookworm-slim: Pulling from library/debian
+dd051e1b8c92: Pulling fs layer
+dd051e1b8c92: Download complete
+dd051e1b8c92: Pull complete
+Digest: sha256:734a72b3d6142a71993b4bc580ca01d8ca687f77a2c422d96a961d3376b179bc
+Status: Downloaded newer image for debian:bookworm-slim
+Unable to find image 'debian:bookworm-slim' locally
+bookworm-slim: Pulling from library/debian
+dd051e1b8c92: Pulling fs layer
+dd051e1b8c92: Download complete
+dd051e1b8c92: Pull complete
+Digest: sha256:734a72b3d6142a71993b4bc580ca01d8ca687f77a2c422d96a961d3376b179bc
+Status: Downloaded newer image for debian:bookworm-slim
+font MD_F3: h 5, 32..126, 69 glyphs, 570 B
+font MD_BIG: h 8, 48..57, 10 glyphs, 90 B
+font MD_ICON: h 5, 97..117, 5 glyphs, 126 B
+tables: /home/runner/work/mainmenu-fm-sync/mainmenu-fm-sync/build/gen/felucca_tables.h
+generated waves into /home/runner/work/mainmenu-fm-sync/mainmenu-fm-sync/build/genwav
+samples: 1 sets, 24 zones, 74424 B ADPCM (cached)
+seek: 16 samples x 127 START states
+loader: image 7736 B at 0x1c0a800, bss end 0x1c0f208
+loader: ota.bin 6493 B
+ble_libs: cpu/wl82/liba/btctrler.a sha256 d98f2ad9d483cd2c103cab56c2760162edf92cc451a04e5668af02a590c95cb3 is not the pinned 885cd53747753488b380f761318bf30d691f75541dd28adc72457690aa51506a
+build: DRUM_BUNDLE: the Bluetooth build failed
+
+== images
+ls: cannot access 'build/*.bin': No such file or directory
+ls: cannot access 'build/*.fwsc': No such file or directory
+ls: cannot access 'out/*': No such file or directory
+
+== build/loader/loader.elf
+There are 6 section headers, starting at offset 0x26a4:
+
+Section Headers:
+  [Nr] Name              Type            Addr     Off    Size   ES Flg Lk Inf Al
+  [ 0]                   NULL            00000000 000000 000000 00      0   0  0
+  [ 1] .text             PROGBITS        01c0a800 000100 001e38 00  AX  0   0  2
+  [ 2] .bss              NOBITS          01c0c640 001f38 002bc8 00  WA  0   0 16
+  [ 3] .shstrtab         STRTAB          00000000 00267c 000026 00      0   0  1
+  [ 4] .symtab           SYMTAB          00000000 001f38 000470 10      5  63  4
+  [ 5] .strtab           STRTAB          00000000 0023a8 0002d4 00      0   0  1
+Key to Flags:
+  W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
+  L (link order), O (extra OS processing required), G (group), T (TLS),
+  C (compressed), x (unknown), o (OS specific), E (exclude),
+  D (mbind), p (processor specific)
