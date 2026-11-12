@@ -24,6 +24,8 @@ jobs:
         continue-on-error: true
         run: |
           git tag -f drum-v1.0.1 44c9ad4 || true
+          mkdir -p /tmp/shim && ln -sf "$(which clang)" /tmp/shim/cc
+          export PATH=/tmp/shim:$PATH CPATH=$PWD/tests/linux_stub
           set -o pipefail
           tools/build_sim.sh 2>&1 | tee /tmp/sim-log.txt | tail -60
       - name: Publish to the sim branch
