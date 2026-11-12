@@ -1,9 +1,9 @@
-sections: .text 408208, .data 264, .bss 88040, .pool 323340
+sections: .text 409644, .data 264, .bss 88040, .pool 323340
 
-== .text: 399259 B in sized symbols; by group
-    348091  other
+== .text: 400674 B in sized symbols; by group
+    349318  other
      28519  fx/filter/comp/dsp
-      8460  drum models (dm_)
+      8648  drum models (dm_)
       5105  editor/usb/ota
       3244  sequencer/song
       2448  samples/presets/tables
@@ -15,7 +15,7 @@ sections: .text 408208, .data 264, .bss 88040, .pool 323340
      17386  ui_input
      13944  graph_paint
      13246  ed_dispatch
-      8460  DMODELS
+      8648  DMODELS
       8196  RS_PER
       8192  PITCH_INC
       7142  draw_graph

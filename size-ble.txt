@@ -1,11 +1,11 @@
-sections: .text 549444, .data 2112, .bss 90784, .pool 335360
+sections: .text 550896, .data 2112, .bss 90784, .pool 335360
 
-== .text: 538951 B in sized symbols; by group
-    426482  other
+== .text: 540366 B in sized symbols; by group
+    427709  other
      45755  bluetooth (ble_/bt_)
      28519  fx/filter/comp/dsp
      17328  libc/runtime
-      8460  drum models (dm_)
+      8648  drum models (dm_)
       4231  editor/usb/ota
       3244  sequencer/song
       3196  samples/presets/tables
@@ -16,7 +16,7 @@ sections: .text 549444, .data 2112, .bss 90784, .pool 335360
      17926  ui_input
      13944  graph_paint
      13246  ed_dispatch
-      8460  DMODELS
+      8648  DMODELS
       8196  RS_PER
       8192  PITCH_INC
       7142  draw_graph

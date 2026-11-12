@@ -1,0 +1,2468 @@
+tests/drum_test.c:880:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  880 |     static int32_t a[SECS(0.5)];
+      |                    ^
+tests/drum_test.c:911:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  911 |     static int32_t a[SECS(0.5)];
+      |                    ^
+tests/drum_test.c:2048:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+ 2048 |     static int32_t ref[SECS(0.12)], out[SECS(0.12)];
+      |                    ^
+tests/drum_test.c:2048:37: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+ 2048 |     static int32_t ref[SECS(0.12)], out[SECS(0.12)];
+      |                                     ^
+tests/drum_test.c:3144:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+ 3144 |     static int32_t ref[SECS(0.8)];
+      |                    ^
+5 warnings generated.
+ok    PROB: knob position <-> stored value round trip; stored 0 = 100 %
+ok    PROB: codes 22..56 are 1/2, 2/2, 1/3 .. 8/8 in order
+ok    PROB: shown as 100% / 75% / 0% / 1-SHOT / 3/5
+ok    FILL: plays every step while the fill is held, none without
+ok    !FILL: plays every step without a fill, none during one
+ok    PROB: after 8/8 the knob gives FILL then !FILL and stops there; shown FILL / !FILL
+ok    COMP VCA: unity is 1.0, +990 steps doubles, -1980 quarters (Q16, within 0.3 %)
+ok    COMP knobs: RATIO 0 = 1:1 .. 127 = Streams' steepest, continuous (no cliff); 16-bit mapping
+ok    COMP defaults: THRSH 26 = -24 dB (Streams log2 units), RATIO 45 = 4.0:1, MKUP 0 no makeup
+ok    COMP: silence passes at unity, a loud source cuts by more than 6 dB
+ok    COMP: MKUP 127 is Streams' limiter (instant attack, ratio 0, the threshold made up to 0 dB)
+ok    COMP: MKUP adds gain and keeps the RATIO knob's ratio (THRSH 0, MKUP 100)
+ok    COMP: makeup never lifts the knee above 0 dB (THRSH 127: makeup = -threshold)
+     COMP attack / release times at 44.1 kHz: worst 0.187 % off Streams' vactrol_time
+ok    COMP: every attack / release time within 2 % of Streams' at 44.1 kHz
+ok    COMP columns: THRSH -24 dB, RATIO 4.0:1 / 1.0:1, MKUP 0.0 dB / LIMIT / +10.1 dB (THRSH 0, MKUP 64), ATK 1.1 ms, REL 151 ms, SRC T1
+ok    COMP dB values keep the leading zero (0.0, -0.1, -10.3; THRSH 127 = -0.1)
+     COMP: T2 peak after the kick 149 -> 56, its reverb send 149 -> 56, later 3214 -> 3214
+ok    COMP: a DUCK track drops by more than 6 dB under the source's hit
+ok    COMP: its FX send is ducked too
+ok    COMP: it comes back after the release (within 1 dB)
+ok    COMP: SRC OFF leaves the mix bit-identical, DUCK or not
+ok    COMP: the source is never ducked by itself (DUCK on the source changes nothing)
+ok    COMP ghost key: a muted source is silent and still ducks exactly as heard
+ok    COMP: a source at LEVEL 0 still ducks exactly as heard
+ok    COMP ghost key: a source silenced by another track's SOLO is silent and still ducks exactly as heard
+     GHOST: T2 after the kick: dry 149, ducked 56; MUTE muted 149, HIDE 56 / muted 56; source peak MUTE 13295 HIDE 0
+ok    COMP GHOST MUTE: unmuted, the source is heard and ducks as with KEEP
+ok    COMP GHOST MUTE: a muted source is silent and ducks nothing (within 0.5 dB of no DUCK)
+ok    COMP GHOST HIDE: the source is never heard, muted or not, and ducks exactly as heard
+     GHOST switched while ringing: largest step 37 (unswitched 57), hidden / muted level 0
+ok    COMP GHOST changed while the source rings: no click, hidden while HIDE, silent once muted in MUTE
+ok    COMP: SRC changed while playing restarts the detector; SRC OFF is unity at once
+ok    COMP extremes (THRSH 0 / 127 x MKUP 100 / 127, all tracks ducked and busy): output bounded
+     COMP source mute: largest step 119 playing on, 741 quick mute (SRC OFF), 789 muting the source, 138 unmuting
+ok    COMP: muting a sounding source steps no more than any quick mute; unmuting fades in
+ok    LFO waves: every wave at MORPH 0 / 64 / 127 stays in -1 .. +1
+ok    LFO SINE: +1 at a quarter cycle, -1 at three quarters, 0 at the start
+ok    LFO SQUARE: hard at MORPH 0 (+1 at 1/8 of the cycle, -1 at 5/8)
+ok    LFO: SQUARE's MORPH softens to a sine, SINE's MORPH sharpens to a square
+ok    LFO SAW rises -1 .. +1 (0 at half), REV SAW is its mirror
+ok    LFO SAW tension: MORPH 127 bends the ramp (below 0 at half: x^2)
+ok    LFO TRI tides: MORPH 64 = triangle (peak at half), 0 = falling ramp, 127 = rising ramp
+ok    LFO EXP+: MORPH 0 = straight rise, 127 = strongly curved (far below 0 at half); EXP- falls
+ok    LFO SYNC: RATE 23 = 1 bar = 88200 samples at 120 BPM
+ok    LFO SYNC: the tempo doubled, the rate doubles at once
+ok    LFO SYNC: RATE 127 = 1/64 (6 of 96 ticks a quarter)
+ok    LFO Hz: RATE 127 = 40 Hz, RATE 0 = 0.02 Hz
+ok    LFO TIME: RATE 0 = 25 ms a cycle, 127 = 60 s
+ok    LFO DEST: 1..8 the engine's knobs, 9 LVL, 10 PAN, 0 none
+     LFO square +50 % on a knob at 64: 1 .. 127
+ok    LFO: the knob moves around its set value by DEPTH (square +50 %: about 0 .. 127)
+ok    LFO: outside the audio block the knob is its set value again
+ok    LFO: a negative DEPTH moves the other way
+ok    LFO: DEPTH 0 leaves the mix bit-identical
+ok    LFO: DEST OFF leaves the mix bit-identical
+ok    LFO: both LFOs on LVL add and stay in its range (max 127)
+ok    LFO: a DEST the engine lacks writes nothing
+ok    LFO: the same setting acts again with an engine that has the knob
+ok    LFO: a knob turned while modulated keeps the new value
+ok    LFO TRIG HIT: a hit restarts the cycle
+ok    LFO TRIG FREE: PLAY does not restart it
+ok    LFO TRIG PLAY: PLAY restarts it
+ok    LFO PHASE: the restart starts a quarter into the cycle (SAW at -0.5)
+     LFO S&H largest step per block: 32102 (MORPH 0), 57 (MORPH 127)
+ok    LFO S&H: MORPH 0 jumps, MORPH 127 glides
+ok    LFO S&H: new values keep coming
+ok    LFO WANDER: smooth (small steps), the same after every PLAY
+     LFO RWALK largest step per block: 1 (MORPH 0), 23 (MORPH 127)
+ok    LFO RWALK: MORPH sets the step size (small drift .. larger moves), no jumps
+ok    LFO on LVL: a ringing cymbal is gated on and off inside the sound
+     LFO SAW on LVL 64, the PLAY block: 0
+ok    LFO TRIG PLAY: the PLAY block already uses phase 0 (SAW at -1: LVL near 0)
+     LFO with PHASE 90: largest step S&H 57, RWALK 23, WANDER 305
+ok    LFO PHASE: S&H (glide), RWALK and WANDER stay continuous with PHASE set
+ok    LFO S&H with TRIG HIT: every hit draws a new value (faster than its cycle)
+ok    LFO S&H after PLAY: a value from the start (not 0 for the first cycle)
+     LFO turned on after a quarter bar: phase 0.251 of the cycle
+ok    LFO SYNC turned on while playing: on the bar (a quarter cycle in)
+ok    LFO slots: defaults: slot 1 LFO 1, slot 2 LFO 2, slot 3 LFO 1, slot 4 LFO 2, all off
+ok    LFO slot 3 from LFO 2 moves its knob; LFO 1 (no slot) is not computed
+ok    LFO slot 1 set to LFO 2: LFO 1 still not computed, LVL follows LFO 2
+ok    LFO slots: the UI's live value of a slot-modulated knob
+ok    LFO slots: four slots on four knobs at once
+ok    LFO slots: every knob back after the block
+ok    LFO slots: two slots of LFO 1 on LVL add and clamp; LFO 2 unused, not computed
+ok    LFO slot 4 on R.TUN: the resonator's fine pitch
+     LFO cost, host instructions a block (8 tracks): none 0, 2 slots (an older project's routes) 0, 4 slots 0 (0e76751, 2 LFOs routed: none 663, 2 routes 3712)
+ok    LFO slots: 4 slots on 2 LFOs cost less than twice the 2 routes (the LFOs are computed once)
+ok    LFO DEST: ids 1..18 keep their knobs
+ok    LFO DEST: 19..27 are SRR DST CHO DLY REV MIX A B C, 28 none, DEST range 0..27
+ok    LFO DEST 19..27: each modulates its knob within range, the set value restored
+ok    LFO DEST names: SRR DST CHO DLY REV MIX, the INSERT's by its TYPE (CRUSH: BITS RATE LPF), else A B C
+ok    LFO DEST names: INSERT OFF shows A B C
+ok    LFO DEST MIX: the INSERT sees the modulated MIX in the block (ins_on), not after
+ok    LFO DEST MIX: restored, the INSERT off again
+     mute on the bar (track): muted bar 0 loud samples, largest step 34 (tail 7); unmuted attack 4989 / 5005
+ok    mute on the bar (track): the muted bar has no part of the kick, no click
+ok    unmute on the bar (track): the kick's full attack
+     mute on the bar (COMP source): muted bar 0 loud samples, largest step 8 (tail 7); unmuted attack 4947 / 5005
+ok    mute on the bar (COMP source): the muted bar has no part of the kick, no click
+ok    unmute on the bar (COMP source): the kick's full attack
+     mute on the bar (COMP source, GHOST MUTE): muted bar 0 loud samples, largest step 36 (tail 7); unmuted attack 4989 / 5005
+ok    mute on the bar (COMP source, GHOST MUTE): the muted bar has no part of the kick, no click
+ok    unmute on the bar (COMP source, GHOST MUTE): the kick's full attack
+     COMP source silenced by SOLO, muted and unmuted on the bar: mix peak 0
+ok    unmute on the bar of a COMP source another track's SOLO silences: still silent in the mix
+ok    RESON TUNE 48 = C3
+ok    RESON TUNE 96 = C7
+ok    RESON TUNE 25 = C#1
+ok    RESON DECAY 0 = 10 ms
+ok    RESON DECAY 127 = 10.0 s
+ok    RESON defaults: OFF, C3, MIX 50 %, STRCT 0
+ok    RESON STRCT on STRNG is STRCT
+ok    RESON STRCT on CHORD is CHORD, with chord names (MAJ)
+ok    RESON CHORD 127 = CLUST
+     swing 100 + 100: long / short step 2.35 (capped 1.4 / 0.6 = 2.33)
+ok    swing: track + global swing capped at 100 (#31)
+     RESON STRNG pitch C1..C6: worst 0.7 cents
+ok    RESON STRNG: the ring is at TUNE (C1..C6, within 10 cents)
+     RESON PIPE C3: 130.8 Hz, harmonics 1 / 2 / 3: 19 / 2 / 354
+ok    RESON PIPE: at TUNE, odd harmonics only
+     RESON DECAY 40: 60 dB in 0.090 s (knob 0.088 s)
+ok    RESON DECAY 40: the ring's 60 dB time as the knob (25 %)
+     RESON DECAY 80: 60 dB in 0.660 s (knob 0.776 s)
+ok    RESON DECAY 80: the ring's 60 dB time as the knob (25 %)
+     RESON CHORD MAJ C3: weakest chord note 32, strongest other note 4
+ok    RESON CHORD MAJ on C3: C3 E3 G3 C4 ring, D3 F#3 A#3 do not
+ok    RESON CHORD below C3 plays at C3
+ok    RESON MIX 0: the dry sound, bit for bit
+ok    RESON: the ring sounds on after the hit's voice (0.8 s on)
+ok    RESON: a short ring ends (the track stops computing it)
+     RESON model switch while ringing: largest step 0 (ring before 1221)
+ok    RESON: switching MODEL while ringing does not click
+ok    RESON: no stale ring after OFF and on again
+ok    RESON: a cut (mute) ends the ring within a block
+     RESON TONE: 6th / 1st harmonic bright 4.657, dark 0.033
+ok    RESON TONE: darker damps the upper harmonics
+     RESON STRCT 127: the 4th partial -69 cents off 4 x f0
+ok    RESON STRCT: stretches the overtones (4th partial > 20 cents off)
+     RESON POS: 4th / 1st harmonic at POS 0 17.295, POS 64 0.759
+ok    RESON POS 64: thins the 4th harmonic
+     RESON DECAY max, noisy hits every 1/32, DIST: peak 4637, 40 s later 0
+ok    RESON at DECAY max: bounded, and the ring dies after the input stops
+ok    RESON on a muted COMP source: not heard in the mix
+ok    LFO DEST 11..16: R.TUN R.DCY R.MIX R.TON R.STR R.POS; 0 OFF (the knob runs on to F.CUT / F.RES, 18, then SRR .. INSERT C, 27)
+     RESON R.TUN sweep: line 21330 .. 43278 (Q8), largest block step 20 (start 21325)
+ok    LFO R.TUN: the resonator pitch sweeps smoothly (no semitone steps, over a semitone in total)
+ok    LFO R.TUN: the TUNE knob is untouched
+ok    LFO R.TUN: the EDIT marker reports the live pitch
+ok    LFO R.MIX: modulates RESON MIX
+ok    LFO R.STR on CHORD: sweeping the chords under a ring stays bounded
+     RESON ring end at DECAY max: 0 of 96 settings stuck after 20 s
+ok    RESON: every ring ends after the input stops (DECAY max, any pitch / TONE / STRCT / POS)
+     RESON mute 20 s after a hit (STRNG C3 STRCT 127): output peak 0
+ok    RESON: a mute long after a hit does not thump
+     RESON cut 30 ms after a K909 hit: peak 0.5..2 s 0, zero crossings after 0.1 s 0, ring 0
+ok    RESON: a cut while a K909 sounds: no new ring from its declick
+     RESON cut 30 ms after a TOM hit: peak 0.5..2 s 0, zero crossings after 0.1 s 1, ring 0
+ok    RESON: a cut while a TOM sounds: no new ring from its declick
+     RESON KEYF 0: render hash 55997335
+ok    RESON KEYF 0 (default): STRNG / PIPE / CHORD / MODAL bit for bit as before KEYFOLLOW
+ok    RESON KEYF: 0..127 (0..100 %), default 0 (off)
+     RESON KEYF 100 %, a step at C5 on TUNE C3: ring 261.6 Hz (C4 261.6 Hz, +0.0 cents)
+ok    RESON KEYF 100 %: a step at C5 rings an octave above TUNE (C3 -> C4, within 10 cents)
+ok    RESON KEYF 0: a step at C5 rings at TUNE
+     RESON KEYF 100 %, PIPE TUNE C4, KEYS C3: ring 130.8 Hz (+0.2 cents from C3)
+ok    RESON KEYF 100 %: a KEYS note an octave down rings an octave below TUNE (PIPE C4 -> C3)
+ok    RESON KEYF 100 %: a MIDI note (the track at C4) rings at TUNE
+     RESON KEYF 64 (50 %), a hit at C5: ring 185.5 Hz (-0.1 cents from 6.05 semitones up)
+ok    RESON KEYF 50 %: a hit at C5 rings half an octave up (within 10 cents)
+ok    RESON KEYF 100 %: STRNG / PIPE / CHORD / MODAL at C3 + a hit at C5 = TUNE C4, bit for bit
+     RESON KEYF retune under a ring (C3 -> C4): largest step 1181 (ring before 658), then 261.6 Hz
+ok    RESON KEYF: retuning a ringing line glides, no click (largest step <= 3 x the ring's)
+ok    RESON KEYF: .. and arrives (C4 within 10 cents)
+ok    RESON KEYF: a hit at G4 while C4's ring sounds retunes it to G3 (TUNE C3)
+ok    display: swing 60 shows 60 %, swing 100 shows 100 %, feedback at its end 100 %, a 0..127 knob at 127 100 %
+ok    q24: qm / qdiv on exact values
+ok    q24: qsat = x / (1 + |x|) within 1e-6
+ok    q24: qsoftclip = stmlib SoftClip within 1e-6
+ok    q24: qratio = 2^(st / 12) within 2e-4 over -96..108 semitones
+ok    q24: qtan_dirty / fast / acc = the stmlib approximations within 1e-4
+ok    q24: qsqrt within 1e-6
+ok    q24: qrand is stmlib's LCG
+ok    q24: qsvf (50 Hz, Q 100) and qpole follow the double filters within 1e-4 for 0.1 s
+ok    q24: qsvf_set damping term exact for a near-Nyquist cutoff (g 10.4, r 2)
+ok    q24: qtan48 keeps a 48 kHz FAST-tan filter's cutoff in Hz within 1e-3 (up to f48 0.5)
+ok    q24: qnote_inc = 2^32 f of a MIDI note, rounded (within 0.5, notes 0..120)
+ok    q24: qnote(69) = 440 Hz at 44.1 kHz
+ok    q24: dm_putq maps 1.0 to DM_FLOAT1 x VOICE_FS, half way through the fade to half
+ok    q24: dm_putq is silent from LIFE_B
+ok    q24: qdecay reaches 0 (rounding alone would stop at ~2200 LSB)
+ok    model table: names, voices, choke, defaults in range, labels <= 5 chars
+ok    idle mix (no hits) is digital silence
+ok    SAMPLE: GM kick (key 36) is audible
+ok    SAMPLE: ends within 6 s and stays at 0
+ok    cut: the next sample continues from the last one (declick tail)
+ok    cut: the tail is gone within 20 ms
+ok    2-voice model: the first hit's tail survives a retrigger
+ok    choke: the other track's voices stop
+ok    choke: silent within 100 samples (<= 1 % of its level), 0 after 300
+ok    mute: a muted track ignores hits
+ok    solo: with track 2 soloed track 1's hit is silent (no voice), track 2 plays
+ok    solo: none soloed -> both play
+ok    solo: a soloed and muted track is silent
+ok    solo: trk_silent = MUTE, or another track soloed and not this one
+ok    SAMPLE: an empty user slot is silent, no voice left running
+ok    mix: 8 tracks + FX stay within full scale
+ok    mix: back to (near) silence after the FX tails (last 1 s <= 2)
+ok    seq: steps 0 and 4 of 16 fire at 0 and 4 steps, then loop at 16
+ok    seq: per-track length 3 loops every 3 steps
+ok    seq: per-track rate 1/8 puts step 1 at one eighth
+ok    exact timing: den steps of every division last exactly num beats (97, 120, 133, 171 BPM)
+ok    exact timing: a 1/16 and a 1/4 track at 120 BPM stay together for 256 beats (every 4th 1/16 on the 1/4)
+ok    exact timing: with swing, every 4th 1/16 still lands on the 1/4 (64 beats)
+ok    exact timing: DIV changed while playing: the track keeps stepping
+ok    exact timing: SLICER slices keep their steps' timing for 2 minutes at 120 BPM (5 rates)
+ok    seq: lengths 1 and 2, every division, swing 100+100: one hit per step, never stuck
+ok    seq: length 64 reaches step 63 once
+ok    keys: white key 2 (G3) hits track 2 only
+ok    keys: black keys do nothing
+ok    MIDI: note 38 on ch 10 hits the track with NOTE 38 at its velocity
+ok    MIDI: other channels are ignored
+ok    MIDI: two tracks on one note both fire, velocity 1 accepted
+ok    MIDI ring overflow: the backlog is dropped (no hits), the ring empty and open again
+ok    MIDI ring after an overflow: a new note plays
+ok    MIDI realtime (Start / Clock / Stop) is read and ignored for now: no hit, transport unchanged
+ok    safe start: no hits, the MIDI ring emptied, USB SysEx (the UBOOT key) still taken
+ok    TRS MIDI: notes, the Clock between them, another channel and a velocity-0 note queued (source TRS)
+ok    TRS MIDI: the drum channel's notes play at their velocity, also after a Clock / Active Sensing byte
+ok    TRS MIDI: another channel and a velocity-0 note-on play nothing; the ring empties
+ok    TRS + USB MIDI in one block: both notes play, each with its source (USB 1, TRS 2)
+ok    TRS MIDI: a dense Clock stream around a note: the note plays, the ring empties
+ok    TRS ring overflow: the stream marked broken, then the backlog dropped and the ring open again
+ok    TRS after an overflow: a new note plays
+ok    safe start with a TRS Clock and notes: no hits, the ring emptied
+ok    live record: a late hit goes into the next step
+ok    live record: the recorded step plays always, one hit (PROB 100 %, RATCH 1)
+ok    live record: that step does not hit again this time round
+ok    divisions: all ten exact at 40, 120, 240 BPM (1/2 .. 4BAR = 2 .. 16 beats)
+ok    divisions: a 4BAR track fires once every 4 bars, on the 1/16 track's bar hits
+ok    divisions: swing on a 4BAR step at 40 BPM (no overflow)
+ok    divisions: a ratchet on a 2BAR step rolls 2 hits inside the step
+ok    divisions: live record on a 2BAR step: a late hit goes into the next step
+ok    divisions: delay TIME 2BAR is cut to the delay line (1.49 s)
+ok    divisions: delay TIME 1/2 at 120 BPM is 1 s
+ok    divisions: 1/16 -> 4BAR -> 1/16 while playing: hits resume within two 1/16 steps
+ok    divisions: BPM doubled inside a 4BAR step: the next step within the new length
+ok    seq: LEN changed while playing (16 -> 12 -> 16): the track stays in sync with the others
+     PROB 50 %: 2033 / 4000, 25 %: 1024 / 4000
+ok    PROB: 50 % and 25 % play about that often (4000 loops, +-5 %)
+ok    PROB: 0 % never plays, 100 % always
+ok    PROB: the same after every PLAY (per track), different tracks differ
+ok    PROB: every A/B condition plays exactly on loop A of every B (128 loops)
+ok    PROB: 1-SHOT plays only on the first loop after PLAY
+ok    PROB: conditions count loops with the LEN of the moment
+ok    PROB 2/2 on a 1-step track: steps 1, 3, 5, 7
+ok    RATCH: 2, 3, 4 hits evenly over each step, swung steps too
+ok    RATCH + PROB: one decision per roll (0 or 4 hits a step, both occur), accented hits all at 127
+     RATCH 4, BPM 120 -> 240 mid-step: 10 hits
+ok    RATCH: a tempo change mid-roll drops the late hit, then 4 hits per step (2 + 8)
+ok    Grids MAP: fill 0 is silent, chaos or not
+ok    Grids EUCLID: plays on 1/16s only; LEN 4 full: 16 hits, 4 accents a bar
+ok    Grids: a start reseeds the chaos (a session repeats) and the step wraps at 32
+ok    Grids MAP: the preview (no chaos) is exactly what the engine plays; 32 steps
+ok    Grids: MAP -> EUCLID and a LEN change while running keep every position inside its length
+ok    Grids: EUCLID LEN 1 full plays every 1/16 on the same samples as a 1/16 step track (swing 50)
+ok    Grids: MAP steps are 1/32s: 32 steps in 16 sixteenths
+     Grids snare (fill 110, chaos 127): 20 hits in 2 bars
+ok    Grids: two tracks on one channel play the same hits, not their own steps
+ok    Grids: back to STEP, the track's step is the others' (in sync)
+ok    Grids: back to STEP, its own steps play again
+ok    Grids: with chaos, every PLAY repeats the same hats
+ok    live record: a Grids track's key plays it but writes no step
+     BPM sweep 120..240..90, swing 30: 222 sixteenths
+ok    Grids: BPM turned while playing, Grids hits stay on the 1/16 step track's blocks
+ok    seq: an accented step hits at velocity 127
+ok    K909: audible, bounded, ends in 6 s (peak 21009, end 0.43 s)
+ok    K808: audible, bounded, ends in 6 s (peak 21358, end 1.22 s)
+ok    BOOM: audible, bounded, ends in 6 s (peak 13107, end 0.93 s)
+ok    PUNCH: audible, bounded, ends in 6 s (peak 17594, end 0.48 s)
+ok    909 kick: settles near 52 Hz
+ok    909 kick: TUNE +12 doubles it
+ok    909 kick: the start sweeps from above
+ok    808 kick: starts without a click (|first sample| < 2 % of full)
+ok    909 kick: velocity 40 is clearly quieter than 127
+ok    model change: the old voices stop, the tail fades, nothing hangs
+ok    S808: audible, bounded, ends in 6 s (peak 26266, end 0.21 s)
+ok    S909: audible, bounded, ends in 6 s (peak 17548, end 0.18 s)
+ok    C808: audible, bounded, ends in 6 s (peak 10064, end 0.16 s)
+ok    C909: audible, bounded, ends in 6 s (peak 12670, end 0.12 s)
+ok    SNAP: audible, bounded, ends in 6 s (peak 15626, end 0.59 s)
+ok    CRACK: audible, bounded, ends in 6 s (peak 20013, end 0.91 s)
+ok    808 snare: SNAPPY 127 has > 3x the noise of SNAPPY 0
+ok    909 snare: SNAPPY 127 has > 3x the noise of SNAPPY 0
+ok    808 snare: DECAY 127 rings > 1.5x longer than DECAY 0
+ok    808 clap: >= 3 bursts in the first 35 ms
+ok    909 clap: >= 3 bursts in the first 35 ms
+ok    HATC: audible, bounded, ends in 6 s (peak 3681, end 0.07 s)
+ok    HATO: audible, bounded, ends in 6 s (peak 3698, end 0.34 s)
+ok    CYMB: audible, bounded, ends in 6 s (peak 8891, end 0.76 s)
+ok    COWB: audible, bounded, ends in 6 s (peak 16927, end 0.20 s)
+ok    METAL: audible, bounded, ends in 6 s (peak 15782, end 0.30 s)
+ok    HISS: audible, bounded, ends in 6 s (peak 18052, end 0.19 s)
+ok    HMETL / HNOIS: in choke group 1, one cuts the other
+ok    hats: the open hat rings > 2x longer than the closed one
+ok    hats: closed and open start with no choke group
+ok    hats: a closed hat silences the open one within 100 samples
+ok    cymbal: 2 voices, the first keeps ringing over a retrigger
+ok    COWB: TUNE moves its pitch (540 / 800 Hz x 2^(TUNE / 12)), not only its filter
+ok    TOM: audible, bounded, ends in 6 s (peak 22107, end 0.26 s)
+ok    CONGA: audible, bounded, ends in 6 s (peak 25171, end 0.11 s)
+ok    RIM: audible, bounded, ends in 6 s (peak 27211, end 0.02 s)
+ok    CLAVE: audible, bounded, ends in 6 s (peak 24503, end 0.07 s)
+ok    tom: settles near 120 Hz
+ok    conga: settles near 310 Hz
+ok    claves: near 2.5 kHz
+ok    layer: LLEVEL 0 starts no layer voice
+ok    layer: a hit starts the model and the layer
+ok    layer: adds the sample (more high-frequency energy)
+ok    layer: ends with the hit, no voice left
+ok    layer: an empty user slot adds nothing
+ok    every model, every knob at min / 0 / max: bounded and ends
+ok    stress: double hits every block on 8 tracks: bounded, every voice ends
+     extreme kit with RESON on 4 tracks (2 CHORD): 0 (its own limit 3955)
+ok    cost: the extreme kit with RESON at most (4 tracks, 2 CHORD) within its recorded limit
+     extreme kit with RESON on 4 tracks (2 CHORD + 2 MODAL): 0 (its own limit 3955)
+ok    cost: the extreme kit with RESON at most (2 CHORD + 2 MODAL) within its recorded limit
+     extreme kit with RESON on 4 tracks (2 CHORD), KEYF 100 %, notes 2 octaves apart: 0 (limit 3955)
+ok    cost: .. with KEYF retuning every hit (2 CHORD + 2 STRNG) within RESON's recorded limit
+     extreme kit with RESON on 4 tracks (2 CHORD + 2 MODAL), KEYF 100 %: 0 (limit 3955)
+ok    cost: .. with KEYF retuning every hit (2 CHORD + 2 MODAL) within RESON's recorded limit
+     extreme kit with the FILTER on 8: 0 (its own limit 3094)
+ok    cost: the extreme kit with the FILTER on 8 within its recorded limit
+     realistic heavy kit: 0 host instructions / sample (reference 1566)
+     extreme kit: 0 (8 x K808; limit 2627, above the reference by design: device shedding)
+ok    cost: realistic heavy use within the stock Felucca reference
+ok    cost: the extreme case has not grown past its recorded limit
+     boot: power-on init 0 host instructions; idle audio 0 / sample (upstream idle 286)
+ok    boot cost: power-on init under 2,000,000 host instructions
+ok    boot cost: idle audio within 1.25 x upstream's idle (tests/drum_cost_ref.txt upstream_idle)
+ok    golden: every model's default render is unchanged
+ok    drum transpose: a step's note = TUNE by as many semitones, every model
+ok    drum transpose: clamped to +-24 semitones
+ok    layer transpose: a step's note moves the layer as LTUNE + 7 (bit-identical)
+ok    layer transpose: clamped to +-24 as the model
+     max voices sounding: 8 (cap 8)
+ok    voice cap: never more than DRUM_MAXV voices sound at once
+ok    voice cap: the oldest voice is stolen with the declick tail
+ok    voice cap: a heavy model counts 2 (8 long KBOOM hits: 4 sound, weight 8)
+     swing 50, 48 sixteenths: length 1 -> 48 hits, length 3 -> 16 hits
+ok    swing: length-1 and length-3 tracks stay on the bar grid (48 / 16 hits)
+ok    SAMPLE with nothing to play does not take a voice from another track
+ok    stress (sequencer 1/32 @ 240, MIDI flams, layers, every model): cap holds, bounded, all voices end
+ok    shed: one voice fewer, the oldest (track 1) with its declick tail
+ok    shed: nothing sounding is a no-op
+ok    PRIO: a track parameter HIGH / LOW, HIGH on every track at power-on
+ok    PRIO: the voice cap takes a LOW track's voice before an older HIGH one
+ok    PRIO: ... then the oldest HIGH voice
+ok    PRIO: an overload shed takes the LOW track's voice first
+ok    PRIO: ... then the oldest HIGH voice
+ok    STEP grid open: keys do not hit drums
+ok    STEP grid closed: keys hit drums again
+ok    STEP grid opened while a key is held: its release still sends the note-off
+ok    STEP grid open: a press sends no note-on
+ok    M1-C models: velocity 1 and 127, every knob at min and max: end by 6.0 s, faded
+ok    M1-C: a hit decayed below hearing ends then, not at the 6 s lifetime
+ok    M1-C: model swap while a voice rings: the new model starts clean (bounded, no overflow)
+ok    power-on kit: the TRX classic kit (KTRX SDTRX CPTRX CHTRX OHTRX XTTRX RSTRX CYTRX), default presets, the old notes, no choke
+ok    (host_init: the old kit K909 S808 C808 HATC HATO TOM RIM CYMB for the tests' metrics)
+drum_test: all passed
+ok    today's sound: the kit (ROOM reverb, delay, chorus) with FLAT, bit for bit
+ok    today's sound: the kit with LOWCUT, bit for bit
+ok    BASS+: spk_bass gives upstream 1.0.2's samples (tone bursts + noise, 4 s)
+ok    BASS+ (#42): 300..600 Hz lose less than 0.5 dB
+ok    BASS+: a 60 Hz bass becomes harmonics (level > 30 % of the input, fundamental < 20 % of the power)
+ok    BASS+ on the master: a 60 Hz bass gets 10x the harmonic power LOWCUT gives it
+ok    SPRING: rev_spring gives upstream 1.0.2's samples (SIZE / DAMP turned while it rings)
+ok    SPRING: bounded (|out| < 2^20) while SIZE glides
+ok    SPRING: silent (exactly 0) once its tail has died (SIZE 0 / 64 / 127)
+ok    TYPE switched while sending (ROOM -> SPRING -> ROOM): no click, the new model runs
+ok    TYPE switch: the shared reverb buffer is cleared in the switch block
+ok    TYPE switch: every reverb buffer cleared (all of rev_u, rev_comb)
+ok    TYPE ROOM -> SPRING -> ROOM, send silent: the wet is exactly 0 (nothing stale plays)
+sound_pack_test: all passed
+ok    TIME: 4T 1/4D 1/8D 1/16D 32T exact at 40, 120, 240 BPM
+ok    TIME: the new values' names (ids 10..14 appended)
+ok    TIME: 15 values on the delay, the steps' DIV keeps its 10
+ok    TIME: the knob steps longest to shortest (4BAR .. 1/2 1/4D 1/4 1/8D 4T 1/8 1/16D 8T 1/16 16T 1/32 32T)
+ok    TIME: the knob's order is the order of the lengths
+ok    TIME: the steps' DIV order unchanged
+ok    TIME: a dotted time past the line is cut to it (1.49 s), the others exact
+ok    NORMAL: the delay's return = the old loop's, sample for sample (5 settings, loud random sends, 4.5 s each)
+ok    NORMAL: the kit through the delay (8T, 1/8), the master's output = 0.26.0's (hash)
+ok    PING-PONG: a burst's echoes at d, 2d .. 5d alternate L R L R L, the other side silent, each FEEDBACK x the last (5 of 5: 5; |dt| <= 0.50, ratio 0.999)
+ok    PING-PONG: nothing before the first echo, the dry not in the return
+ok    PING-PONG: an odd TIME (4T at 131 BPM, 13465 samples): 4 echoes in place (4; |dt| <= 0.50, ratio 0.998)
+ok    PING-PONG: the longest TIME is NORMAL's (1.49 s, 65535 samples): the left at d, the right at 2d (2 of 2; |dt| <= 0.50)
+ok    PING-PONG: its first two echoes as loud as NORMAL's (within 0.5 dB)
+ok    PING-PONG: loud sends at full FEEDBACK stay bounded (no overflow)
+ok    MODE: a switch (both ways) clears the line: silence after it, then the new mode's echoes
+ok    PING-PONG through the master: the first echo on the left, the second on the right (NORMAL: L = R)
+ok    PING-PONG on USB 10 CH FX: channel 9 the first echo, channel 10 the second
+delay_test: all passed (0 failed)
+ok    ROOM: silent (exactly 0) once its tail has died, 10 runs (SIZE x DAMP x loud / quiet): 0 not silent, worst 0
+ok    TYPE: ROOM, SPRNG, HALL (5 characters at most); ROOM and SPRING keep ids 0 and 1, HALL is 2
+ok    HALL decay rises with SIZE: RT60 0.37 s (SIZE 0), 1.30 (64), 2.05 (90), 3.90 (127)
+ok    HALL at SIZE 127 DAMP 0: 2 s of full-scale noise: peak 363992, the last second 0 (side 0)
+ok    HALL at SIZE 127 DAMP 127: 2 s of full-scale noise: peak 260248, the last second 0 (side 0)
+ok    HALL at SIZE 127 DAMP 0: 2 s of a full-scale 3.2 kHz square: peak 386688, the last second 0 (side 0)
+ok    HALL at SIZE 127 DAMP 127: 2 s of a 416 Hz square: peak 187880, the last second 0 (side 0)
+ok    HALL: silent after its tail at every SIZE x DAMP x level (27 runs): 0 not silent, worst 0
+ok    level: HALL's tail -1.6 dB from ROOM's (the same burst, SIZE 90 DAMP 60)
+ok    HALL stereo: the tail's left / right correlation -0.03
+ok    ROOM -> SPRING while the tail rings: largest step 20 (the tail's own 495), silent after: 0, cleared: 1
+ok    SPRING -> HALL while the tail rings: largest step 20 (the tail's own 274), silent after: 0, cleared: 1
+ok    HALL -> SPRING while the tail rings: largest step 304 (the tail's own 2648), silent after: 0, cleared: 1
+ok    SPRING -> ROOM while the tail rings: largest step 20 (the tail's own 274), silent after: 0, cleared: 1
+ok    ROOM -> HALL while the tail rings: largest step 20 (the tail's own 495), silent after: 0, cleared: 1
+ok    HALL -> SPRING while the tail rings: largest step 304 (the tail's own 2648), silent after: 0, cleared: 1
+ok    SPRING -> HALL while the tail rings: largest step 20 (the tail's own 274), silent after: 0, cleared: 1
+ok    HALL -> ROOM while the tail rings: largest step 304 (the tail's own 2648), silent after: 0, cleared: 1
+ok    ROOM through the master: left = right, as before
+ok    HALL through the master: its left and right differ (stereo), the tail heard
+ok    HALL on USB 10 CH FX: channels 9 and 10 its left and right (they differ)
+     cost: no instruction counter here
+reverb_test: all passed
+ok    USB audio closed (no program reads): the hooks feed nothing
+ok    USB LEVEL MASTER: the recording is the DAC's block, sample for sample
+ok    USB LEVEL MASTER, knob at a quarter: the recording follows the knob (= the DAC)
+ok    USB LEVEL FIXED, knob at a quarter: the recording at full level, the DAC a quarter of it
+ok    USB LEVEL FIXED, knob at 0: the DAC silent, the recording still full level
+usb_audio_test: all passed
+In file included from tests/usbmode_test.c:14:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+-- MENU > USB AUDIO
+USB AUDIO: KNOB 1 steps 2 CH, 10 CH MIX, 10 CH FX (stops at the ends), OCT+ steps and wraps ok
+  nothing reaches USB while the menu is open (3 s)                             ok
+menu closed: USB off in the next UI frame (no host configuration), the message ok
+  MIDI out dropped while off (nothing stale for the next host)                 ok
+  still off 0.9 s later                                                        ok
+  on again after 1 s, with the 10 CH set (usb10 1)                             ok
+  the sequencer ran on throughout (steps played before, during and after)      ok
+  the host enumerates the other set: bcdDevice 3.83, "Hortator 8ch"            ok
+  MIDI works again once configured: out queued, a note in plays T2             ok
+  one reconnect only                                                           ok
+back to 2 CH: off, on 1 s later; usb_app.c's descriptors byte for byte         ok
+10 CH MIX <-> 10 CH FX: no reconnect (same descriptors), the routing at once   ok
+10 CH FX -> 2 CH: reconnects, as 10 CH MIX -> 2 CH                             ok
+CLK USB: the message says so; playing stays on, the reconnect completes        ok
+  the steps wait for the clock till 2 s after the reconnect                    ok
+  no clock by then: stopped, as a pulled cable stops it                        ok
+stepped to 10 CH and back to 2 CH, then closed: no reconnect                   ok
+power-on with 10 CH saved: enumerates as 10 CH                                 ok
+power-on with 10 CH FX saved: 10 CH, channels 9-10 the send effects            ok
+SAFE START with 10 CH saved: 2 CH, usb_app.c's descriptors byte for byte       ok
+  SAFE START never switches (no reconnect)                                     ok
+usbmode: all ok
+ok    MICRO on a clock (USB, 120 BPM): -50 three pulses early, +50 three pulses late, every loop
+ok    MICRO on a clock (TRS, 97 BPM): the same
+ok    MUTE: NEXT BAR, CLK INT, 120 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK INT, 120 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 256 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK INT, 97 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK INT, 97 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 256 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK INT, 180 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK INT, 180 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 256 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK INT, 240 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK INT, 240 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 256 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK USB, 120 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK USB, 120 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 896 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK USB, 97 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK USB, 97 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 1024 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK USB, 180 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK USB, 180 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 512 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK USB, 240 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK USB, 240 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 512 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK TRS, 120 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK TRS, 120 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 864 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK TRS, 97 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK TRS, 97 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 1056 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK TRS, 180 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK TRS, 180 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 672 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK TRS, 240 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK TRS, 240 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 512 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK BLE, 120 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK BLE, 120 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 896 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK BLE, 97 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK BLE, 97 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 1312 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK BLE, 180 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK BLE, 180 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 544 samples before the bar's block; its fade takes 219)
+ok    MUTE: NEXT BAR, CLK BLE, 240 BPM: muted / unmuted exactly on the bar line
+ok    MUTE: NEXT BAR, CLK BLE, 240 BPM, the COMP source (its fade done before the bar's first hit): muted / unmuted exactly on the bar line
+     (the COMP source muted 416 samples before the bar's block; its fade takes 219)
+ok    CLK USB, 120 BPM, jittered timestamps: 1/16 on every 6th pulse, 4BAR on every 384th, 5 000 steps
+ok    CLK TRS, 140 BPM, jittered timestamps: the same
+ok    following: BPM shows the measured tempo (140, +-3 with the ms jitter)
+ok    stopped: no steps; the tempo measured (100 BPM, +-3)
+ok    Start: step 0 on the first pulse after it
+ok    tempo change 100 -> 150 BPM: still one 1/16 per 6 pulses (2 s = 20 1/16s)
+ok    Stop: no steps (Clock still coming)
+ok    Continue: plays on from the step it stopped at
+ok    CLK USB: TRS Clock / Stop ignored
+ok    no Clock for 500 ms while playing: stopped
+ok    a burst of 12 pulses in one block (the next 12, late together): 24 pulses in all, exactly 4 1/16s: none skipped
+ok    CLK switched to INT while playing: stopped
+ok    CLK INT: PLAY runs on the internal tempo
+ok    CLK USB, PLAY on the FM-1, no Clock yet: armed, no step
+ok    a steady clock (140 BPM, on time): the tempo holds (no per-beat flip)
+ok    a steady clock (140 BPM, 0 .. 4 ms late): the tempo holds
+     128 BPM: 0 early, 0 late of 30720 1/16s; the step off the clock's grid by 0 samples at most
+ok    an hour at 128 BPM, 0 .. 4 ms late: every 1/16 on its pulse, on the clock's grid within a block
+     174 BPM: 0 early, 0 late of 41760 1/16s; the step off the clock's grid by 15 samples at most
+ok    an hour at 174 BPM, 0 .. 4 ms late: the same
+     240 BPM: 0 early, 0 late of 57600 1/16s; the step off the clock's grid by 11 samples at most
+ok    an hour at 240 BPM, 0 .. 4 ms late: the same
+midi_clock_test: all passed
+ok    ROUT: NOTE by default (0), SYNC OFF by default (0)
+ok    ROUT: NOTE SEL TRACK
+ok    SYNC: OFF USB (no TRS out on the FM-1, no Bluetooth)
+ok    ROUT NOTE: the drum channel, the tracks whose NOTE matches (as before)
+ok    ROUT SEL: notes on the drum channel play the selected track, pitched from C4; other channels nothing
+ok    ROUT TRACK: channels 1..8 play tracks 1..8, pitched from C4; channels 9..16 nothing
+ok    ROUT TRACK: note-offs play nothing
+ok    ROUT TRACK: a note into an armed track is recorded with its pitch
+ok    ROUT: the keys' MIDI out: NOTE / SEL on the drum channel with NOTE, TRACK on the track's channel at C4
+ok    transport: stopped: nothing sent
+ok    transport: PLAY sends Start first, then the Clocks
+ok    transport: 24 Clocks a beat (4 beats: 96, +-1)
+ok    transport: STOP sends Stop; nothing after it
+ok    transport: no Continue from the own clock
+ok    transport: one packet each (USB-MIDI CIN F, cable 0)
+ok    transport: PLAY while playing (from the top): Stop, then Start
+ok    transport: SYNC OFF: nothing at all
+ok    transport: no USB host: nothing queued
+ok    clock out: 120 BPM, swing off, render  5 %: jitter  336 us (<=  395), tempo 120.00
+ok    clock out: 120 BPM, swing 60, render  5 %: jitter  336 us (<=  395), tempo 120.00
+ok    clock out: 97 BPM, swing off, render  5 %: jitter  319 us (<=  395), tempo 97.00
+ok    clock out: 97 BPM, swing 60, render  5 %: jitter  319 us (<=  395), tempo 97.00
+ok    clock out: 180 BPM, swing off, render  5 %: jitter  375 us (<=  395), tempo 180.00
+ok    clock out: 180 BPM, swing 60, render  5 %: jitter  375 us (<=  395), tempo 180.00
+ok    clock out: 120 BPM, swing off, render 50 %: jitter 1634 us (<= 2301), tempo 120.00
+ok    clock out: 120 BPM, swing 60, render 50 %: jitter 1634 us (<= 2301), tempo 120.00
+ok    clock out: 97 BPM, swing off, render 50 %: jitter 1697 us (<= 2301), tempo 97.00
+ok    clock out: 97 BPM, swing 60, render 50 %: jitter 1697 us (<= 2301), tempo 97.00
+ok    clock out: 180 BPM, swing off, render 50 %: jitter 1696 us (<= 2301), tempo 180.00
+ok    clock out: 180 BPM, swing 60, render 50 %: jitter 1696 us (<= 2301), tempo 180.00
+ok    clock out: 120 BPM, swing off, render 80 %: jitter 2520 us (<= 3172), tempo 120.00
+ok    clock out: 120 BPM, swing 60, render 80 %: jitter 2520 us (<= 3172), tempo 120.00
+ok    clock out: 97 BPM, swing off, render 80 %: jitter 2512 us (<= 3172), tempo 97.00
+ok    clock out: 97 BPM, swing 60, render 80 %: jitter 2512 us (<= 3172), tempo 97.00
+ok    clock out: 180 BPM, swing off, render 80 %: jitter 2496 us (<= 3172), tempo 180.00
+ok    clock out: 180 BPM, swing 60, render 80 %: jitter 2496 us (<= 3172), tempo 180.00
+ok    tempo changes: 6 Clocks a 1/16 throughout a tempo walk with swing (no drift)
+ok    tempo changes: after a jump to 200 BPM the Clocks run at it (200.0), steady (1017 us)
+ok    follower: a Hortator on CLK USB follows our 120 BPM (it shows 120), 1/16 per 6 Clocks
+ok    follower: a Hortator on CLK USB follows our 97 BPM (it shows 97), 1/16 per 6 Clocks
+ok    follower: a Hortator on CLK USB follows our 180 BPM (it shows 180), 1/16 per 6 Clocks
+ok    thru: every input x SYNC x THRU: clock thru to the SYNC outputs, notes / CCs to the others, never back to the input
+ok    thru: CLK INT: a TRS Clock is not forwarded (our own clock is sent)
+ok    thru: CLK TRS: a USB Clock is not forwarded
+ok    thru: following TRS, its Clock is in the USB ring in the tick after it was read
+ok    thru: a computer not reading: clocks stop at 8 waiting, room left for notes
+ok    update: a SysEx frame arriving pauses clock and thru for 3 s (0 sent), then the clock goes on
+ok    update: a frame waiting pauses clock and thru for 3 s (0 sent), then the clock goes on
+ok    update: a reply going out pauses clock and thru for 3 s (0 sent), then the clock goes on
+ok    update: the update command pauses clock and thru for 3 s (0 sent), then the clock goes on
+sync_test: all passed
+ok    ROUT: NOTE by default (0), SYNC OFF by default (0)
+ok    ROUT: NOTE SEL TRACK
+ok    SYNC: OFF USB BLE BOTH (the Bluetooth build)
+ok    ROUT NOTE: the drum channel, the tracks whose NOTE matches (as before)
+ok    ROUT SEL: notes on the drum channel play the selected track, pitched from C4; other channels nothing
+ok    ROUT TRACK: channels 1..8 play tracks 1..8, pitched from C4; channels 9..16 nothing
+ok    ROUT TRACK: note-offs play nothing
+ok    ROUT TRACK: a note into an armed track is recorded with its pitch
+ok    ROUT: the keys' MIDI out: NOTE / SEL on the drum channel with NOTE, TRACK on the track's channel at C4
+ok    transport: stopped: nothing sent
+ok    transport: PLAY sends Start first, then the Clocks
+ok    transport: 24 Clocks a beat (4 beats: 96, +-1)
+ok    transport: STOP sends Stop; nothing after it
+ok    transport: no Continue from the own clock
+ok    transport: one packet each (USB-MIDI CIN F, cable 0)
+ok    transport: PLAY while playing (from the top): Stop, then Start
+ok    transport: SYNC OFF: nothing at all
+ok    transport: no USB host: nothing queued
+ok    clock out: 120 BPM, swing off, render  5 %: jitter  336 us (<=  395), tempo 120.00
+ok    clock out: 120 BPM, swing 60, render  5 %: jitter  336 us (<=  395), tempo 120.00
+ok    clock out: 97 BPM, swing off, render  5 %: jitter  319 us (<=  395), tempo 97.00
+ok    clock out: 97 BPM, swing 60, render  5 %: jitter  319 us (<=  395), tempo 97.00
+ok    clock out: 180 BPM, swing off, render  5 %: jitter  375 us (<=  395), tempo 180.00
+ok    clock out: 180 BPM, swing 60, render  5 %: jitter  375 us (<=  395), tempo 180.00
+ok    clock out: 120 BPM, swing off, render 50 %: jitter 1634 us (<= 2301), tempo 120.00
+ok    clock out: 120 BPM, swing 60, render 50 %: jitter 1634 us (<= 2301), tempo 120.00
+ok    clock out: 97 BPM, swing off, render 50 %: jitter 1697 us (<= 2301), tempo 97.00
+ok    clock out: 97 BPM, swing 60, render 50 %: jitter 1697 us (<= 2301), tempo 97.00
+ok    clock out: 180 BPM, swing off, render 50 %: jitter 1696 us (<= 2301), tempo 180.00
+ok    clock out: 180 BPM, swing 60, render 50 %: jitter 1696 us (<= 2301), tempo 180.00
+ok    clock out: 120 BPM, swing off, render 80 %: jitter 2520 us (<= 3172), tempo 120.00
+ok    clock out: 120 BPM, swing 60, render 80 %: jitter 2520 us (<= 3172), tempo 120.00
+ok    clock out: 97 BPM, swing off, render 80 %: jitter 2512 us (<= 3172), tempo 97.00
+ok    clock out: 97 BPM, swing 60, render 80 %: jitter 2512 us (<= 3172), tempo 97.00
+ok    clock out: 180 BPM, swing off, render 80 %: jitter 2496 us (<= 3172), tempo 180.00
+ok    clock out: 180 BPM, swing 60, render 80 %: jitter 2496 us (<= 3172), tempo 180.00
+ok    tempo changes: 6 Clocks a 1/16 throughout a tempo walk with swing (no drift)
+ok    tempo changes: after a jump to 200 BPM the Clocks run at it (200.0), steady (1017 us)
+ok    follower: a Hortator on CLK USB follows our 120 BPM (it shows 120), 1/16 per 6 Clocks
+ok    follower: a Hortator on CLK USB follows our 97 BPM (it shows 97), 1/16 per 6 Clocks
+ok    follower: a Hortator on CLK USB follows our 180 BPM (it shows 180), 1/16 per 6 Clocks
+ok    thru: every input x SYNC x THRU: clock thru to the SYNC outputs, notes / CCs to the others, never back to the input
+ok    thru: CLK INT: a TRS Clock is not forwarded (our own clock is sent)
+ok    thru: CLK TRS: a USB Clock is not forwarded
+ok    thru: following TRS, its Clock is in the USB ring in the tick after it was read
+ok    thru: a computer not reading: clocks stop at 8 waiting, room left for notes
+ok    update: a SysEx frame arriving pauses clock and thru for 3 s (0 sent), then the clock goes on
+ok    update: a frame waiting pauses clock and thru for 3 s (0 sent), then the clock goes on
+ok    update: a reply going out pauses clock and thru for 3 s (0 sent), then the clock goes on
+ok    update: the update command pauses clock and thru for 3 s (0 sent), then the clock goes on
+sync_test: all passed
+ok    METRO OFF: the beat's whole-mix render is bit-identical to 0.16.0
+ok    stopped: no click (METRO MID)
+ok    120 BPM: 20 clicks in 10 s
+ok    120 BPM: one every 22 050 samples, exactly (the beat's sample in the block)
+ok    the first click in PLAY's block (with the steps of beat 1)
+ok    left and right the same
+     click 0 at 31: 1551 Hz, peak -20.8 dBFS
+     click 1 at 22081: 997 Hz, peak -21.1 dBFS
+     click 2 at 44131: 997 Hz, peak -21.1 dBFS
+     click 3 at 66181: 997 Hz, peak -21.1 dBFS
+     click 4 at 88231: 1551 Hz, peak -20.8 dBFS
+     click 5 at 110281: 997 Hz, peak -21.1 dBFS
+     click 6 at 132331: 997 Hz, peak -21.1 dBFS
+     click 7 at 154381: 997 Hz, peak -21.1 dBFS
+ok    the bar's first click at 1.6 kHz, the other beats at 1 kHz
+     a click lasts 567 samples (12.9 ms) to -60 dBFS
+ok    the click is short: under -60 dBFS before 25 ms, -40 dB under its peak by 15 ms
+ok    METRO OFF: no click
+     LOW: bar -23.9 dBFS, beat -24.1 dBFS
+ok    METRO LOW: about -24 dBFS peak (+-1 dB), the bar's and the others
+     MID: bar -14.9 dBFS, beat -15.1 dBFS
+ok    METRO MID: about -15 dBFS peak (+-1 dB), the bar's and the others
+     HIGH: bar -5.9 dBFS, beat -6.1 dBFS
+ok    METRO HIGH: about -6 dBFS peak (+-1 dB), the bar's and the others
+     HIGH at half MASTER: -11.6 dBFS
+ok    the MASTER level turns the click down: half MASTER, about -12 dBFS at HIGH
+ok    STOP: no click after it (2 s, HIGH; the last one's tail under -60 dBFS after 30 ms)
+ok    STOP: not playing
+ok    120 BPM, SWING 0: a click every 22050 samples exactly, each in its kick's block (16 clicks)
+ok    120 BPM, SWING 40: a click every 22050 samples exactly, each in its kick's block (16 clicks)
+ok    97 BPM, SWING 25: a click every 27278 samples exactly, each in its kick's block (13 clicks)
+ok    CLK USB 120 BPM: a click per 24 pulses, each in its pulse's block (or 2 after, as the steps)
+ok    CLK USB: the bar's first higher
+metro_test: all passed
+compose: full in every phase, 25 % in phases 0 4 8 12 16, the glow in none (its own pulse) ok
+OFF: the hook writes nothing; every column lit with fm1_led exactly            ok
+ON: full lit every frame, 25 % in 5 of 20, the glow a timed pulse in every frame (never the whole tick) ok
+a late tick: the glow is dark between its pulses, so a late tick lights nothing longer ok
+no glow width: no pulse                                                        ok
+each tick lights its own column's composed value (written one tick ahead)      ok
+a layer change: the column already composed keeps its value; the new one from its next frame ok
+item 9: DIM HI's mid in 6 of 20 frames, its glow DIM HI's pulse in every frame, per column ok
+item 5: the breath's level: 0 at its ends, ~60 % at the peak, rising to it     ok
+item 5: breathing: lit in the frames the sigma-delta picks (around the peak never 3 dark in a row), every column alike, ~20 % on average; the full layer unaffected ok
+item 5: no LED breathing: the layer dark, the next breath from its peak        ok
+led_dim_test: all passed
+enc_test: firmware/src/enc.c
+det/s   even (w 1)     bunched 0.5    bunched 0.25   0.25 bouncing
+10      12.00   0% off  12.00   0% off  12.00   0% off  12.00   0% off
+20      12.00   0% off  12.00   0% off  12.00   0% off  12.00   0% off
+30      12.00   0% off  12.00   0% off  12.00   0% off  12.00   0% off
+40      12.00   0% off  12.00   0% off  12.00   0% off  12.00   0% off
+60      12.00   0% off  12.00   0% off  11.99   1% off  12.00   0% off
+80      12.00   0% off  12.00   0% off  12.00   0% off  11.97   2% off
+110     12.00   0% off  12.00   0% off  11.31  48% off  10.16  82% off
+150     12.00   0% off  12.00   0% off   1.62 100% off   3.75 100% off
+200     12.00   0% off  11.70  30% off   0.00 100% off   1.15 100% off
+300     12.00   0% off   1.73 100% off   0.00 100% off   0.00 100% off
+one slow click (3 detents/s) clockwise: one step, +1                                                 ok
+the hook decodes once a scan frame (enc.c frames = the HAL's)                                        ok
+slow single clicks (2..6 detents/s, 50 ms apart): exactly one step each                              ok
+a slow click with contacts bouncing up to 3 ms: one step, never two                                  ok
+#23: a knob held mid-click, then turned: one step per click, not two (4)                             ok
+#23: short mid-click pauses: the knob keeps counting (4)                                             ok
+#63 a still knob: one contact chattering or both lost together never steps                           ok
+#126 12-detent turns to 300/s even, 150/s bunched in 1/2, 40/s in 1/4: every detent (0 of 960 off, worst 0) ok
+#126 slow turns (3..40 detents/s), contacts bouncing 1.5 ms: one step a click (0 off)                ok
+#126 120 detents/s, bouncing 0.2 ms: 8 right then 6 left at once -> +8, then -6                      ok
+taken during a turn (every 0.7..31 ms): the steps add up to the turn, then nothing                   ok
+enc_test: all passed
+ok    idle: FX held with no key and no knob, the mix is bit-identical
+ok    an effect let go: the layer goes idle again (nothing left running)
+ok    REPEAT STEP 1/4 at 120 BPM: track 3's hits on the grid of the rate (as a 1/4 track), the first on the next grid point
+ok    REPEAT STEP 1/8 at 120 BPM: track 3's hits on the grid of the rate (as a 1/8 track), the first on the next grid point
+ok    REPEAT STEP 1/16 at 120 BPM: track 3's hits on the grid of the rate (as a 1/16 track), the first on the next grid point
+ok    REPEAT STEP 1/32 at 120 BPM: track 3's hits on the grid of the rate (as a 1/32 track), the first on the next grid point
+ok    REPEAT STEP 1/16 at 97 BPM: track 3's hits on the grid of the rate (as a 1/16 track), the first on the next grid point
+ok    REPEAT STEP 1/8 at 97 BPM: track 3's hits on the grid of the rate (as a 1/8 track), the first on the next grid point
+ok    REPEAT STEP 1/32 at 97 BPM: track 3's hits on the grid of the rate (as a 1/32 track), the first on the next grid point
+ok    REPEAT STEP 1/16 at 120 BPM, SWING: track 3's hits on the grid of the rate (as a 1/16 track), the first on the next grid point
+ok    REPEAT STEP 1/8 at 120 BPM, SWING: track 3's hits on the grid of the rate (as a 1/8 track), the first on the next grid point
+ok    REPEAT STEP 1/4 at 120 BPM, SWING: track 3's hits on the grid of the rate (as a 1/4 track), the first on the next grid point
+ok    REPEAT STEP 1/32 with SWING: on each swung 1/16 and halfway through it
+ok    CLK USB: REPEAT STEP 1/16 on the clock's 1/16s (as a 1/16 track following it)
+ok    REPEAT STEP: the held step's note and accent, every 1/16 (no PROB skip, no RATCH roll)
+ok    REPEAT STEP on a step that is off: the track's last note, at 96
+ok    REPEAT STEP 1/4 on the 1/8 hats: only the beats while held (its own steps paused)
+ok    two tracks at once: the kick on the beats too
+ok    let go: the pattern goes on, on time (every track's hits as without the hold)
+ok    the other tracks play on as before while held
+ok    stopped: REPEAT STEP free-running, the first at once, then every 1/16 of the tempo
+ok    stopped: the step under the playhead's note
+ok    stopped: the rate changed to 1/4: a hit a beat
+ok    stopped: let go, no more
+ok    rate 1/16 -> 1/32 while held: the next hit on the next 1/32 (halfway), then every 1/32
+ok    REPEAT STEP's rate at power-on: 1/16
+ok    FX + D5 E5 F5 G5: the rate 1/4 1/8 1/16 1/32 (kept after the key), nothing held
+ok    the rate keys: no note, no MIDI
+ok    G5 without FX: the rate stays
+      REPEAT 1/8: loop 11025 samples
+ok    REPEAT 1/8: after one loop recorded, the output repeats every beat / 2
+      REPEAT 1/16: loop 5512 samples
+ok    REPEAT 1/16: the output repeats every beat / 4
+      REPEAT 1/32: loop 2756 samples
+ok    REPEAT 1/32: every beat / 8
+ok    REVERSE: the recorded 1/8 plays backwards (a rising ramp falls)
+ok    40 BPM: REPEAT 1/8 and REVERSE unavailable (longer than the 743 ms loop), 1/16 available
+ok    41 BPM: every effect available
+ok    REPEAT 1/8 held while the tempo drops to 40: it stops (not running, faded out)
+ok    TAPE STOP: still sounding half way
+ok    TAPE STOP: silent after one beat
+ok    FREEZE: keeps sounding what it caught after the input stopped
+      OCT UP: crossings 1744 (input 882)
+ok    OCT UP: the shifted copy an octave up (twice the crossings, +-15 %)
+      OCT DN: crossings 452 (input 882)
+ok    OCT DN: the shifted copy an octave down (half the crossings, +-15 %)
+ok    LPF key: an 8 kHz tone gone after its bar-long sweep
+ok    HPF key: a 30 Hz tone down to a fifth after its sweep
+ok    FILTER knob left: the LPF
+ok    FILTER knob right: the HPF
+ok    CRUSH 100: every output sample on the coarse grid (the low 11 bits 1024)
+ok    THROW 100: the dry mix sent into the delay and the reverb
+ok    DEPTH 0 %: the repeat nearly silent, the live mix through
+ok    stack: REPEAT 1/16 plays
+ok    stack: FREEZE pressed last plays
+ok    stack: FREEZE let go, the REPEAT held before plays again
+ok    slicer: STUT records before the layer takes its buffer
+ok    slicer: the buffer lent, STUT records nothing
+ok    slicer: the buffer given back once the effect faded out
+ok    slicer: STUT records again
+ok    off (the menu): the effect stops, faded, though its key is held
+ok    off (the menu): CRUSH (a knob) keeps working, the held REPEAT stops
+ok    off (the menu): FILTER (a knob) keeps working: the LPF
+ok    REPEAT pressed mid-1/16 while playing: waits, then starts with the next 1/16's block
+ok    REPEAT while stopped: at once
+ok    CLK USB: REPEAT starts with the clock's next 1/16
+ok    keys: the black keys F#3 .. D#5 play REPEAT 1/8 1/16 1/32 REVERSE TAPE LPF HPF FREEZE OCT UP OCT DN
+ok    keys: the white track keys F3 .. F4 repeat tracks 1..8
+ok    keys: F#5 and the white keys G4 .. C5 do nothing
+ok    keys: D5 E5 F5 G5 (the last four white keys) the rates 1/4 1/8 1/16 1/32, no effect
+ok    FX + a track key: no hit, no MIDI out, nothing recorded
+ok    FX + a track key: the key is the layer's, its track repeating
+ok    the layer key let go: no note-off sent, the repeat off
+ok    FX + G#3: REPEAT 1/16 held
+ok    FX let go first: the effect lasts while its key is held
+ok    then the key let go: the effect ends, no note, no MIDI
+ok    a key before FX: its note plays
+ok    FX pressed meanwhile: the key stays a note, its release sends the note-off
+perform_test: all passed
+ok    record: a turn early in step 4 lands on step 4
+ok    record: a turn past the half of step 5 lands on step 6
+ok    record: the same knob on the same step again replaces the value
+ok    not armed: no event, the turn is the new base
+ok    another track's knob: not recorded
+ok    MODEL, LEN and an LFO's WAVE are never recorded
+ok    stopped: no event
+ok    the recordable knobs are the sound knobs of the spec, the rest not
+ok    the LFO DEST slots: every slot's DEPTH recorded, its SRC / DEST not
+ok    1024 events: the next is refused, flagged full
+ok    full: a place already used is still replaced
+ok    playback: before its step, the base
+ok    playback: at step 4 the recorded value
+ok    playback: it holds through the following steps
+ok    playback: the loop start puts the base back
+ok    PLAY OFF: the base back, the events kept
+ok    PLAY OFF: the events do not play
+ok    a turn while motion plays becomes the base the loop start comes back to
+ok    STOP: the knob is the patch's again (a save holds the patch)
+ok    LFO + motion: after the block the knob rests on motion's value
+ok    LFO + motion: the loop start puts the patch's value back
+ok    motion on slot 4's DEPTH: played at its step
+ok    motion on slot 4's DEPTH: the base back at step 0
+ok    LEN below a recorded step: it does not play, the others do
+ok    LEN below: step 0 still restores
+ok    a recorded value outside the model's range is clamped when played
+ok    (a model knob with a narrower range exists for the clamp test)
+ok    a Grids track: its step clock plays its motion
+ok    CLK USB: the motion plays on the clock's steps
+ok    clear: track 1's events gone and its knob back, track 2's kept
+ok    LFO (FREE) + motion: step 2's hit reads motion's value (within the LFO's depth of 120)
+ok    MIDI Continue then a recorded turn: STOP puts the patch's value back
+motion_test: all passed
+ok    bank: 3208 B (<= 3584: the loader scan's +0xF00 stays erased)
+ok    bank: 500 random puts stay sorted by (key, kind), the count right
+ok    bank: the same key and kind again replaces the value (returns 1, count kept)
+ok    bank: a motion event and a lock on one knob and step coexist, motion first
+ok    bank: 1024 events, the 1025th refused (bank unchanged), a replace still works
+ok    bank: lk_seek finds every track / step's first event as a scan does (1024 events)
+ok    bank: lk_valid rejects magic, slot, count, order, duplicates, a knob not recordable, value -65
+ok    bank: clearing a track's motion keeps its locks
+ok    bank: clearing both kinds of a track keeps the other tracks'
+ok    bank: clearing a step's locks on some knobs: only those locks, not motion, not other knobs or steps
+ok    bank: clearing all of a step's locks keeps its motion
+ok    bank: a track's locked steps of a bank of 16 as a mask (motion events not)
+ok    bank: an old project's 128 motion events convert (motion kind, PLAY bits kept)
+ok    bank: a broken old motion block (track 9, a place twice, count 129) converts to an empty bank
+ok    bank: sealed banks with the same events are byte-identical (garbage past the count zeroed)
+ok    lock: step 4's value plays on step 4 only, the knob's own value again from step 5 (snap back)
+ok    lock: plays with MOTION PLAY off; MOTION CLEAR keeps the locks
+ok    lock over motion: motion's 90 holds, the lock's 110 on its step, back to 90, the base at step 0
+ok    lock + motion + LFO on one knob: the LFO round the lock's 100 on its step, motion's 30 after, STOP the base
+ok    LFO on DIST / INSERT B (new DESTs) with a lock: round the lock's value on its step, the base after STOP
+ok    lock: dormant on a step turned off (kept), plays when it is on again
+ok    lock in a song: each row plays its slot's locks; none leaks into the next row; the working bank untouched
+ok    lock: a turn during the locked step is the knob's value after it (80, not 64)
+ok    lock: STOP during the locked step puts the knob's value back
+ok    lock: a model change during the locked step: the new model's own values, no 100 in its base
+ok    lock: a knob's rest value during its locked step is its own (64), with or without motion
+lock_test: all passed
+ok    micro 0: every hit on its step's start, as before
+ok    micro: + late in its own step, - early in the step before (step 0 round the loop too), every DIV / swing / LEN
+ok    micro + RATCH 2, +50: the second hit halfway through the step's rest
+ok    micro + RATCH 4, -50: four hits evenly from the early hit to the step's end
+ok    micro + PROB 1:2 on an early step 0: plays on loops 0, 2, 4 (the early hit counts its own loop)
+ok    micro + PROB 0 %: neither a late nor an early step ever plays
+ok    micro +50 + a lock: the lock from the late hit, back at the step's end
+ok    micro -50 + a lock: the lock from the early hit (the step before's let go), held to its own step's end
+ok    micro on an off step: plays nothing
+ok    QUANT 1/16: the nearest step, micro 0 (as before)
+ok    QUANT 1/8: the nearest even step (a two-step grid), micro 0
+ok    QUANT 1/32: the nearest half step (micro 0 or +-50)
+ok    QUANT OFF: the nearest step, the hit's own offset as its micro
+ok    QUANT OFF: the recorded early hit sounds once (live), not again from the look-ahead
+ok    QUANT OFF: .. and next time round, early by its micro
+ok    QUANT OFF: a hit recorded into the playing step before its late hit: that hit is the step's (sounds once)
+micro_test: all passed
+ok    song + MICRO: an early step 1 comes early round a repeat, not across a row change (no double hit there)
+ok    song: row 1 (A x2): the kick in bar 1
+ok    song: ... and again in bar 2
+ok    song: row 2 (B x1): the snare in bar 3, not the kick
+ok    song: LOOP OFF: stopped after the last row
+ok    song: LOOP ON: row 1 again after the last row
+ok    song: the reference is the longest track (hats, 64 steps)
+ok    song: no B in bar 2 (the row lasts the hats' 4 bars)
+ok    song: B in bar 5
+ok    song: a row's timing plays (LEN 16 1/16 SWG 0 STEP), REC off
+ok    song: the slot's steps play (seq_steps)
+ok    song: STOP puts LEN DIV SWG SRC and REC back
+ok    song: the current steps untouched
+ok    song: row A's motion plays (E1 99)
+ok    song: row B (no motion): E1 back to the patch (40)
+ok    song: STOP: E1 the patch
+ok    song: another model in the slot: its E events skipped, LEVEL plays
+ok    song: the model compared as it is now: A's second pass plays its E events
+ok    song: row B (saved with the first model): its E events skipped now
+ok    song: after a row change the steps sit where a plain loop's do (no drift)
+ok    song: LEN 5 1/16 rows stay on the plain loop's grid (60 s)
+ok    song: LEN 2 1/32 rows stay on the grid (60 s)
+ok    song: LEN 15 rows with the track's SWING 30 keep the swing on the grid (30 s)
+ok    song: LEN 7 16T rows with the global swing keep the grid (30 s)
+ok    song: a MIDI Start while armed starts the song
+ok    song: a MIDI Start during the song restarts it at row 1
+ok    song: a MIDI Stop ends it
+ok    song: a MIDI Continue never starts one
+ok    chain_valid: an empty song
+ok    chain_valid: slots A..D, repeats 1..16
+ok    chain_valid: slot past D refused
+ok    chain_valid: repeat 0 refused
+ok    chain_valid: repeat 17 refused
+ok    chain_valid: 17 rows refused
+ok    chain_valid: LOOP 2 refused
+ok    names: the NAME set only
+song_test: all passed
+ok    variation bank: 3584 B (a sector's +0xF00.. stays erased)
+ok    variation: random steps (every field, NOTE -60 / 67, RATCH 4, SLIDE, TIE, ACC, PROB) and LEN 1 / 64, DIV 9, SWG 100 round-trip; the others stay empty
+ok    variation: empty bank 14 B; 16 steps a track 482 B, all 512 1634 B, none 98 B (a used one)
+ok    variation: two dense variations fit, a third is VARIATIONS FULL (-1), the bank untouched
+ok    variation: a dense one replaced by a sparse one shrinks the bank in place (and back), the others intact
+ok    variation: the same content again: 1 (nothing changed); a changed DIV: 0
+ok    variation: decoded values clamped (LEN, DIV, SWG, SRC, PROB)
+ok    variation: wrong magic, slot, length, used past the end, an entry past used, a popcount mismatch, all 0xFF, all 0: rejected; var_get on them bounded (malformed: -1, the steps cleared)
+ok    variation MICRO: -50 .. +50 round-trip (a step with only a micro too), 1 B more a nudged step
+ok    variation MICRO: all micro 0 = the bytes as before (3 B a set step, bit 6 clear)
+ok    variation MICRO: an old bank (no bit 6) reads as before, micro 0
+ok    variation MICRO: a bit 6 without its byte, or a byte without its bit: rejected; a micro out of range clamped
+ok    variation MICRO capacity: 16 steps 40 hits 218 -> 258 B (7 fit), 64 steps 150 hits 548 -> 698 B (6 -> 5), all 1634 -> 2146 B (2 -> 1)
+var_test: all passed
+ok    MEMB: TUNE 0 is A2 (110 Hz, within 1 %)
+ok    MEMB HEAD 0: the ideal head's mode ratios
+ok    MEMB HEAD 127: the loaded head's (harmonic) ratios
+ok    MEMB BEND: the strike starts an octave up
+ok    MEMB BEND: back on the note within 200 ms (1 %)
+ok    MEMB POS centre: only the circular modes (m = 0) sound
+ok    MEMB: a heavy voice (weight 2), one body per track
+ok    MEMB retrigger: the head rings on (no declick tail added)
+ok    MEMB on 5 tracks: at most 4 sound (the cap of 8, weight 2)
+     MEMB peak 28601, TOM peak 22107
+ok    MEMB level: a default hit within -6 .. +3 dB of a default TOM
+ok    MEMB accent: a harder, brighter strike
+ok    MODAL: the ring is on half a second after a hit (DECAY 100)
+ok    MODAL: rings out to off, its states all zero (DECAY 64)
+ok    MODAL: a cut ends the ring (off, its states cleared)
+ok    MODAL: R.TUN moves the modes (an octave: twice the frequency, 1 %)
+     MODAL sustained by 1/32 snares, DECAY 127: master peak 9730
+ok    MODAL fed for 10 s at DECAY 127: bounded (the master never clips past full scale)
+     MODAL stability: 0 unstable modes over 2940 settings
+ok    MODAL: every mode damped (rpg > g) at every TUNE / R.TUN / STRCT / DECAY / TONE
+ok    MODAL DECAY 0 (STRCT 124, TONE 0, TUNE A4): one hit rings out within 1 s
+     MODAL DECAY 100 TONE 127: mode 1 2.31 s, mode 2 2.13 s
+ok    MODAL: the first mode rings DECAY's time (2.30 s, 15 %)
+ok    MODAL TONE 127: the 2nd mode rings nearly as long (upstream's Q per cycle)
+     MEMB re-struck 127 -> 96: step 302 (natural 1200)
+ok    MEMB re-struck 127 -> 96: no level jump
+     MEMB re-struck 96 -> 127: step 894 (natural 740)
+ok    MEMB re-struck 96 -> 127: no level jump
+ok    MEMB: every mode damped at every knob extreme
+ok    MEMB DECAY 127: the voice ends by its 6 s lifetime
+phys_test: all passed
+ok    LP: 250 Hz passes, 4 kHz >= 18 dB down (CUT ~1 kHz)
+ok    HP: 4 kHz passes, 250 Hz >= 18 dB down
+ok    BP: peaks near the cutoff (RESO 64: 10 dB over 2 octaves away)
+ok    NOTCH: >= 20 dB down at the cutoff, 250 Hz and 4 kHz within 3 dB
+ok    CUT: +14 moves the notch one octave (within a semitone)
+ok    RESO: 127 raises the LP's gain at the cutoff by >= 12 dB
+     extremes: the largest state 69463456 (clamp 268435456)
+ok    extremes: every TYPE x CUT x RESO bounded, the states below half their clamp
+ok    ENV +40: brighter at the hit than after DECAY
+ok    ENV -40: darker at the hit than after DECAY
+ok    ENV: an accent sweeps further than a plain hit
+ok    DECAY: 0 vs 127 to 1 % are ~400x apart (250..600)
+ok    tail: the filter rings on after the voice, then the track is silent and idle
+ok    TYPE switched while ringing: bounded; OFF clears it, LP again starts from silence
+ok    a choke while the filter rings: the ring ends, the track idle
+ok    8 loud kicks through HP RESO 127: the mix bounded
+ok    DECAY shows ms at 0, s at 127
+ok    LFO DEST 17 = F.CUT: the cutoff moves (brightness 3x between the LFO's levels)
+ok    CUT / ENV / F.CUT at their extremes: the cutoff in range, bounded
+ok    ring-out: every TYPE x CUT x RESO ends within 3 s after its input stops, never while it sounds
+ok    K808 held through HP / BP: no clicks (sample steps < 64 after the attack)
+ok    motion records CUT, RESO, ENV, DECAY (not TYPE)
+filter_test: all passed
+ok    power-on values (SRR 0, TYPE OFF): the phrase as drum 0.26.0 rendered it, bit for bit
+ok    SRR 0 / TYPE OFF are the power-on values; MIX 100 %, A B C as Skiff's
+ok    SRR 0 and TYPE OFF with A B C MIX set on every track: bit for bit as 0.26.0
+ok    MIX 0 of every TYPE on every track (the DIST track's tail too): bit for bit as 0.26.0
+ok    MIX 100 % of every TYPE: the phrase changes
+ok    SRR 20: the phrase changes
+ok    SRR: each value held 256 + 2 SRR^2 / 256 samples (SRR 1: 1.008, 16: 3, 64: 33, 127: 127.0)
+ok    SRR 16: every third sample held for three (14.7 kHz), across the blocks, the first one at once
+ok    SRR at every 9th value: N x 256 / P new samples (+-1); SRR 127: runs of 127 / 128 (347 Hz)
+ok    SRR 0: the block untouched
+ok    SRR in the track's inserts (after RESON and FILTER, before DIST): the block held
+ok      a silent block: SRR at rest (the next hit starts on a fresh sample)
+     the types on 3 and 8 saws (peak in 72000 / 192000), A B C at 0 64 127 (27 settings), MIX 100 %:
+       SOFT  peak 3 saws 103801, 8 saws 101834; worst DC (mean against the input's)   5.9 /  14.0
+ok    SOFT: no DC (< 0.5 % of a voice's full scale), bounded (< 1.5 x the input, LEVEL +7.5 dB)
+ok    SOFT: MIX 0 the input bit for bit, MIX 50 % halfway to MIX 100 % (the wet), it acts
+       HARD  peak 3 saws  79041, 8 saws  77252; worst DC (mean against the input's)   5.8 /  14.0
+ok    HARD: no DC (< 0.5 % of a voice's full scale), bounded (< 1.5 x the input, LEVEL +7.5 dB)
+ok    HARD: MIX 0 the input bit for bit, MIX 50 % halfway to MIX 100 % (the wet), it acts
+       FOLD  peak 3 saws  70592, 8 saws  61803; worst DC (mean against the input's)   5.8 /  14.0
+ok    FOLD: no DC (< 0.5 % of a voice's full scale), bounded (< 1.5 x the input, LEVEL +7.5 dB)
+ok    FOLD: MIX 0 the input bit for bit, MIX 50 % halfway to MIX 100 % (the wet), it acts
+       FUZZ  peak 3 saws  59372, 8 saws  58120; worst DC (mean against the input's)   5.8 /  14.0
+ok    FUZZ: no DC (< 0.5 % of a voice's full scale), bounded (< 1.5 x the input, LEVEL +7.5 dB)
+ok    FUZZ: MIX 0 the input bit for bit, MIX 50 % halfway to MIX 100 % (the wet), it acts
+       CRUSH peak 3 saws  71476, 8 saws 142952; worst DC (mean against the input's)  71.9 /  83.7
+ok    CRUSH: no DC (< 0.5 % of a voice's full scale), bounded (< 1.5 x the input, LEVEL +7.5 dB)
+ok    CRUSH: MIX 0 the input bit for bit, MIX 50 % halfway to MIX 100 % (the wet), it acts
+       PHASR peak 3 saws 103741, 8 saws 169381; worst DC (mean against the input's)  13.5 /  30.4
+ok    PHASR: no DC (< 0.5 % of a voice's full scale), bounded (< 1.5 x the input, LEVEL +7.5 dB)
+ok    PHASR: MIX 0 the input bit for bit, MIX 50 % halfway to MIX 100 % (the wet), it acts
+       FLANG peak 3 saws  98434, 8 saws 134182; worst DC (mean against the input's)   7.3 /  29.5
+ok    FLANG: no DC (< 0.5 % of a voice's full scale), bounded (< 1.5 x the input, LEVEL +7.5 dB)
+ok    FLANG: MIX 0 the input bit for bit, MIX 50 % halfway to MIX 100 % (the wet), it acts
+       CHOR  peak 3 saws  54303, 8 saws 110913; worst DC (mean against the input's)  10.8 /  39.9
+ok    CHOR: no DC (< 0.5 % of a voice's full scale), bounded (< 1.5 x the input, LEVEL +7.5 dB)
+ok    CHOR: MIX 0 the input bit for bit, MIX 50 % halfway to MIX 100 % (the wet), it acts
+ok    CRUSH: its steps are odd (no offset) at every BITS
+ok    HARD at full DRIVE (12.8x), LEVEL 0 dB: held at its clip (24000; under 1.5x it with the DC blocker's tilt and TONE)
+ok    CRUSH BITS 1, RATE 689 Hz: whole steps of 32768, each held a multiple of 64 samples
+ok    MIX 0 -> 100 %: the wet share glides in over 2.9 ms (128 samples)
+ok      and out again; then nothing runs (the input as it is)
+ok    a TYPE change: the old one fades out, the new one starts from rest and fades in, no jump past the saws'
+ok    TYPE OFF while silent: the INSERT at rest at once (no stale fade on the next hit)
+ok    FLANG's tail runs on after the voice (the feedback's ring), then the track goes idle
+ok    MOTION records SRR, the INSERT's A B C and MIX, not its TYPE (as FILTER's TYPE and RESON's MODEL)
+ok    MIDI LEARN takes SRR and every INSERT knob
+ok    SRR as a step's lock: on step 5 only (it runs there), 0 before and after
+ok    MIX as motion: 0 on steps 1..8 (nothing runs), 100 % from step 9, the wet share there
+ok    the INSERT's A B C named by its TYPE (DRIVE TONE LEVEL, BITS RATE LPF, RATE DEPTH FDBK)
+ok    SRR shows its rate (OFF, 14.7 kHz, 347 Hz); TYPE its name (PHASR)
+     cost: SRR 0.0 host instructions a sample
+     cost: INSERT SOFT  0.0 host instructions a sample
+     cost: INSERT HARD  0.0 host instructions a sample
+     cost: INSERT FOLD  0.0 host instructions a sample
+     cost: INSERT FUZZ  0.0 host instructions a sample
+     cost: INSERT CRUSH 0.0 host instructions a sample
+     cost: INSERT PHASR 0.0 host instructions a sample
+     cost: INSERT FLANG 0.0 host instructions a sample
+     cost: INSERT CHOR  0.0 host instructions a sample
+ok    cost measured (printed above)
+insert_test: all passed
+ok    FM: INDEX 0 is a pure sine at TUNE (220 Hz, sidebands < -40 dB)
+ok    FM: TUNE +12 is an octave up
+ok    FM: INDEX up: sidebands at f +- 1.41 f (inharmonic), > -20 dB
+ok    FM: more INDEX, a wider spectrum (brighter: the first sidebands themselves rise and fall, Bessel)
+ok    FM: MDEC 0: bright at the hit, a sine after (brightness early > 2x late); MDEC 127 stays bright
+ok    FM: SWEEP 127: the pitch starts far above TUNE and settles on it
+ok    FM: FBK 127 is noisier than 0
+ok    FM: an accent (VEL 64) is brighter than a plain hit
+ok    FM: every knob at min / mid / max: bounded, ends
+ok    FM: TUNE +24 RATIO 14 SWEEP INDEX FBK VEL all at the top: bounded, ends
+ok    FM: 3 hits in 20 ms: 2 voices sounding, the first stolen with its declick, bounded
+ok    FM: velocity 1 with VEL 127 and INDEX 0: the index is 0, not negative
+ok    FM: a model switch to FM and back while ringing: bounded
+ok    FM: an LFO on RATIO at full depth: bounded; each hit takes the ratio of its moment (2+ table values)
+     FM vs TOM at the defaults: +0.5 dB
+ok    FM: the level at the defaults within +-3 dB of TOM's
+     FBK 16 32 64 96 127: brightness 0.007 0.008 0.018 0.033 1.530, worst 18-22 kHz share 0.000
+ok    FM: FBK grows across the knob (each step brighter), no whine near Nyquist (< 5 %)
+ok    FM: VEL centred at 96: a plain step plays INDEX (60), an accent more, a soft note less
+fm_test: all passed
+tests/organ_test.c:221:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  221 |     static int32_t a[SECS(0.5)];
+      |                    ^
+1 warning generated.
+ok    ORGAN: a single note at TUNE 0 is C4 (261.6 Hz within 0.5 %)
+ok    ORGAN: TUNE +12 is an octave up
+     CHORD 0: weakest note / root 1.00, off-note / weakest 0.001
+     CHORD 1: weakest note / root 0.81, off-note / weakest 0.001
+     CHORD 2: weakest note / root 0.99, off-note / weakest 0.001
+     CHORD 3: weakest note / root 0.98, off-note / weakest 0.001
+     CHORD 4: weakest note / root 0.92, off-note / weakest 0.009
+     CHORD 5: weakest note / root 0.87, off-note / weakest 0.001
+     CHORD 6: weakest note / root 0.91, off-note / weakest 0.002
+     CHORD 7: weakest note / root 0.73, off-note / weakest 0.001
+ok    ORGAN: every CHORD sounds exactly its notes (each present, nothing between)
+     3rd / 1st: DRAW 0 0.000, DRAW 127 0.793
+ok    ORGAN: DRAW 127 is far brighter than DRAW 0 (the 3rd partial rises, > 10x)
+ok    ORGAN: DECAY 20 is a short stab, DECAY 110 rings on (level at 0.5 s: > 20x)
+ok    ORGAN: ATK 127 fades in (the first 64 samples < 1/4 of ATK 0's)
+     pitch range over 0.6 s: VIB 0 1.03 Hz, VIB 127 10.83 Hz (+-0.35 semitone = about 10.6 Hz)
+ok    ORGAN: VIB 0 holds the pitch, VIB 127 wobbles it (+-0.35 semitone)
+ok    ORGAN: CLICK 127 adds a bright tick at the hit (brightness > 3x)
+     extreme settings: peak 1401 .. 23926 (a K909 hit is about 15000)
+ok    ORGAN: every extreme setting stays bounded (peak < 60000) and a short DECAY ends silent
+ok    ORGAN: the same hit twice renders bit for bit the same
+organ_test: all passed
+     vs the float reference (17 settings, 0.3 s): worst residual -41.4 dB (with CLIP -36.1 dB), gain 77981 / unit (spread -0.04 %)
+ok    KTRX: every setting matches the float reference (residual < -30 dB, CLIP's edges < -20 dB, one gain within 1 %)
+     TUNE -12 / 0 / +12: 30.70 / 61.41 / 122.82 Hz
+ok    KTRX: TUNE 0 is 61.4 Hz (+-0.5 %), +-12 an octave
+     DECAY 48 / 64 / 96 heard: tau 0.98 / 1.01 / 1.00 x the law
+ok    KTRX: DECAY heard follows tau = 52 ms x 1.55 ^ ((d - 64) / 8) within 10 %
+     DECAY / SDEC factors vs the laws, 0..127: worst 0.4 % / 0.4 %
+ok    KTRX: DECAY's and SDEC's factors follow the measured laws within 1 % over the whole knob (to 0.58 s)
+     SUB 127: f0/2 -12.3 dB early, -19.6 dB late; SUB 0: -49.3 dB
+ok    KTRX: SUB 127 adds f0/2 at -12 +-3 dB early, -20 +-3 dB late (fading on its own); SUB 0 none (< -40 dB)
+     NOISE 127: first 10 ms brightness x43.5, at 100-150 ms x1.00
+ok    KTRX: NOISE 127 adds a burst at the hit (x2 brightness), gone by 100 ms (within 5 %)
+     NOISE 127: 2-4 / 4-8 / 8-16 kHz: +0.0 / 0 / -4.7 dB (the emulator -0.4 / 0 / -5.7)
+ok    KTRX: NOISE's colour as measured (8-16 kHz -5.7 +-2 dB re 4-8, 2-4 kHz within 1.5 dB)
+     CLIP 96: 3rd -15.0 (-15.1), 5th -58.1 (-59.5), 7th -30.8 (-31.0) dB
+     CLIP 127: 3rd -10.2 (-10.2), 5th -15.9 (-16.0), 7th -21.0 (-21.3) dB
+ok    KTRX: CLIP's harmonics as measured (3rd +-1.5 dB, 5th's null at 96, 7th +-3 dB)
+     KTRX vs K909 at the defaults: -2.3 dB
+ok    KTRX: the level at the defaults within +-3 dB of K909's
+ok    KTRX: every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s
+ok    KTRX: re-hits 5 ms apart and a model switch while ringing: bounded
+ktrx_test: all passed
+tests/sdtrx_test.c:296:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  296 |     static int32_t body[SECS(0.1)];
+      |                    ^
+1 warning generated.
+     vs the float reference (24 settings, 0.3 s): worst residual -39.1 dB (with CLIP -41.6 dB), gain 26993 / unit (spread 0.03 %)
+ok    SDTRX: every setting matches the float reference (residual < -30 dB, CLIP's too, one gain within 1 %)
+     TUNE -12 / 0 / +12: 170.94 / 341.86 / 683.72 Hz
+ok    SDTRX: TUNE 0 is 341.8 Hz (+-0.3 %), +-12 an octave
+     DECAY 32 / 64 / 96 heard: tau 1.00 / 0.99 / 0.99 x the law; its factor vs the law, 0..127: worst 0.38 %
+ok    SDTRX: DECAY follows tau = 59.5 ms x 1.455 ^ ((d - 64) / 16) (heard within 5 %, the factor within 1 %)
+     TONE 127, BENV 64: osc B's line at F1 +0.0 dB re A's, the next comb line -28.2 dB; TONE 0: -114.6 dB
+ok    SDTRX: osc B's comb (F1's line at A's level +-2 dB, the next < -20 dB, none at TONE 0); the first block frozen at the trough
+     BUMP 127: osc A ahead by 0.575 cycles at BENV 0 (law 0.582), 0.207 at BENV 127 (law 0.213)
+ok    SDTRX: BUMP's alpha rise follows 42 Hz x (t / tb) e ^ (1 - t / tb), tb = 5.1 ms x 2 ^ (BENV / 120) (the phase gained within 0.02 cycles)
+     SNAP 64 vs 32: the noise +6.02 dB
+ok    SDTRX: SNAP linear (+6 +-0.3 dB from 32 to 64); the same noise on every hit
+     CLIP 127: 10-60 ms the fundamental +2.1 dB, 3rd -9.5 dB; 250-350 ms 3rd -70.1 dB
+ok    SDTRX: CLIP 127 a square early (fundamental +2.1 +-0.5 dB, 3rd -9.5 +-1.5 dB), clean late (3rd < -40 dB)
+     SDTRX vs S909 at the defaults: +0.1 dB
+ok    SDTRX: the level at the defaults within +-3 dB of S909's
+     extremes: peak 0.61 x VOICE_FS
+ok    SDTRX: every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s
+ok    SDTRX: re-hits 5 ms apart and a model switch while ringing: bounded
+sdtrx_test: all passed
+tests/b2trx_test.c:17:15: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+   17 | static double ref[SECS(1.2)];
+      |               ^
+1 warning generated.
+     vs the float reference (23 settings, 0.3 s): worst residual -35.4 dB, gain 143964 / unit (spread -0.08 %)
+ok    B2TRX: every setting matches the float reference (residual < -30 dB, one gain within 1 %)
+     TUNE -12 / 0 / +12: 25.16 / 50.33 / 100.66 Hz
+ok    B2TRX: TUNE 0 is 50.3 Hz (+-0.5 %), +-12 an octave
+     DECAY 56 / 64 / 80 heard: tau 1.01 / 1.00 / 1.00 x the law; its tau vs the law, 0..127 (3 ms .. 0.58 s): worst 0.41 %
+ok    B2TRX: DECAY follows tau = 72 ms x 1.745 ^ ((d - 64) / 8) (heard within 5 %, the tau within 1 %)
+     HOLD 64 / 88: full level for 0.177 / 0.835 s (law 0.176 / 0.835)
+ok    B2TRX: HOLD as measured (within 10 ms)
+     RAMP 127, 7-13 ms: +342 Hz at TUNE -12, +336 Hz at +12 (the law ~333)
+ok    B2TRX: RAMP adds the same Hz on any note (within 8 %, near the law)
+     TICK 127: the pulse -1.915 x the held sine (-0.322 / 0.170 = -1.894)
+     DIRT 127: 4 steps per cycle (3 levels: 4)
+ok    B2TRX: TICK pinned by the saturation (-0.322 / 0.170 x the sine, within 8 %); DIRT 127 a 3-level stair
+     DIST 127: 3rd harmonic -9.5 dB
+ok    B2TRX: DIST 127 a square (3rd harmonic -9.5 +-1.5 dB)
+     B2TRX vs K909 at the defaults: +0.3 dB
+ok    B2TRX: the level at the defaults within +-3 dB of K909's
+     extremes: peak 2.80 x VOICE_FS
+ok    B2TRX: every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s
+ok    B2TRX: re-hits 5 ms apart and a model switch while ringing: bounded
+b2trx_test: all passed
+tests/trxperc_test.c:656:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+  656 |         {
+      |         ^
+tests/trxperc_test.c:654:5: note: previous statement is here
+  654 |     if (argc > 1)
+      |     ^
+1 warning generated.
+     TMTRX vs its float twin (24 settings, 0.6 s): worst residual -54.8 dB (with DIST -34.3 dB)
+     (gain 32808 / unit, spread -0.01 %)
+ok    TMTRX: every setting matches its float twin (residual < -30 dB, DIST's edges < -20 dB, one gain within 1 %)
+     CGTRX vs its float twin (24 settings, 0.6 s): worst residual -55.0 dB (with DIST -43.7 dB)
+     (gain 34120 / unit, spread -0.01 %)
+ok    CGTRX: every setting matches its float twin (residual < -30 dB, DIST's edges < -20 dB, one gain within 1 %)
+     CLTRX vs its float twin (19 settings, 0.3 s): worst residual -54.3 dB
+     (gain 136830 / unit, spread -0.31 %)
+ok    CLTRX: every setting matches its float twin (residual < -30 dB, one gain within 1 %)
+     RSTRX vs its float twin (20 settings, 0.3 s): worst residual -55.8 dB (with DIST -28.4 dB)
+     (gain 114651 / unit, spread -0.24 %)
+ok    RSTRX: every setting matches its float twin (residual < -30 dB, DIST's edges < -20 dB, one gain within 1 %)
+     TMTRX TUNE -12 / 0 / +12: 72.36 / 144.73 / 289.45 Hz
+ok    TMTRX: TUNE 0 is 144.7 Hz (PTCH 64) (+-0.5 %), +-12 an octave
+     TMTRX laws over 0..127: DEC 0.30 %, RDEC 0.14 %, DIST's ceiling 0.01 %, DTYP's sag 0.34 % (8..127), DAMP 0.0001
+ok    TMTRX: DEC (tau 110.3 ms x 1.375 ^ ((d - 64) / 8), to 0.85 s), RDEC, DIST, DTYP, DAMP follow the measured laws (1 %, DAMP 0.001)
+     TMTRX DEC 32 / 64 / 96 heard: tau 1.00 / 1.00 / 0.99 x the law
+ok    TMTRX: DEC heard follows the law within 5 %
+     CGTRX TUNE -12 / 0 / +12: 86.47 / 172.95 / 345.89 Hz
+ok    CGTRX: TUNE 0 is 172.9 Hz (PTCH 64) (+-0.5 %), +-12 an octave
+     CGTRX laws over 0..127: DEC 0.45 %, RDEC 0.14 %, DIST's ceiling 0.02 %, DTYP's sag 0.77 % (8..127), DAMP 0.0001
+ok    CGTRX: DEC (tau 54.7 ms x 1.263 ^ ((d - 64) / 8), to 0.85 s), RDEC, DIST, DTYP, DAMP follow the measured laws (1 %, DAMP 0.001)
+     CGTRX DEC 32 / 64 / 96 heard: tau 1.04 / 1.01 / 0.99 x the law
+ok    CGTRX: DEC heard follows the law within 5 %
+     CLTRX TUNE -12 / 0 / +12: 1022.47 / 2045.43 / 4090.64 Hz
+ok    CLTRX: TUNE 0 is 2045 Hz (PTCH 64) (+-0.5 %), +-12 an octave
+     CLTRX laws: pitches 0.0002 (the ratio, DUAL's delay in samples), DEC 0.35 %, levels 0.08 dB off
+ok    CLTRX: TUNE2 942.7 + 17.223 Hz x v, TUNE moving both; DEC tau 54.8 ms x e ^ (0.0293 (v - 64)) (1 %); DUAL 0.094 ms x v; the level tables (0.1 dB)
+     RSTRX TUNE -12 / 0 / +12: 129.22 / 258.45 / 516.90 Hz
+ok    RSTRX: TUNE 0 is 258.4 Hz (PTCH 64) (+-0.5 %), +-12 an octave
+     RSTRX laws: DEC 0.44 %, the level vs pitch 0.19 %, the click table vs its recipe 0 LSB
+ok    RSTRX: DEC tau 13.4 ms x e ^ (0.0292 v) (1 %), the level vs pitch (1 %), the click as its recipe (1 LSB)
+     RSTRX DIST 127 at TUNE -7 / 0 / 5: h3 -7.0 / -14.4 / -19.1 dB (the machine -8 / -15.5 / -20), h1 -1.8 / -1.1 / -0.8 dB
+ok    RSTRX: DIST's 3rd harmonic as measured (+-2 dB, stronger low), its fundamental's drop (+-0.5 dB)
+     TMTRX vs TOM at the defaults: -0.1 dB
+     CGTRX vs CONGA at the defaults: +0.1 dB
+     CLTRX vs CLAVE at the defaults: -0.0 dB
+     RSTRX vs RIM at the defaults: -0.0 dB
+ok    XTTRX / XCTRX / CLTRX / RSTRX: the defaults within +-3 dB of TOM / CONGA / CLAVE / RIM
+     TMTRX extremes: peak 1.22 x VOICE_FS
+ok    TMTRX: every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s
+     CGTRX extremes: peak 1.23 x VOICE_FS
+ok    CGTRX: every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s
+     CLTRX extremes: peak 1.51 x VOICE_FS
+ok    CLTRX: every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s
+     RSTRX extremes: peak 0.46 x VOICE_FS
+ok    RSTRX: every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s
+ok    XTTRX / XCTRX / CLTRX / RSTRX: re-hits 5 ms apart and a model switch while ringing: bounded
+ok    CLTRX: TUNE2 127 with TUNE / notes at +-24 (above Nyquist): no overflow, bounded, ends
+ok    CLTRX: every TUNE with notes +-24, TUNE2 127: no overflow, bounded
+trxperc_test: all passed
+tests/trxn_test.c:288:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  288 |     static int32_t a[SECS(0.6)];
+      |                    ^
+1 warning generated.
+     CPTRX vs the float twin (19 settings, the same noise): worst residual -41.5 dB, gain 140225 / unit (spread -0.50 %)
+ok    CPTRX: every setting matches the float twin (residual < -30 dB, one gain within 1 %)
+     worst vs the laws: cutoffs 0.030 %, Qs 0.066 %, onsets 0.68 samples, DECAY tau 0.039 %, room 0.202 %
+ok    CPTRX: TUNE (fh 493 Hz x 2^(TUNE / 12)), HARD's Qs and low-pass, RATE's onsets, DECAY's tau, RSIZ and RTUN follow the measured laws (0.3 %, one sample)
+ok    CPTRX: RATE 127's four bursts heard at T x {0, 0.335, 0.72, 1} (T = 61.7 ms)
+     DECAY 32 / 64 / 96 heard: tau 1.03 / 1.00 / 0.99 x the law
+ok    CPTRX: DECAY heard follows tau 5.6 / 10 / 20 ms within 10 %
+     the loudest clap's peak 11998 (ceiling 11998); 200-400 ms: ROOM 0 0.0, ROOM 127 RSIZ 127 155.5
+ok    CPTRX: the clap never passes the clip's L; ROOM 0 is off (RSIZ, RTUN no change); ROOM 127 rings on
+     MATRX vs the float twin (19 settings, the same noise): worst residual -48.1 dB, gain 45641 / unit (spread -0.38 %)
+ok    MATRX: every setting matches the float twin (residual < -30 dB, one gain within 1 %)
+     worst vs the laws: envelope corners 0.50 samples, high-pass cutoff 0.271 %, Q 0.004 %
+ok    MATRX: ATT, DECAY (SUS), REV's corners within 1 sample (1.451 ms steps: 64 samples); TONE, HARD, TUNE's high-pass within 0.5 %
+     the hold's end (and its 0.7 ms cut) heard within 0.90 ms of 14 + 1.451 x DECAY ms
+ok    MATRX: the hold's end heard at 14 + 1.451 ms x DECAY (within 1 ms: a 32-sample window)
+     DAMP 0 / 64 / 127: silent blocks 0.302 / 0.519 / 0.784 (the law 0.30 / 0.52 / 0.78)
+ok    MATRX: DAMP's silent blocks as measured (p_off within 0.02)
+     CPTRX vs C909 at the defaults (RMS over the hit): +0.2 dB
+     MATRX vs HATC at the defaults (RMS over the hit): +0.0 dB
+ok    CPTRX / MATRX: the level at the defaults within +-3 dB of C909's / HATC's
+ok    CPTRX / MATRX: every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s
+ok    CPTRX / MATRX: re-hits 5 ms apart and a model switch while ringing: bounded
+trxn_test: all passed
+tests/trxmetal_test.c:712:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+  712 |         {
+      |         ^
+tests/trxmetal_test.c:710:5: note: previous statement is here
+  710 |     if (argc > 1)
+      |     ^
+1 warning generated.
+     CHTRX vs its float twin (13 settings, 0.3 s): worst residual -39.5 dB, gain 33299 / unit (spread -0.09 %)
+ok    CHTRX: every setting matches its float twin (residual < -30 dB, one gain within 1 %)
+     OHTRX vs its float twin (13 settings, 0.6 s): worst residual -39.8 dB, gain 33293 / unit (spread -0.10 %)
+ok    OHTRX: every setting matches its float twin (residual < -30 dB, one gain within 1 %)
+     CYTRX vs its float twin (17 settings, 1.0 s): worst residual -41.0 dB, gain 206651 / unit (spread -0.36 %)
+ok    CYTRX: every setting matches its float twin (residual < -30 dB, one gain within 1 %)
+     CBTRX vs its float twin (20 settings, 0.3 s): worst residual -52.7 dB, gain 109844 / unit (spread 0.29 %)
+ok    CBTRX: every setting matches its float twin (residual < -30 dB, one gain within 1 %)
+     CHTRX vs HATC at the defaults (RMS over the hit, to -40 dB): +0.2 dB
+     OHTRX vs HATO at the defaults (RMS over the hit, to -40 dB): -0.3 dB
+     CYTRX vs CYMB at the defaults (RMS over the hit, to -40 dB): +0.0 dB
+     CBTRX vs COWB at the defaults (RMS over the hit, to -40 dB): -0.4 dB
+ok    levels: CHTRX ~ HATC, OHTRX ~ HATO, CYTRX ~ CYMB, CBTRX ~ COWB at the defaults (+-3 dB)
+     the 102-sample square's 11th: TUNE 0 65.1 dB over +-1 %, TUNE +12 an octave up 32.7 dB over
+ok    CHTRX: TUNE 0 has the bank's lines (k x 44100 / 102 Hz), TUNE +12 an octave up
+     GAP 0 / 64 / 127 heard: CH tau 1.03 / 1.05 / 1.01, OH 0.93 / 0.93 / 0.95 x the laws
+ok    CHTRX, OHTRX: GAP's decay follows the measured laws within 10 %
+     OH DECAY 127: 300 ms 45.6 dB, 540 ms 7.5 dB, 800 ms 46.7 dB
+ok    OHTRX: DECAY 127 dips to silence at 540 ms and comes back before its knee (as measured)
+     CY DECAY 0 / 64 / 127 heard: tau 1.04 / 1.03 / 1.00 x the law
+ok    CYTRX: DECAY's decay follows 1 / tau = 6.62 - 0.0416 DECAY within 10 %
+     B: 1117.3 Hz (PTCH 0 / 127: 1115.3 / 1119.1; TUNE +12: 2234.6)
+ok    CBTRX: B 1117.3 Hz (+-0.3 %), PTCH 0..127 +0.37 % (+-0.1), TUNE +12 an octave (+-0.3 %)
+     TONE 0 -> 127: B +9.8 dB, A's 3rd -9.8 dB
+ok    CBTRX: TONE crossfades as measured (B +9.7, A -9.8 dB, +-1 dB)
+     DECAY 64 / 96 heard: tau 0.96 / 1.01 x the law
+ok    CBTRX: DECAY's tau follows 23.4 ms x 2 ^ ((DECAY - 64) / 16) within 10 %
+ok    every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s (the four models)
+ok    re-hits 5 ms apart and a model switch while ringing: bounded (the four models)
+ok    CHTRX / OHTRX in choke group 1 (no default group): a closed hat cuts the open one
+ok    CBTRX: TUNE +-24 with notes +-24, DAMP TONE BUMP ENH 127: no overflow, bounded, ends
+trxmetal_test: all passed
+tests/bdefm_test.c:318:28: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  318 |             static int32_t a[SECS(0.3)];
+      |                            ^
+1 warning generated.
+     BDEFM vs the float twin (22 settings, 0.3 s): worst residual -31.7 dB, gain 27090 / unit (spread -0.25 %)
+ok    BDEFM: every non-chaotic setting matches the float twin (residual < -30 dB, one gain within 1 %)
+     XTEFM vs the float twin (15 settings, 0.3 s): worst residual -44.7 dB, gain 49665 / unit (spread -0.07 %)
+ok    XTEFM: every non-chaotic setting matches the float twin (residual < -30 dB, one gain within 1 %)
+     BDEFM 0 64 0 64 64 64 64 64: third-octave distance 0.75 dB, level -0.01 dB
+     BDEFM 0 64 0 64 64 64 64 96: third-octave distance 0.57 dB, level +0.04 dB
+     BDEFM 0 64 0 64 64 64 64 127: third-octave distance 0.98 dB, level -0.11 dB
+     BDEFM 0 96 16 64 127 40 96 80: third-octave distance 1.10 dB, level +0.03 dB
+     BDEFM -12 80 64 32 96 24 48 24: third-octave distance 0.35 dB, level +0.02 dB
+ok    BDEFM: the chaotic settings' spectra as the twin's (third-octave mean < 2 dB, level within 1.5 dB)
+     XTEFM 0 64 0 64 64 64 64 0: third-octave distance 0.62 dB, level -0.19 dB
+     XTEFM 0 64 0 64 16 64 64 0: third-octave distance 0.63 dB, level +0.01 dB
+     XTEFM 0 64 0 64 127 64 64 0: third-octave distance 1.00 dB, level -0.39 dB
+     XTEFM 0 127 16 64 16 40 127 0: third-octave distance 0.39 dB, level +0.04 dB
+     XTEFM 0 64 0 64 64 127 64 0: third-octave distance 1.22 dB, level -0.09 dB
+     XTEFM 12 64 64 64 32 40 127 0: third-octave distance 1.29 dB, level -0.21 dB
+ok    XTEFM: the chaotic settings' spectra as the twin's (third-octave mean < 2 dB, level within 1.5 dB)
+     BDEFM TUNE -12 / 0 / +12: 51.29 / 102.58 / 205.16 Hz
+ok    BDEFM: TUNE 0 is 102.56 Hz (the machine's PTCH 64, +-0.5 %), +-12 an octave
+     BDEFM DEC / RDEC / MDEC factors vs the laws, 0..127: worst 0.49 % / 0.56 % / 0.67 %
+ok    BDEFM: DEC (to its 0.58 s end), RDEC, MDEC follow the measured laws within 1 % over the knob
+     BDEFM DEC 40 / 64 / 96 heard: tau 0.980 / 1.001 / 1.000 x the law
+ok    BDEFM: DEC heard follows tau = 64.6 ms x 2 ^ ((d - 64) / 13.5) within 5 %
+     BDEFM RAMP 64 / RDEC 127, 0-20 ms: 817.7 Hz (law 818.1); RAMP 32 / RDEC 0 after 50 ms: 205.17 Hz (f0 205.12)
+ok    BDEFM: RAMP starts at f0 x RAMP / 16 (within 2 %) and returns to f0 (0.5 %)
+ok    BDEFM: MOD 0 is a pure carrier (MFRQ, MDEC, MFB change nothing)
+     XTEFM TUNE -12 / 0 / +12: 43.07 / 86.15 / 172.30 Hz
+ok    XTEFM: TUNE 0 is 86.13 Hz (the machine's PTCH 64, +-0.5 %), +-12 an octave
+     XTEFM DEC / RDEC / MDEC factors vs the laws, 0..127: worst 0.54 % / 0.56 % / 0.67 %
+ok    XTEFM: DEC (to its 0.58 s end), RDEC, MDEC follow the measured laws within 1 % over the knob
+     XTEFM DEC 40 / 64 / 96 heard: tau 1.000 / 0.991 / 0.998 x the law
+ok    XTEFM: DEC heard follows tau = 64.6 ms x 2 ^ ((d - 64) / 13.5) within 5 %
+     XTEFM RAMP 64 / RDEC 127, 0-20 ms: 686.4 Hz (law 687.1); RAMP 32 / RDEC 0 after 50 ms: 172.30 Hz (f0 172.27)
+ok    XTEFM: RAMP starts at f0 x RAMP / 16 (within 2 %) and returns to f0 (0.5 %)
+ok    XTEFM: MOD 0 is a pure carrier (MFRQ, MDEC change nothing)
+     BDEFM MOD 32 MFRQ 40 (index 0.8): fc + fm -7.5 dB (J1/J0 -7.2), fc + 2 fm -21.5 dB (J2/J0 -21.0)
+ok    BDEFM: MOD / MFRQ are true FM (sidebands as Bessel's J1 / J2 at index MOD / MFRQ, within 1 dB)
+     XTEFM CLIC 127: the first sample 1.000 x the lowest
+     XTEFM CLIC 0: the first sample 0 (the lowest at 127: -48732)
+ok    XTEFM: CLIC 127 starts at its trough (the first sample the lowest, within 5 %), CLIC 0 at zero
+     BDEFM vs K909 at the defaults: +0.02 dB
+     TMEFM vs TOM at the defaults: -1.00 dB
+ok    BDEFM, XTEFM: the levels at the defaults within +-3 dB of K909's / TOM's
+ok    BDEFM, XTEFM: every knob at its ends, notes +-24, velocity 1 / 127, TUNE -24..24 at notes +-24 with the deepest FM: bounded, the voice ends within 6 s
+ok    BDEFM, XTEFM: re-hits 5 ms apart and a model switch while ringing: bounded
+bdefm_test: all passed
+tests/efmn_test.c:397:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  397 |     static int32_t body[SECS(0.1)];
+      |                    ^
+1 warning generated.
+     SDEFM vs the float reference (20 settings, 0.3 s): worst residual -39.0 dB, gain 23994 / unit (spread -0.07 %)
+ok    SDEFM: every setting matches the float reference (residual < -30 dB, one gain within 1 %)
+     knobs 24 64 64 64 64 64 64 0: residual -32.8 dB
+     CPEFM vs the float reference (19 settings, 0.3 s): worst residual -32.8 dB, gain 14247 / unit (spread -0.03 %)
+ok    CPEFM: every setting matches the float reference (residual < -30 dB, one gain within 1 %)
+     RSEFM vs the float reference (16 settings, 0.3 s): worst residual -46.3 dB, gain 23996 / unit (spread -0.06 %)
+ok    RSEFM: every setting matches the float reference (residual < -30 dB, one gain within 1 %)
+     the pitches at notes -12 / 0 / +12, worst 0.023 % off the laws
+     RSEFM's second voice at SPTC 0 / 64 / 127 (SMOD 0): 122.03 / 290.20 / 682.65 Hz
+ok    EFM noise voices: the pitch laws (SD 290.1, CP 820.5, RS 975.7 Hz at TUNE 0, +-12 an octave, within 0.3 %; RS's second voice 121.9 x 2 ^ (SPTC / 51.1), within 1 %: SMOD 0 still modulates)
+     DEC 32 / 64 / 96 heard: tau 1.000 / 1.002 / 1.004 x the law; the steps vs the laws, 0..127: DEC 0.20 %, MDEC 0.21 %, NDEC 0.20 %, the claps 0.05 %
+ok    EFM noise voices: DEC, MDEC, NDEC and the claps' decay follow the measured laws (heard within 3 %, the steps within 0.5 %)
+ok    CPEFM: floor(CLPS / 8) claps, one measured period apart (CDEC 0 / 64 / 127: 45 / 290 / 1809 samples)
+     SDEFM NOIS 64 vs 32: +6.02 dB; NOIS 127 over the first 5 ms -0.11 dB re the law
+ok    EFM noise voices: SDEFM's NOIS linear (+6 +-0.3 dB from 32 to 64), 0.0562 x NOIS / 127 at the hit (+-1 dB), random per hit; the FM noise the same on every hit (SD with NOIS 0, CP, RS)
+     HPF 32 / 64 on the pure body: worst 0.007 dB off the filters' responses
+ok    EFM noise voices: HPF (SD / CP pole 1 - HPF / 256; RS the measured corners) within 0.1 dB
+     RSEFM MOD 64: the rim's mean frequency +37.7 Hz (the law +38.6)
+ok    RSEFM: MOD raises the rim's mean frequency 0.60 Hz per step (+38.6 +-4 Hz at 64)
+     at the defaults: SDEFM vs S909 +0.8 dB, CPEFM vs C909 +0.1 dB, RSEFM vs RIM -0.5 dB
+ok    EFM noise voices: the defaults' levels within +-3 dB of S909's, C909's, RIM's
+     extremes: peak 0.54 x VOICE_FS
+ok    EFM noise voices: every knob at its ends, notes +-24, velocity 1 / 127, TUNE -24..24 at notes +-24: bounded, the voice ends within 6 s
+     DECAY 127: -27.5 dB at 5.4 s re 0.2 s (tau 1.6 s), then the lifetime's fall
+ok    EFM noise voices: DECAY 127 keeps its 1.6 s law to 5.5 s, then fades out smoothly, ended by 6 s
+ok    EFM noise voices: re-hits 5 ms apart and a model switch while ringing: bounded
+     SDEFM / CPEFM / RSEFM: the last sample before silence, worst |3| (0 of 72 settings over 16)
+ok    EFM noise voices: no step at the end (the track filter's tail does not freeze)
+efmn_test: all passed
+     CBEFM vs its float twin (27 settings, 0.5 s): worst residual -54.1 dB, gain 7458 / unit (spread 0.01 %)
+ok    CBEFM: every setting matches its float twin (residual < -30 dB, one gain within 1 %)
+     HHEFM vs its float twin (24 settings, 0.5 s): worst residual -40.6 dB, gain 14148 / unit (spread -0.15 %)
+ok    HHEFM: every setting matches its float twin (residual < -30 dB, one gain within 1 %)
+     CYEFM vs its float twin (22 settings, 0.5 s): worst residual -46.8 dB, gain 996 / unit (spread -0.03 %)
+ok    CYEFM: every setting matches its float twin (residual < -30 dB, one gain within 1 %)
+     CBEFM knobs 0 64 0 127 64 64 64 0 (chaotic): level +0.2 dB re the twin
+     CBEFM knobs 0 96 0 127 0 64 127 0 (chaotic): level -0.1 dB re the twin
+     HHEFM knobs 0 64 0 64 64 64 64 80 (chaotic): level -0.0 dB re the twin
+     HHEFM knobs 0 64 0 64 64 64 64 127 (chaotic): level +0.0 dB re the twin
+     CYEFM knobs 0 64 127 0 64 64 64 0 (chaotic): level +0.1 dB re the twin
+     CYEFM knobs 0 64 127 0 0 64 64 0 (chaotic): level +0.0 dB re the twin
+ok    the chaotic feedback (CB, CY FB 127; HH FB 80, 127): bounded, the level within 3 dB of the twin's
+     CBEFM vs COWB at the defaults (RMS over the hit, to -40 dB): -0.0 dB (peak 14742)
+     HHEFM vs HATC at the defaults (RMS over the hit, to -40 dB): -0.0 dB (peak 4961)
+     CYEFM vs CYMB at the defaults (RMS over the hit, to -40 dB): -0.0 dB (peak 3266)
+ok    levels: CBEFM ~ COWB, HHEFM ~ HATC, CYEFM ~ CYMB at the defaults (+-3 dB)
+ok    laws: DECAY 64.6 ms x 2 ^ ((v - 64) / 13.5), MDEC (CB, HH) 112 ms x 2 ^ ((v - 64) / 11.5), CY MDEC 275 ms x 2 ^ (v / 24), MOD /32.65 /16 (v + 7) / 13.5, FB -0.018 -0.049 1 / 64, SNAP / 157, TREM / 127, TFRQ, MFRQ (each within 0.5 %)
+     CB at MOD 0: 409.7 Hz 1603, x 1.4805 +0.17 dB re it (1.02: +0.17), TUNE +12 an octave up
+ok    pitches: CB 409.7 Hz and x 1.4805 (+0.17 dB), CY's four lines at 580.05 x 1 / 1.4103 / 1.8005 / 2.6997, HH 577.0 Hz; TUNE +12 an octave up
+     DECAY 96 heard: tau CB 1.001 HH 0.985 CY 0.991 x the law; SNAP 127 -14.4 dB; TREM 127 notch -46.0 dB; CY HPF 64 at 580 Hz -18.0 dB
+ok    heard: DECAY's tau (+-5 %), SNAP 127 -14.4 dB (+-1), TREM 127 a notch below -25 dB at T / 2, CY HPF 64 -17.9 dB at 580 Hz (+-1)
+ok    every knob at its ends, notes +-24, velocity 1 / 127: bounded, the voice ends within 6 s (the three models)
+ok    re-hits 5 ms apart and a model switch while ringing: bounded (the three models)
+ok    HHEFM in choke group 1 (no default group; CYEFM 2 voices): it cuts a ringing HATO and HATO cuts it
+ok    CBEFM: TUNE +-24 with notes +-24, every knob 127: no overflow, bounded, ends
+ok    HHEFM: TUNE +-24 with notes +-24, every knob 127: no overflow, bounded, ends
+ok    CYEFM: TUNE +-24 with notes +-24, every knob 127: no overflow, bounded, ends
+efmmetal_test: all passed
+ok    acid: A2 sounds at 110 Hz (the step's note + TUNE)
+ok    acid: the gate open holds the note (amp not decayed at 250 ms)
+ok    acid: the gate closed ends the note within 15 ms
+ok    acid: a slide does not restart the filter envelope
+ok    acid: a slide reaches the next note in 40..90 ms
+ok    acid: accent is louder (> +2 dB)
+ok    acid: accent opens the filter (the 8th harmonic > +3 dB)
+ok    acid: RESO 127 self-oscillates (energy near the cutoff, the output bounded)
+ok    acid: the alias measurement tells a naive saw (its folded 21st > -30 dB)
+ok    acid: a high SAW is band-limited (C7: the folded 21st, ~147 Hz, < -30 dB of the fundamental)
+ok    acid: a high SQR is band-limited (C7: the folded 21st, ~147 Hz, < -30 dB of the fundamental)
+ok    acid: every extreme of CUTOF x RESO x ENVMD x ACCNT x note x TUNE stays bounded
+ok    acid: the defaults' level is within +-3 dB of TOM's
+ok    acid: the ladder falls 24 dB/oct (-20 dB/oct or more from 2x to 8x the cutoff)
+ok    acid: consecutive accents charge the wow (the 4th note's 8th harmonic > +2 dB over the 1st's)
+ok    acid: a slide into a plain step drops the accent (x[3] 0, the level down > 3.5 dB)
+ok    acid: RESO 127 oscillates by itself far from the note (a sine near the cutoff, magnitude > 1000)
+ok    acid: the cutoff moves smoothly (CTL blocks within -30 dB of a per-sample cutoff)
+ok    acid: a slide into an accent ramps the level (no sample step > 5 % of the peak)
+ok    acid seq: the gate closes at GATE of the step, the note ends in that step
+ok    acid seq: a slide keeps the note sounding into the next step (no restart, the gate held)
+ok    acid seq: a TIE holds the note (no restart, the same pitch, sounding at its end)
+ok    acid seq: a rest after a slide closes the gate
+ok    acid seq: a TIE after a skipped step plays nothing
+ok    acid seq: a slide into a skipped step closes the gate
+ok    acid seq: a ratcheted step restarts the note (hit 2: a new voice, the filter envelope from the top)
+ok    acid seq: STOP closes an open gate (the note ends)
+ok    acid seq: a model change cuts the note and clears the gate
+ok    seq: a TIE step on a drum track plays nothing
+ok    acid: a MIDI / key hit ends within one step, no sequencer step (its gate closes at GATE)
+ok    acid seq: a rest leaves a live hit's gate open (it closes by its own GATE)
+ok    acid seq: ... and the live hit's gate closes at its GATE
+ok    acid seq: a TIE does not extend a live hit (its gate closes at GATE, inside the TIE step)
+ok    acid: row 1's last step slides (its gate held)
+ok    acid: a song's row change closes the held gate (the next row's TIE holds nothing)
+ok    acid: the voice cap does not cut a held ACID note (heavy kit, 8-step ties: no cut, the gate open)
+ok    acid: overload shedding takes a drum voice before a held ACID note
+ok    acid: ... and the held note when nothing else sounds
+ok    acid: a held ACID note on a LOW track still goes after a HIGH drum voice
+ok    acid: of two held notes the LOW track's goes first
+ok    acid seq: RATCH + SLIDE: hit 1's gate counts, the last hit's is held, the next step glides (same voice)
+ok    acid seq: TIE + SLIDE holds the note and sets slide_in
+ok    acid seq: ... the step after the tie glides (same voice, the new target)
+ok    acid seq: a TIE at step 0 holds the last step's note across the wrap
+ok    acid seq: ... and the rest after it closes the gate
+ok    acid seq: a mute cuts a held note (no voice, gate_n 0, slide_in 0)
+ok    seq: a live hit during a drum's ratchet: the roll's later hits keep the step's note
+ok    acid seq: a live hit during a ratchet: hit 2 plays the step's note (F4), not C4
+acid: all checks passed
+     bench: 117 cases
+ok    bench: every case has a unique one-word name
+ok    bench: the filter, compressor and sidechain cases
+ok    bench: bench_reset + a case renders as host_init + it (every case); idle silent, the rest sound
+ok    bench run: start line, every case in order (set up while the ISR holds), done, then the power-on state
+bench_host: all passed
+tests/drum_test.c:880:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  880 |     static int32_t a[SECS(0.5)];
+      |                    ^
+tests/drum_test.c:911:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  911 |     static int32_t a[SECS(0.5)];
+      |                    ^
+tests/drum_test.c:2048:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+ 2048 |     static int32_t ref[SECS(0.12)], out[SECS(0.12)];
+      |                    ^
+tests/drum_test.c:2048:37: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+ 2048 |     static int32_t ref[SECS(0.12)], out[SECS(0.12)];
+      |                                     ^
+tests/drum_test.c:3144:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+ 3144 |     static int32_t ref[SECS(0.8)];
+      |                    ^
+5 warnings generated.
+drum_test with Q24 overflow checks: all passed
+renders: build/drum_renders
+In file included from tests/ui_test.c:2:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    safe start: SEQ held through the boot's polled scan (FM1_DEB_RELEASE + 4 scans)
+ok    safe start: keys, MIDI and direct hits start no voice; the mix is silent
+ok    safe start: the SAFE START screen draws
+ok    safe start: user sample slots unusable
+ok    normal start: SEQ not held: no safe mode, the same scans
+ok    safe start: SEQ found through a learned panel map
+ok    safe start: the screen is redrawn after an update session (ui.force)
+ok    a white key on a per-track page selects its track (and plays it); global / sequencer pages keep it
+ok    HOME: a white key selects its track
+ok    grid: a tap turns step 5 on, no accent
+ok    grid: a tap on an on step turns it off
+ok    grid: a 0.2 s press is still a tap (on, no accent)
+ok    grid: a 0.6 s hold is no tap: the step stays on, no accent
+ok    grid: OCT+ held + an on step: accented (it stays on), the bank unchanged
+ok    grid: OCT+ held + an accented step: the accent off (it stays on)
+ok    grid: OCT+ held + an off step: on with accent
+ok    grid: a tap on an accented step turns it off
+ok    OCT+ pressed: no bank yet (it waits for the release); the keys show the accents (step 5 lit, step 7 dark)
+ok    OCT+ let go alone: the next bank, the keys the steps again
+ok    OCT+ let go after a step accented: the bank stays
+ok    grid: a key held 0.8 s: step 7 stays on, no accent
+ok    grid: .. and let go: still on (a hold never toggles)
+ok    hold + KNOB 1: PROB of the held step (100 % -> 75 %); its accent stays, still on
+ok    hold + KNOB 2: RATCH of the held step (1 -> 3 hits)
+ok    hold + KNOB 1 on an off step turns it on (no accent): PROB past 100 % gives 1-SHOT, 1/2, 2/2
+ok    a tap turning a step off resets its PROB / RATCH
+ok    OCT+ + the key flips the accent and keeps PROB / RATCH
+ok    hold + KNOB 1 on a key outside LEN edits nothing and does not turn the bank
+ok    STEP_HOLD_MS is about 0.3 s
+ok    STEP: an on step pressed stays on (no toggle on the press)
+ok    STEP: no held-step line before STEP_HOLD_MS (a tap does not flash it)
+ok    STEP: held past STEP_HOLD_MS: still on; the held-step line shows step 5
+ok    STEP: let go after a hold: still on; no held step
+ok    STEP: a quick KNOB 1 turn while pressed edits PROB at once; the line shows
+ok    STEP: .. let go within STEP_HOLD_MS: no toggle (edited), PROB kept
+ok    STEP: an off step held + KNOB 2: on (no accent) with RATCH 2
+ok    STEP: .. let go: stays on (an edit is no tap)
+ok    OCT+ held + a step key: the accent at the press (still on)
+ok    OCT+ + key let go quickly: no tap on the release (on, accented); the bank stays
+ok    a key tapped while two are held: it toggles (step 11 on)
+ok    the two held long: step 9 (off) on by the hold, step 10 (on) unchanged
+ok    a quick press whose page changes before the release: no toggle
+ok    STEP: a step key pressed: nothing yet (the step decided on the release)
+ok    STEP: a short press (0.1 s) let go: the step on
+ok    STEP: an on step held past STEP_HOLD_MS: still on
+ok    STEP: .. let go: still on (a hold never toggles)
+ok    STEP: a short press on an on step: off
+ok    STEP: an off step held under STEP_HOLD_MS: still off
+ok    STEP: .. held past STEP_HOLD_MS: on at once, still held (no accent)
+ok    STEP: .. let go: stays on
+ok    PATTERN: a step key pressed: nothing yet (the step decided on the release)
+ok    PATTERN: a short press (0.1 s) let go: the step on
+ok    PATTERN: an on step held past STEP_HOLD_MS: still on
+ok    PATTERN: .. let go: still on (a hold never toggles)
+ok    PATTERN: a short press on an on step: off
+ok    PATTERN: an off step held under STEP_HOLD_MS: still off
+ok    PATTERN: .. held past STEP_HOLD_MS: on at once, still held (no accent)
+ok    PATTERN: .. let go: stays on
+ok    MOTION: a step key pressed: nothing yet (the step decided on the release)
+ok    MOTION: a short press (0.1 s) let go: the step on
+ok    MOTION: an on step held past STEP_HOLD_MS: still on
+ok    MOTION: .. let go: still on (a hold never toggles)
+ok    MOTION: a short press on an on step: off
+ok    MOTION: an off step held under STEP_HOLD_MS: still off
+ok    MOTION: .. held past STEP_HOLD_MS: on at once, still held (no accent)
+ok    MOTION: .. let go: stays on
+ok    SONG: a step key pressed: nothing yet (the step decided on the release)
+ok    SONG: a short press (0.1 s) let go: the step on
+ok    SONG: an on step held past STEP_HOLD_MS: still on
+ok    SONG: .. let go: still on (a hold never toggles)
+ok    SONG: a short press on an on step: off
+ok    SONG: an off step held under STEP_HOLD_MS: still off
+ok    SONG: .. held past STEP_HOLD_MS: on at once, still held (no accent)
+ok    SONG: .. let go: stays on
+ok    TRACKS open (keys = the steps)
+ok    TRACKS: a step key pressed: nothing yet (the step decided on the release)
+ok    TRACKS: a short press (0.1 s) let go: the step on
+ok    TRACKS: an on step held past STEP_HOLD_MS: still on
+ok    TRACKS: .. let go: still on (a hold never toggles)
+ok    TRACKS: a short press on an on step: off
+ok    TRACKS: an off step held under STEP_HOLD_MS: still off
+ok    TRACKS: .. held past STEP_HOLD_MS: on at once, still held (no accent)
+ok    TRACKS: .. let go: stays on
+ok    KEYS on: a key tap changes no step
+ok    off step held under STEP_HOLD_MS: still off, its key dark, no line
+ok    off step held past STEP_HOLD_MS: on (no accent, plain) while held, its key lit, its line
+ok    held (turned on by the hold): KNOB 1 PROB, KNOB 2 RATCH
+ok    held: KNOB 3 right: ACC on; PROB / RATCH kept
+ok    held-step line: STEP 6 .. RATCH 2  ACC
+ok    the longest held-step line fits the screen (STEP 64  1-SHOT  RATCH 4  ACC)
+ok    held: KNOB 3 further right: ACC stays on
+ok    held: KNOB 3 left: ACC off, still on; the line without ACC
+ok    held: KNOB 4 is the step's MICRO (+2; step, bank, accent unchanged)
+ok    let go: on, PROB / RATCH kept, no accent
+ok    off step, KNOB 3 right at once: on and accented
+ok    .. let go quickly: stays on, accented (an edit is no tap)
+ok    an on (accented, RATCH 3) step held and let go: unchanged
+ok    OCT+ + the key: the accent off as before (still on)
+ok    OCT+ + the key again: accented
+ok    PATTERN: a step held + KNOB 3: the accent, SWING untouched
+ok    MICRO: an off step held + KNOB 4 left: on, micro -1
+ok    MICRO: down to -50 at most
+ok    NUDGE: KNOB 4's column shows it
+ok    MICRO: up to +50 at most
+ok    MICRO: shown +50
+ok    MICRO: let go, kept (on)
+ok    MICRO: a nudged step's mark beside its box (late: right, early: left), none beside a plain one
+ok    MICRO: a tap turning the step off clears it (plain again)
+ok    TRACKS: a held step's KNOB 1-4 edit PROB RATCH ACC NUDGE, the page's values untouched
+ok    TRACKS: the knob columns show PROB RATCH ACC NUDGE while held
+ok    STEP: a held step's KNOB 1-4 edit PROB RATCH ACC NUDGE, the page's values untouched
+ok    STEP: the knob columns show PROB RATCH ACC NUDGE while held
+ok    PATTERN: a held step's KNOB 1-4 edit PROB RATCH ACC NUDGE, the page's values untouched
+ok    PATTERN: the knob columns show PROB RATCH ACC NUDGE while held
+ok    MOTION: a held step's KNOB 1-4 edit PROB RATCH ACC NUDGE, the page's values untouched
+ok    MOTION: the knob columns show PROB RATCH ACC NUDGE while held
+ok    SONG: a held step's KNOB 1-4 edit PROB RATCH ACC NUDGE, the page's values untouched
+ok    SONG: the knob columns show PROB RATCH ACC NUDGE while held
+ok    a held step key, then another track (ALGO): the new track's steps are untouched (also outside its LEN), the held one too (no tap on the release)
+ok    ARP opens GRIDS 1/2 (MODE X Y CHAOS)
+ok    GRIDS MAP: KNOB 2 turns X
+ok    GRIDS: KNOB 1 switches MODE to EUCL
+ok    GRIDS EUCLID: KNOB 2 turns LEN K (X kept)
+ok    ARP again: GRIDS 2/2 (FIL K FIL S FIL H)
+ok    GRIDS 2/2: KNOB 3 turns FIL H
+ok    PATTERN: KNOB 4 is SRC (STEP -> G-KCK)
+ok    a Grids track's STEP grid shows the channel: MAP, 32 steps on 2 banks
+ok    the keys' LEDs show the channel's steps
+ok    keys and hold + knob do nothing on a Grids track
+ok    EUCLID: the grid shows LEN K steps (20: 2 banks)
+ok    SRC back to STEP: its own steps again
+ok    TRACKS open for the Grids rows screen
+     engines: 46 engines, SOUND pages at default / min / max in build/ui_shots/engines
+     sequencer: screens in build/ui_shots/seq
+ok    buttons open their page families (EDIT SOUND, FX, SEQ, GLO, SAVE, ARP GRIDS, LFO LFO)
+ok    ENV (STEPS, 2026-10-24) then SCL: KEYS on (STEPS off), the page stays
+ok    EDIT again: the second SOUND page
+ok    page titles have no page number in them
+ok    EDIT page 1 (C808): MODEL TUNE DECAY TONE; 3 pages
+ok    EDIT page 2 (C808): TAIL LVL PAN NOTE
+ok    EDIT page 3: CHOKE PRIO, nothing else (no MUTE)
+ok    EDIT again: back to page 1
+ok    K909 page 2: CLICK SWPT DRIVE LVL (its extras before LVL)
+ok    EDIT page 1: KNOB 1 is MODEL (next engine, its default sound)
+ok    ALGORITHM selects tracks (1 -> 2 per detent)
+ok    ALGORITHM stops at track 8
+ok    MODEL knob on EDIT (page 1): next model with its default sound, voices stopped
+ok    MODEL knob on EDIT (page 1): back to the first model, defaults loaded
+ok    SELECT elsewhere (FX page) leaves the model alone
+ok    HOME: KNOB 2 edits DECAY (P_E1) of the selected track
+ok    SEQ opens the STEP grid (keys belong to it)
+ok    grid: the third white key (A3) sets step 3 on, no drum hit
+ok    grid: step 3's LED is the third white key's (A3), no other key lit
+ok    grid: a second tap turns the step off
+ok    grid: OCT+ moves to bank 2 (white key 1 = step 17)
+ok    grid: black keys change no step
+ok    grid: the 16th white key (G5) is step 16 of the bank
+ok    PATTERN page: the keys stay the steps
+ok    bank 4 of 64 steps
+ok    shorter LEN: the bank follows (20 steps = banks 1..2)
+ok    grid: a key past LEN changes nothing
+ok    power-on: HOME's TRACKS mode (the TRACKS mixer, the footer TRACKS), HOME lit, REC dark
+ok    TRACKS mode: KNOB 1 selects the track
+ok    a HOME tap on TRACKS: HOME's second mode (the HOME screen), HOME lit
+ok    a HOME tap on the HOME screen: TRACKS again
+ok    from EDIT a HOME tap opens HOME in the mode last shown (TRACKS)
+ok    from GLO a HOME tap opens HOME in the mode last shown (the HOME screen)
+ok    COMP 3/3, then SEQ, then HOME: the HOME screen (COMP is the second mode's)
+ok    HOME held on TRACKS: the menu
+ok    the menu closed: HOME in the mode last shown (TRACKS)
+ok    no page button and no REC opens TRACKS (HOME's)
+ok    HOME (mode 2): a REC tap: REC ALL, no play, the screen stays, REC lit
+ok    HOME (mode 2): a REC tap again disarms (still stopped), REC dark
+ok    HOME's TRACKS mode: a REC tap arms track 2 (T2 REC ARMED), no play, the screen stays, REC lit
+ok    HOME's TRACKS mode: a REC tap again disarms (still stopped), REC dark
+ok    EDIT: a REC tap: REC ALL, no play, the screen stays, REC lit
+ok    EDIT: a REC tap again disarms (still stopped), REC dark
+ok    FX: a REC tap: REC ALL, no play, the screen stays, REC lit
+ok    FX: a REC tap again disarms (still stopped), REC dark
+ok    GLO: a REC tap: REC ALL, no play, the screen stays, REC lit
+ok    GLO: a REC tap again disarms (still stopped), REC dark
+ok    SEQ PATTERN: a REC tap: REC ALL, no play, the screen stays, REC lit
+ok    SEQ PATTERN: a REC tap again disarms (still stopped), REC dark
+ok    LFO: a REC tap: REC ALL, no play, the screen stays, REC lit
+ok    LFO: a REC tap again disarms (still stopped), REC dark
+ok    SAVE: a REC tap: REC ALL, no play, the screen stays, REC lit
+ok    SAVE: a REC tap again disarms (still stopped), REC dark
+ok    REC held long off the SEQ pages: no dialog; a fill while held, no tap on the release (spec 2026-10-26: was REC ALL)
+ok    REC in the menu: nothing
+ok    REC on the CLEAR TRACK dialog: nothing (the dialog stays)
+ok    REC held on SEQ: the CLEAR TRACK dialog still (OCT- keeps the steps)
+ok    TRACKS: white key 3 is step 3 of the selected track: no select, no mute, no sound
+ok    TRACKS: the keys show the steps, not the mutes
+ok    a mute: track 3 muted, its ringing voice cut
+ok    again: unmuted
+ok    NEXT BAR while playing: the mute waits (track 1 not muted yet)
+ok    still waiting on the bar's last step
+ok    at the bar (track 1's step 1): track 1 muted
+ok    NOW while playing: unmuted at once
+ok    NEXT BAR but stopped: a mute is at once
+ok    leaving TRACKS: the keys play again, the mutes stay
+ok    GLO pressed: nothing yet (GLOBAL waits for the release)
+ok    GLO tapped: GLOBAL 1/3 on the release, no MUTE screen
+ok    GLO taps go on: SYSTEM 2/3, GLOBAL 3/3
+ok    (HOME again)
+ok    GLO held 0.15 s: no screen yet
+ok    GLO held 0.4 s: the MUTE screen over HOME
+ok    MUTE screen: boxes filled and keys lit for the audible tracks (track 7 muted: outline, dark)
+ok    MUTE screen: top C# lit (NOW), top D# dark
+ok    MUTE screen: key 3 mutes track 3; no sound, no track select
+ok    MUTE screen: key 7 unmutes track 7
+ok    MUTE screen: top D# = NEXT BAR (the setting), its key lit
+ok    NEXT BAR while playing: track 1's mute waits for the bar
+ok    the waiting mute blinks (key LED and box, 250 ms)
+ok    at the bar: track 1 muted
+ok    MUTE screen: top C# = NOW
+ok    MUTE screen: the knobs edit nothing under it
+ok    GLO let go: the screen gone, HOME as before (no GLOBAL page: not a tap)
+ok    SOLO: the MUTE screen up, nothing soloed, F#5 dark (TOGGLE)
+ok    SOLO TOGGLE: black key 3 solos track 3, its key lit, no sound, no select
+ok    SOLO TOGGLE: black key 6 adds track 6
+ok    SOLO: only the soloed tracks are heard
+ok    SOLO TOGGLE: the same keys again unsolo
+ok    F#5 flips the mode to MOMENTARY (saved), its key lit, the top line says so
+ok    SOLO MOMENTARY: black key 1 held = track 1 soloed
+ok    SOLO MOMENTARY: let go = unsoloed
+ok    SOLO MOMENTARY: GLO let go with the key held: still soloed, the screen gone
+ok    SOLO MOMENTARY: the key let go later: unsoloed
+ok    F#5 again: TOGGLE
+ok    GLO + a key in the same frame: the MUTE screen, track 5 muted, no sound, no select
+ok    GLO let go with the key held: the screen gone, no GLOBAL page, still no sound
+ok    the key let go: nothing held, no sound
+ok    GLO held 0.1 s alone: a tap, GLOBAL
+ok    GLO with a key, let go quickly: no GLOBAL page (not a tap)
+ok    GLO + a key before the UI's pass: the key is the screen's, no note
+ok    then the UI: the MUTE screen, track 1 muted
+ok    KEYS: GLO + a key plays no note
+ok    TRACKS armed: GLO + key 1 records nothing, plays nothing, mutes track 1
+ok    GLO let go: TRACKS again, still armed
+ok    STEP grid: GLO + key 1 toggles no step (track 1 muted instead)
+ok    menu: GLO held, no MUTE screen, no mute
+ok    GLO held out of the menu: dead (no screen)
+ok    ..and its release is no tap
+ok    confirm: no MUTE screen
+ok    NAME: no MUTE screen
+ok    PERFORM layer: no MUTE screen
+ok    PERFORM layer: GLO a plain button there (its release opens GLOBAL)
+ok    MUTE screen up: FX opens no layer
+ok    all let go: neither, no page change (not a tap)
+ok    TOOLS: SEQ pressed: nothing yet (the SEQ pages wait for the release)
+ok    TOOLS: SEQ tapped: STEP on the release, no screen
+ok    TOOLS: SEQ taps go on turning the pages: PATTERN
+ok    TOOLS: SEQ held 0.15 s: no screen yet
+ok    TOOLS: SEQ held 0.4 s: the TOOLS screen over the page
+ok    TOOLS: SEQ let go after the screen: the page as before (no tap), the screen gone
+ok    TOOLS: SEQ held 0.1 s alone: a tap (MOTION)
+ok    TOOLS: SEQ + a key in the same frame: the screen at once
+ok    TOOLS: SEQ let go with the key held: the screen gone, no SEQ page (not a tap), the key still the screen's
+ok    TOOLS: the key let go: nothing held; no hit, no MIDI note out, nothing recorded
+ok    TOOLS: SEQ + a key before the UI's pass: the key is the screen's, no note
+ok    TOOLS on STEP: SEQ + a black key queues no variation, a white key toggles no step
+ok    TOOLS: let go on STEP: STEP still (no tap)
+ok    TOOLS: REC held on STEP still asks CLEAR TRACK
+ok    TOOLS: SEQ's LED lit; COPY STEP / COPY PAGE / COPY SEL / DUPLICATE lit, the pastes dark (nothing copied)
+ok    TOOLS: the white keys show the bank's steps
+ok    TOOLS: copied: the pastes lit
+ok    TOOLS: KNOB 2 off the selection page: nothing under it moves
+ok    TOOLS: D#5 (CLEAR) lit
+ok    TOOLS: D#5 asks CLEAR TRACK 3? (the screen gives way to the dialog)
+ok    TOOLS: SEQ let go: the dialog stays, no page turned
+ok    CLEAR from TOOLS: OCT- keeps the steps
+ok    CLEAR from TOOLS: OCT+ clears track 3's steps
+ok    PASTE STEP with nothing copied: nothing changes, says so
+ok    COPY STEP held + step 3: copied, says so
+ok    PASTE STEP held + steps 6, 9, 16: each the copied step whole (on, accent, slide, tie, ratchet, PROB, note, micro) with its 3 locks
+ok    PASTE STEP: nothing else changed; the source kept
+ok    PASTE STEP: the keys played nothing
+ok    SEQ let go: STEP as before, the pasted steps lit
+ok    PASTE STEP over a step with locks of its own: replaced whole, its own locks gone
+ok    PASTE STEP on another track: the step and its locks there
+ok    PASTE REPLACE with an empty clipboard: nothing changes, says so
+ok    COPY PAGE: the bank's 16 steps, says so
+ok    TOOLS: OCT+ the next bank, the screen stays
+ok    PASTE REPLACE on bank 2: steps 17-32 = 1-16, locks too; bank 2's own steps and locks gone
+ok    PASTE MERGE on bank 3: the clipboard's set steps (with their locks) in, the others kept
+ok    TOOLS: OCT- the bank before
+ok    PASTE FILL at LEN 40: every bank up to LEN = the clipboard, locks too; past LEN untouched
+ok    TOOLS: OCT+ stops at LEN's last bank
+ok    TOOLS: OCT+ under the screen leaves no bank turn or accent after it
+ok    COPY SEL: the selection page, START 1 END 16 (the bank)
+ok    COPY SEL: KNOB 1 START 5, KNOB 2 END 12
+ok    COPY SEL: the selection on the bank's keys (5..12 lit, the rest dark)
+ok    COPY SEL: START past END pushes END (64 at most)
+ok    COPY SEL: END below START pulls START (1 at least)
+ok    (START 5 END 12 again)
+ok    COPY SEL again: the clipboard holds 5-12 (8 steps), the page closed
+ok    PASTE SEL: waits for a step (says so)
+ok    PASTE SEL at step 60: steps 60-64 = 5-9 with their locks, clipped at 64
+ok    PASTE SEL: nothing wraps round, the rest untouched
+ok    PASTE SEL held + two steps: pasted at each (the second over the first)
+ok    SEQ let go: no selection page, nothing armed
+ok    DUPLICATE: LEN 16 -> 32, steps 17-32 = 1-16 with their locks
+ok    DUPLICATE: LEN 40 -> 64 (at most), steps 41-64 = 1-24 with their locks (what was there gone)
+ok    DUPLICATE: LEN 64 stays, its steps and locks untouched
+ok    DUPLICATE: every track's pattern (the others at LEN 16 -> 32)
+ok    LOCKS FULL: the step pasted with as many of its locks as fit (3 of 5), says so
+ok    TOOLS: the step buffer holds every lockable knob's lock
+ok    SAVE pressed: no page yet (it may be held for the cue map)
+ok    SAVE let go within 0.4 s: the projects page
+ok    a second SAVE tap: TOOLS
+ok    SAVE held 0.5 s: the cue map (top line CUE)
+ok    SAVE let go after the map: no page change, the map gone
+ok    SAVE held + white key 1: the cue map's, no hit on track 1, no MIDI note out, nothing recorded
+ok    SAVE in a dialog: dead (no map); a key plays its track as before
+ok    SAVE let go in the dialog: no page
+ok    SAVE in the menu: no map, no page
+ok    GLO held: the MUTE screen's keys still toggle mutes
+ok    SAVE while playing: refused (STOP TO SAVE), the slot stays empty
+ok    a settings save while playing waits
+ok    ... and is written once stopped
+ok    SAVE stopped: saved
+ok    accel: a slow turn (100 ms a detent): one step per detent
+     accel, a new fast turn (8 ms a detent): 1 1 8 8 8 8
+ok    accel: a fast turn speeds up after its first detents, at most x8
+ok    accel: over a range of 64 or less, at most x4
+ok    accel: a reversal is one step
+ok    accel: a single quick detent after a pause (a bounce) is one step
+ok    accel: a small range (32 or less) is never accelerated
+ok    accel: KNOB ACCEL OFF: one step per detent
+ok    calibration: a button learned twice falls back to the default table
+ok    calibration: a knob learned twice falls back to the default table
+ok    HOME: white key 4 selects track 4 and plays it
+ok    HOME: no LFO, no marker on the knobs
+ok    HOME: an LFO on the second knob marks its live value (a hollow dot outside the ring)
+ok    TRACKS, armed: key 2 plays track 2 and records it
+ok    TRACKS, armed: key 4 plays track 4, the selection stays
+ok    TRACKS, armed, REC held: key 4 plays track 4 (no mute)
+ok    TRACKS, disarmed: key 6 is step 6 of track 2, no select, no sound
+ok    TRACKS: REC pressed (not let go): nothing yet
+ok    TRACKS: a REC tap arms the selected track at once (the release's pass): T3 REC ARMED, no play
+ok    TRACKS: a REC tap again disarms it: T3 REC OFF, REC dark
+ok    FX: a REC tap: REC ALL, every track armed, REC ALL said, REC lit, no play
+ok    REC ALL on FX: keys 1, 4, 8 each record into their own track
+ok    REC ALL: a muted track's key records too (as an armed muted track)
+ok    REC ALL on FX: a key selects its track, as before (track 6 last)
+ok    REC ALL on TRACKS: keys 2 and 7 record into their tracks, the selection stays
+ok    REC ALL on HOME: key 5 records into track 5 (and selects it, as before)
+ok    REC ALL: a knob's motion records on the selected track only
+ok    REC ALL + KEYS: the key records into the selected track only
+ok    HOME: a REC tap leaves REC ALL: track 3 armed again, as before it (T3 REC ARMED), still playing
+ok    HOME: a REC tap again: REC ALL
+ok    TRACKS during REC ALL: a REC tap ends it, the tracks from before and the selected one armed (T2 REC ARMED)
+ok    TRACKS: T2, then T3 disarmed: nothing armed
+ok    HOME: REC ALL on and off with nothing armed before: REC OFF, REC dark, still playing
+ok    .. the keys only play again
+ok    HOME, stopped: a REC tap: REC ALL, play not started
+ok    INIT ALL: REC ALL off, nothing armed
+ok    STEP + KEYS, stopped: a REC tap starts step record, no REC ALL
+ok    .. a REC tap ends it, no REC ALL, nothing armed
+ok    STEP, KEYS off: a REC tap: REC ALL (no play)
+ok    STEP: REC held: CLEAR TRACK? (REC ALL as it was)
+ok    .. a tap after: REC ALL off
+ok    a song armed: REC: STOP TO EDIT, nothing armed, no REC ALL
+ok    a song armed, TRACKS: REC: STOP TO EDIT, nothing armed
+ok    REC held 0.4 s on HOME, SOUND, FX, LFO, TRACKS: FILL while held (top line FILL), off on the release, the arm state and REC ALL untouched
+ok    REC: a 0.3 s press off SEQ is the tap (REC ALL, TRACKS' arm) on the release; a 0.5 s hold is FILL and leaves REC ALL on
+ok    REC held 0.7 s on STEP, PATTERN, MOTION, SONG: the confirm as before, never FILL
+ok    a learned REC is a tap, never FILL (as the SMC's REC: rec_tap)
+ok    SAVE taps: PROJECT, TOOLS, COPY (SLOT, COPY, PASTE), PROJECT again
+ok    FX: RESON 1/2 after SLICER (MODEL TUNE DECAY MIX)
+ok    RESON: KNOB 1 picks STRNG
+ok    FX again: RESON 2/2 (TONE STRCT POS)
+ok    RESON 2/2 on CHORD: the second knob is CHORD
+ok    RESON 2/2: KNOB 4 is KEYF (KEYFOLLOW), 0 % by default
+ok    RESON KEYF: the knob runs to 100 %
+ok    RESON CHORD cap: a 3rd track's MODEL knob goes past CHORD (full) to MODAL
+ok    RESON CHORD cap: back down, past CHORD (full) to PIPE
+ok    RESON CHORD cap: once a place frees, the 3rd track gets CHORD
+ok    RESON on 4 tracks at most: a 5th track's MODEL knob stays OFF, with the message
+ok    RESON on 4 tracks at most: once a place frees, the 5th gets it
+ok    RESON caps on load: the first two keep CHORD, the next two play STRNG, the rest OFF (4 tracks at most)
+FAIL  ACID cap: a 3rd track's MODEL knob goes past ACID (full) to the next model in the list (SMPL)
+ok    ACID cap: back down, past ACID (full) to FM
+ok    ACID cap: once a place frees, the 3rd track gets ACID
+ok    ACID cap on load: the first two ACID tracks keep it, the others fall back to their kit model
+ok    SELECT on HOME (mode 2): COMP (HOME 2/3), the engine and BPM unchanged
+ok    SELECT again: COMP (HOME 3/3)
+ok    SELECT at the last page: stays
+ok    SELECT back twice: the HOME screen (mode 2)
+ok    SELECT back on HOME 1/3: stays, the engine unchanged
+ok    FX opens on FILTER 1/2
+ok    SELECT on FX: INSERT 1/2 (TYPE A B C)
+ok    SELECT on INSERT 2/2: SLICER
+ok    SELECT again: RESON 1/2
+ok    SELECT back: SLICER
+ok    PRESETS loads presets only (the page, the BPM, the track stay; 3 right, 3 left: the engine back)
+ok    FX again later: the page SELECT left it on (SLICER)
+ok    SELECT on EDIT: stops on the engine's last SOUND page (empty pages skipped)
+ok    SELECT in the layer: LAYER 2/2
+ok    SELECT at LAYER 2/2: stays
+ok    SELECT on HOME's TRACKS mode: BPM +1, the page stays
+ok    SELECT left on TRACKS: BPM -2
+ok    PRESETS on TRACKS: no BPM, the page stays
+ok    ALGORITHM on TRACKS: the track (1 -> 2 per read)
+ok    GLO reaches GLOBAL 3/3 with MUTE
+ok    GLOBAL 3/3: KNOB 1 -> BAR (the setting)
+ok    GLOBAL 3/3: KNOB 1 back -> NOW
+ok    GLOBAL 3/3: KNOB 2 is METRO, OFF
+ok    METRO values: OFF LOW MID HIGH
+ok    GLOBAL 3/3: KNOB 2 -> MID (the setting; the knob shows it)
+ok    KNOB 2 up: HIGH at the end
+ok    KNOB 2 down: OFF
+ok    the knob follows the setting (as MUTE's)
+ok    GLO SYSTEM: KNOB 2 is SYNC, OFF
+ok    SYNC values: OFF USB (no TRS out on the FM-1)
+ok    SYNC: KNOB 2 -> USB
+ok    GLO SYSTEM: KNOB 3 is ROUT, NOTE
+ok    ROUT: KNOB 3 -> SEL
+ok    ROUT: up to TRACK at the end
+ok    GLOBAL 3/3: KNOB 3 is THRU, OFF
+ok    THRU: KNOB 3 -> ON (the setting; the knob shows it)
+ok    THRU: back OFF
+ok    THRU leaves MUTE and METRO alone
+ok    GLOBAL 3/7: KNOB 4 is QUANT, 1/16
+ok    QUANT: KNOB 4 -> 1/8 (the setting; the knob shows it)
+ok    QUANT: -> 1/32
+ok    QUANT: -> OFF at the end
+ok    QUANT: the knob follows the setting
+ok    QUANT: back to 1/16; MUTE METRO THRU untouched
+ok    FX no longer reaches COMP
+ok    HOME from FX: the HOME screen (1/3, the mode last shown)
+ok    SELECT: COMP (HOME 2/3: SRC THRSH RATIO REL), HOME lit
+ok    SELECT again: COMP (HOME 3/3: ATK KNEE MKUP)
+ok    a HOME tap on COMP: back to the HOME screen (mode 2)
+ok    SELECT left from COMP 2/3: the HOME screen (mode 2)
+ok    COMP: KNOB 1 picks the source (T1), KNOB 2 the threshold
+ok    FX again: COMP 2/2 (ATK KNEE MKUP); KNOB 2 sets the knee HARD
+ok    COMP 3/3: KNOB 4 is GHOST, KEEP at start, the source HEARD
+ok    GHOST values: MUTE KEEP HIDE
+ok    GHOST KEEP, the source muted: GHOST
+ok    KNOB 4 down: MUTE; the muted source MUTED
+ok    KNOB 4 up twice: HIDE; the unmuted source GHOST
+ok    SRC OFF: no source state
+ok    GHOST is saved with the project (FDR6)
+ok    COMP (SRC OFF): key 2 sets DUCK on T2, no hit, its LED lit
+ok    COMP: the source's key (T1) does not toggle DUCK
+ok    COMP: key 2 again: DUCK off
+ok    leaving COMP: the keys play again
+ok    TOOLS CLR*: the first detent only arms
+ok    TOOLS CLR*: every pattern cleared, LEN 16 / DIV 1/16 / SWG 0 / SRC STEP
+ok    TOOLS CLR*: sounds, FX, Grids, COMP and BPM untouched
+ok    TOOLS INIT*: the first detent only arms
+ok    TOOLS INIT*: everything at power-on (kit, sounds, BPM, Grids, COMP), stopped, nothing armed
+ok    TOOLS INIT*: the volume knob's level is kept
+ok    EDIT: OCT+ opens LAYER 1/2
+ok    LAYER: the EDIT LED blinks
+ok    LAYER: EDIT steps to LAYER 2/2
+ok    LAYER: EDIT again back to LAYER 1/2
+ok    LAYER: OCT- back to the SOUND page it came from (2/3)
+ok    SOUND: the EDIT LED is steady again
+ok    LAYER: a white key selects its track (as on SOUND)
+ok    EDIT from another section opens SOUND, not the layer
+ok    LFO opens LFO 1/4: WAVE RATE of LFO 1, WAVE RATE of LFO 2
+ok    LFO RATE in SYNC: 23 = 1BAR
+ok    OCT+ on an LFO page (nothing turned yet): LFO 1 -> Hz (RATE 127 = 40.0 Hz)
+ok    KNOB 3 turns LFO 2's WAVE; OCT+ then switches LFO 2's mode only
+ok    OCT- on an LFO page: nothing (the same page, the same knobs)
+ok    LFO pages: OCT+ breathes (it switches a RATE MODE), OCT- dark (merge of items 3 and 5)
+ok    LFO pages: the LFO LED steady
+ok    LFO again: 2/4 MORPH PHASE of LFO 1, MORPH PHASE of LFO 2
+ok    3/4: TRIG MODE of LFO 1, TRIG MODE of LFO 2
+ok    KNOB 2 on 3/4: LFO 1's MODE (Hz -> TIME)
+ok    4/4 DEST: KNOB 1 the slot (1), 2 SRC 3 DEST 4 DEPTH of slot 1 (LFO 1's own DEST and DEPTH)
+ok    slot 1's DEST shows the track's knob by its label (K909: DEST 3 = SWEEP)
+ok    KNOB 1: slot 3 (its SRC DEST DEPTH on KNOB 2-4)
+ok    slot 3: SRC LFO 2, DEST 2, DEPTH 8; slot 1 kept
+ok    OCT+ on DEST: the selected slot's source (LFO 2) Hz -> TIME
+ok    KNOB 1 stops at slot 4
+ok    DEST: a white key selects its track (the slot stays)
+ok    LFO on DEST: back to 1/4
+     LFO trail: 108 points, 3 changes; LFO 2's 108 points
+ok    LFO S&H trail: full width, made of the LFO's values, several steps
+ok    LFO 2 (RWALK) has its own full trail
+ok    LFO S&H: the dot at the right edge of LFO 1's half at the live value
+ok    LFO 1/4 shows TRIG and the routing too (the line under the pictures)
+ok    LFO trail: LFO 1's wave changed starts its trail over, LFO 2's goes on
+ok    LFO trail: another track starts both over
+ok    EDIT: a modulated knob reports its live value (for the gauge marker)
+ok    REC held on SEQ: the clear dialog
+ok    OCT+ clears the track's steps
+ok    OCT- + OCT+ held: buttons stay visible to main.c (UBOOT countdown)
+ok    TRACKS: 8 rows, each shows its track's 16 steps
+ok    every page of PAGES[] is reached with its button
+ok    every page draws header, columns and footer
+ok    HOME held: the menu draws
+ok    menu > ABOUT draws
+ok    ABOUT: the VU mark on top (half size), moving
+ok    REC held on SEQ: the clear dialog draws
+ok    OCT- cancels the clear dialog (screens in build/ui_shots)
+ok    an M1-C model's SOUND page draws (KBOOM: TUNE DECAY TONE PUNCH)
+ok    project: a saved slot reads as used
+ok    project: load restores models, params, steps, globals, selection
+ok    project: load restores PROB / RATCH, SRC and the Grids settings
+ok    project: load restores DUCK and the COMP settings
+ok    project: load restores the LFOs
+ok    project: out-of-range values are clamped on load
+ok    project: Felucca projects are not used
+ok    project: a bad checksum is not used
+     ui: heaviest frame 0 host instructions (TRACKS, playing)
+ok    ui frame cost: under 4,000,000 host instructions (8 s watchdog, 100x margin)
+ok    SPEAKER EQ: KNOB 1 steps FLAT LOWCUT BASS+, stops at the ends; the master follows
+ok    SPEAKER EQ: OCT+ steps and wraps
+ok    SPEAKER EQ: a stored value past BASS+ loads as FLAT
+ok    GLO: GLOBAL, SYSTEM, GLOBAL 3/7, then DLY 4/7, DLY 5/7, REVERB 6/7, CHORUS 7/7, then round to GLOBAL
+ok    FX: no DLY, REVERB or CHORUS page any more
+ok    GLO: 7 pages
+ok    GLO reaches REVERB: TYPE SIZE DAMP
+ok    REVERB: KNOB 1 turns TYPE to SPRING
+ok    REVERB: the TYPE names fit the 5-character value (ROOM, SPRNG, HALL)
+ok    REVERB: KNOB 1 on to HALL (TYPE's third value)
+ok    REVERB: TYPE stops at HALL
+ok    GLO reaches CHORUS: RATE DEPTH
+ok    GLO > DLY: an echo-train graph
+ok    DLY graph: less FDBK, fewer echoes drawn (redrawn on the change)
+ok    DLY graph: PING-PONG redraws
+ok    GLO > REVERB: a decay graph
+ok    REVERB graph: a smaller SIZE, a shorter tail
+ok    REVERB graph: HALL draws its own tail (longer than ROOM's at SIZE 90, not SPRING's)
+ok    REVERB graph: HALL, a smaller SIZE, a shorter tail
+ok    GLO > CHORUS: a sweep graph
+ok    CHORUS graph: less DEPTH, a shallower sweep (redrawn on the change)
+ok    CHORUS graph: another RATE redraws
+ok    GLO reaches DLY: TIME FDBK COLR MIX
+ok    GLO: DLY's second page has MODE (KNOB 1), nothing else
+ok    DLY MODE: NORM at power-on
+ok    DLY MODE: KNOB 1 turns it to PING, and stops there
+ok    DLY MODE: (the end)
+ok    DLY MODE: the names fit the value box whole (4 characters: NORM, PING)
+ok    GLO: REVERB after the two DLY pages
+ok    DIV: the knob steps 4BAR 2BAR 1/1 1/2 1/4 1/8 8T 1/16 16T 1/32, stopping at the ends
+ok    DLY TIME: the same order, its dotted values between (1/2 1/4D 1/4 1/8D 4T 1/8 ..)
+ok    DIV gauge: by length (4BAR empty, 1/32 full, 1/4 at 4/9)
+ok    other knobs keep their order (SLICER RATE, ids as shown)
+ok    PATTERN DIV: turning right walks the length order
+ok    USB LEVEL: KNOB 1 right FIXED / left MASTER, OCT+ toggles; the mix follows
+ok    USB AUDIO: KNOB 1 right 10 CH MIX / left 2 CH, OCT+ steps
+ok    CLK USB: GLOBAL's BPM knob keeps the tempo (the clock's) and says so
+ok    CLK USB: SELECT on HOME's TRACKS mode keeps the tempo and says CLK USB
+ok    FX pressed: nothing yet (the page waits for the release)
+ok    FX tapped: the FX pages on the release
+ok    FX held alone: the layer's map
+ok    FX let go after the hold: no page change, the map gone
+ok    FX + KNOB 2: CRUSH, the layer open at once
+ok    FX let go (HOLD): CRUSH stays on, no page change
+ok    FX + a track key: no track select, the layer open, track 3 repeating
+ok    LEDs: the repeating track's key lit; the rate keys: F5 (1/16) lit, D5 E5 G5 dark
+ok    FX + E5: the rate 1/8, its key lit, F5's dark; the track still repeating
+ok    E5 let go: the rate stays 1/8
+ok    all let go: nothing held, the map gone
+ok    STEP grid: FX + a white key toggles no step
+ok    REPEAT held in the layer
+ok    the menu opened with an effect key held: effects off, the key still the layer's
+ok    the key let go: nothing held
+ok    menu closed, no key held: effects allowed again
+ok    MENU PERFORM: KNOB 1 right = PAGE
+ok    MENU PERFORM: KNOB 1 left = HOLD
+ok    PAGE: FX held then let go, the PERFORM screen stays
+ok    PAGE: a black key plays its effect with no button held
+ok    PAGE: the knobs are the macros without FX, and keep their values
+ok    PAGE: PLAY and OCT+ leave it open
+ok    PAGE: another page button closes it, the macros stay on
+ok    PAGE: an FX tap closes it and opens the FX pages
+ok    PAGE: HOME closes it
+ok    HOLD: the map goes with FX
+ok    the map: the footer says [FX] HOLD
+ok    the map: G5 selects 1/32, tracks 3 and 5 held
+ok    OCT UP playing: KNOB 4 is SHIMMER
+ok    FX + a key before the UI's pass: the key is the layer's (track 1's REPEAT STEP), no note (no MIDI)
+ok    no knob effect on: no FX mark in the top bar
+ok    HOLD: FX let go, FILTER stays on and keeps working
+ok    ..the top bar shows FX
+ok    the screen gone: the knobs edit the page again (HOME: DECAY), the macros untouched
+ok    the menu: CRUSH and FILTER stay on, the held REPEAT stops
+ok    a confirm: CRUSH and FILTER stay on, the held REPEAT stops
+ok    NAME: CRUSH and FILTER stay on, the held REPEAT stops
+ok    PAGE: the screen stays after FX
+ok    PAGE closed by another page: THROW stays on
+ok    FILTER turned across 0 stops at 0 (off), not at the far side
+ok    on the PERFORM screen, turned back to 0: FILTER and THROW off, no FX mark
+ok    FILTER from 0: a turn moves it (HPF side)
+ok    FILTER back across 0: stops at 0 again
+ok    DEPTH alone: no FX mark (it acts only with a held black key)
+ok    INIT ALL: the knob effects off
+ok    HOLD: FX held into the menu: the CRUSH macro stays on there
+ok    HOLD: FX held out of the menu: dead (no map, keys not the layer's)
+ok    PAGE: FX held into the menu: the CRUSH macro stays on there
+ok    PAGE: FX held out of the menu: dead (no PERFORM page, keys not the layer's)
+ok    MOTION: a SOUND knob of the armed track records while playing
+ok    MOTION: a HOME knob records
+ok    MOTION: TRACKS' LEVEL records
+ok    MOTION FULL: said when a turn finds no free place
+ok    CLEAR TRACK (and CLR SEQ / CLR ALL): its motion cleared too
+ok    MOTION: a model change while playing is the new base
+ok    MOTION: STOP after a model change keeps the new model's values (not the old 7)
+ok    MOTION: STOP after a model change puts the other knobs' patch values back (LEVEL 104, not 20)
+ok    INIT ALL: no motion left
+ok    CLEAR TRACK: the track's locks and motion gone, the other tracks' kept
+ok    MOTION CLEAR: the track's motion gone, its locks kept
+ok    TOOLS CLR*: every track's locks gone
+ok    INIT ALL: an empty bank
+ok    SEQ reaches the MOTION page
+ok    MOTION KNOB 1 left: PLAY OFF
+ok    MOTION KNOB 1 right: PLAY ON
+ok    MOTION KNOB 4: asks before clearing
+ok    the dialog: OCT- keeps the motion
+ok    the dialog: OCT+ clears the track's motion
+ok    SEQ reaches the SONG page
+ok    SONG: KNOB 2 on the + row adds row 1 (A x1)
+ok    SONG: KNOB 2 SLOT, KNOB 3 REPEAT
+ok    SONG: the next + row: a row from the previous slot (B x1)
+ok    SONG: KNOB 1 stops at the + row
+ok    SONG: KNOB 4 LOOP ON
+ok    SONG: PLAY with no rows: ADD A SONG ROW
+ok    SONG: PLAY with an empty slot: PATTERN B EMPTY
+ok    SONG: PLAY starts the song
+ok    SONG: an edit while it plays: STOP TO EDIT
+ok    PATTERN while a song plays: STOP TO EDIT
+ok    STEP grid while a song plays: STOP TO EDIT, the step unchanged
+ok    PLAY again: the song stops, LEN back
+ok    SONG: PLAY twice before it began: nothing playing, nothing armed
+ok    SONG: REC held on a row asks DELETE ROW
+ok    SONG: OCT+ deletes it, the later rows move up
+ok    SONG: REC held on the + row asks CLEAR SONG
+ok    SONG: OCT+ clears the song
+ok    SAVE saves at once (no NAME screen), the project unnamed
+ok    NAME knob on an unnamed slot: NAME opens, prefilled PROJECT A
+ok    NAME: multi-tap, the timeout, SPACE, 123
+ok    NAME: cursor left, DELETE
+ok    NAME: KNOB 1 the cursor, KNOB 2 the character
+ok    NAME OCT+: the slot renamed (ends trimmed), the current project's name too
+ok    NAME knob: renames the selected slot, prefilled with its name
+ok    NAME OCT-: cancelled, nothing written
+ok    NAME knob on an empty slot: EMPTY SLOT
+ok    NAME: the keys never sound, record or start PERFORM
+ok    NAME OCT+ while playing: STOP TO SAVE, the screen stays
+ok    ... stopped (PLAY works in NAME): renamed
+ok    NAME: HOME cancels
+ok    SONG after a LOAD of a shorter song: a turn on + adds row 2, the song valid
+ok    NAME: a message in its title goes after a while
+ok    RESON MODEL: past a full CHORD the knob reaches MODAL
+ok    RESON MODEL: CHORD and MODAL full: stays, says why
+ok    a project with 3 MODAL tracks loads with 2 (the 3rd STRNG)
+ok    MEMB: SOUND 2/3 holds HEAD .. BEND
+ok    RESON with MODAL draws
+ok    FX: the first page is FILTER 1/2 (TYPE CUT RESO ENV)
+ok    FILTER 2/2 holds DECAY
+ok    LFO DEST 17 reads F.CUT
+ok    FX: INSERT 1/2 after FX (TYPE A B C), OFF by default
+ok    INSERT TYPE: one step right is SOFT; A B C read DRIVE TONE LEVEL
+ok    INSERT on CRUSH: A B C read BITS RATE LPF
+ok    INSERT 2/2: MIX (100 % by default) and SRR (OFF by default)
+ok    SRR turned down to 0 reads OFF
+ok    a model change keeps the FILTER
+ok    INIT SOUND resets the FILTER (TYPE OFF, CUT 127, ENV 0)
+ok    PERFORM shown (FX or a layer key held, or PAGE): the knobs are its macros, not the page under it
+ok    FX dead (held through the menu), its layer key let go: no PERFORM screen over the page the knobs edit
+ok    STEP: white key 3 toggles step 3 of the selected track, plays / selects nothing
+ok    STEP: OCT+ alone is the bank; OCT+ held + a key accents the step
+ok    PATTERN: white key 3 toggles step 3 of the selected track, plays / selects nothing
+ok    PATTERN: OCT+ alone is the bank; OCT+ held + a key accents the step
+ok    MOTION: white key 3 toggles step 3 of the selected track, plays / selects nothing
+ok    MOTION: OCT+ alone is the bank; OCT+ held + a key accents the step
+ok    SONG: white key 3 toggles step 3 of the selected track, plays / selects nothing
+ok    SONG: OCT+ alone is the bank; OCT+ held + a key accents the step
+ok    TRACKS: white key 3 toggles step 3 of the selected track, plays / selects nothing
+ok    TRACKS: OCT+ alone is the bank; OCT+ held + a key accents the step
+ok    TRACKS: REC held + key 4 mutes nothing (step 4 toggled), + top D# sets no MUTE mode
+ok    TRACKS: REC let go: a tap (track 1 armed)
+ok    TRACKS: a long REC hold asks nothing
+ok    FM: SOUND 1/4 holds MODEL TUNE DECAY INDEX; the graph draws the sidebands
+ok    FM: SOUND 2/4 holds RATIO MDEC SWEEP FBK
+ok    FM graph: CHOKE and the sample layer's label stay out of the sideband area
+ok    FM graph: INDEX 0 (a pure sine) shows the carrier only; INDEX 60 its sidebands
+ok    KTRX graph: SWEEP 0: nothing at the top of its first columns (no spike from the level's start)
+     KTRX graph: upper half lit 42 (SWEEP 0) / 165 (SWEEP 127, SDEC 96)
+ok    KTRX: SOUND 1/4 holds MODEL TUNE DECAY SWEEP; the graph draws the pitch and the level; SWEEP 127 raises the pitch curve
+ok    KTRX graph: CHOKE and the sample layer's label stay out of it
+ok    KTRX: SOUND 2/4 holds SDEC PUNCH NOISE SUB
+ok    CPTRX, MATRX: SOUND 1/4 MODEL TUNE DECAY CLPY / ATT, 2/4 from HARD / REV, 3/4 RTUN / HARD
+ok    SDEFM, CPEFM, RSEFM: SOUND 1/4 MODEL TUNE DECAY NOIS / CLPS / MOD, 2/4 from NDEC / CDEC / HPF, 3/4 HPF / HPF / SMOD
+ok    SDTRX, B2TRX: SOUND 1/4 holds MODEL TUNE DECAY SNAP / RAMP, 2/4 TONE .. CLIP / HOLD .. DIRT
+ok    KEYS: an SCL tap turns it on: the SCL LED lit, the top bar KEYS F3, the keys KEYS' (seq_mode 3)
+ok    KEYS: key k (0 = F3) hits the selected drum transposed to NOTE 53 + k (nt k - 7), every key
+ok    KEYS: the keys select no track (HOME)
+ok    KEYS: OCT+ three times: +2 octaves at most (F3's key plays F5, nt +17), KEYS F5, OCT+ lit
+ok    KEYS: OCT- five times: -2 octaves at most (F1, nt -31), KEYS F1
+ok    KEYS off: the LED dark, no KEYS in the top bar, the keys select and hit tracks again
+ok    KEYS, ACID: a key starts its note (C4), the gate open
+ok    KEYS, ACID: held past GATE the gate stays open (the key holds it)
+ok    KEYS, ACID: a key over the sounding one slides to it (same voice, no restart)
+ok    KEYS, ACID: an earlier key let go: the note goes on
+ok    KEYS, ACID: the sounding key let go: the gate closes
+ok    KEYS, ACID: a key after all were let go starts a new note
+ok    KEYS turned off while a key holds an ACID note: its release still ends it
+ok    KEYS: the track changed while held: the release ends track 1's note
+ok    KEYS: TRACKS opened while held: the release ends the note
+ok    KEYS: a key on another track ends the held note (mono over the keys)
+ok    KEYS: ... and its own release ends the new one
+ok    KEYS + FX held: the key is PERFORM's (track 3 repeating while held), no note
+ok    KEYS + TRACKS: a white key is the track's step (seq_mode 1), no note
+ok    KEYS + COMP: a white key ducks its track, no note
+ok    KEYS + the menu: the keys are not KEYS' (as without it)
+ok    KEYS + NAME: the keys type, no note
+ok    KEYS: OCT- + OCT+ together: the octave back where it was, both buttons visible to main.c (UBOOT), no bank
+ok    KEYS live record: the key's note on the nearest step (ON + C4)
+ok    KEYS live record: held into the later steps: TIE on them
+ok    KEYS live record: a legato key: SLIDE on the held note's last step, its own note (E4) next
+ok    KEYS live record: let go before the next step's middle: nothing there
+ok    KEYS live record past mid-step: the next step across the wrap (step 1: ON + D4), step 4 untouched
+ok    KEYS live record: the written step does not hit again, the note holds (same voice); TIE on step 2
+ok    KEYS live record: let go at step 3's start: no TIE there
+ok    KEYS live record: a legato key in the block that passes the middle: TIE + SLIDE on step 4, E4 on step 5
+ok    KEYS live record, held longer than LEN: the start step stays ON with its note (C4), TIEs on the others
+ok    KEYS live record, a legato note held round the loop: the phrase's start (C4) kept, step 3 TIE + SLIDE kept
+ok    KEYS live record: a step held through is a plain TIE (no ACC, PROB, RATCH, SLIDE; the held note)
+ok    KEYS live record, a drum: ON + NOTE (D4: nt +2) on the nearest step, no TIE on the steps held through
+ok    grid: a new step, nothing played yet: C4
+ok    KEYS: the track's last key note kept (F4, nt +5)
+ok    grid: a new step gets the track's last key note (F4)
+ok    grid: a TIE step turned on plays: ON, TIE cleared, the last key note
+ok    grid: a TIE step accented (OCT+ held): ON + ACC, TIE cleared
+ok    drum: a step the grid keys turn on (tap, hold, hold + knob) is C4 after KEYS played D4
+ok    ACID: a step the grid keys turn on (tap, hold, hold + knob) gets the last KEYS note (D4)
+ok    LOAD: every track's last KEYS note back to C4
+ok    a track's pattern cleared (CLEAR TRACK, CLR PATTERN): its last KEYS note back to C4
+ok    CLR*: every track's last KEYS note back to C4
+ok    drum live record onto a step holding a NOTE: ON at C4
+ok    step record: a REC tap on STEP (KEYS, stopped) starts it at step 1: STEP REC 01, REC lit, still STEP, nothing armed
+ok    step record: a key writes its note to the cursor step (ON, C4, micro 0), the cursor waits for its release
+ok    step record: let go: the cursor moves on (STEP REC 02)
+ok    step record: a key before the last one is let go: SLIDE on that step, the new note on the next
+ok    step record: the cursor's key let go moves it on, the earlier one does nothing
+ok    step record: OCT+ (KEYS): C5 on step 4, the track's last note C5
+ok    step record: KNOB 1 moves the cursor (step 3)
+ok    step record: KNOB 2 the cursor step's NOTE (+3: D#4)
+ok    step record: KNOB 3 TIME: NOTE -> TIE
+ok    step record: TIME: TIE -> REST
+ok    step record: TIME: REST is the end
+ok    step record: TIME: back to NOTE
+ok    step record: KNOB 4 FLAG: - -> ACC
+ok    step record: FLAG: ACC -> SLD
+ok    step record: FLAG: SLD -> A+S
+ok    step record: FLAG: back to -
+ok    step record: an EDIT tap writes a rest and moves on (no SOUND page)
+ok    step record: a key let go after KNOB 1 moved the cursor moves it no further
+ok    step record ends: a REC tap (STEP stays, nothing armed)
+ok    step record ends: PLAY (the transport starts)
+ok    step record ends: leaving the page (SEQ: PATTERN)
+ok    step record ends: HOME
+ok    step record ends: KEYS off
+ok    step record ends: another track
+ok    step record ends: the transport started elsewhere
+ok    step record: after its end no key writes a step (only C4 on step 1)
+ok    step record ends: the menu opened (REC dark under it)
+ok    step record ends: FX held (PERFORM's layer)
+ok    step record: FX let go: still off, still STEP
+ok    step record ends: NAME
+ok    KEYS off: a REC tap on STEP: REC ALL, no play (STEP stays)
+ok    KEYS on, playing: a REC tap on STEP: REC ALL, no step record (STEP stays)
+ok    roll: an ACID track's STEP page: the view holds the bank's notes (C4..G4)
+ok    roll: an accented note (C4) ink, its row's full height
+ok    roll: a plain note (E4) a 2 px bar inside its row
+ok    roll: a TIE carries the note before through its column, across the step line
+ok    roll: RATCH 2 splits the bar in two, 1 px apart
+ok    roll: SLIDE a dotted line from D4's bar into E4
+ok    roll: a rest is empty
+ok    roll: the C row named on the left (C4)
+ok    roll: the view follows the notes up (F#6, A#6 in view)
+ok    roll: ... and down (F#1, A#1)
+ok    roll: notes wider than the view, one each: the lowest window (G#0 on the bottom row), the other a mark on the top edge
+ok    roll view: a line wider than 24 rows: the window holding the most notes (C4 up: 6; C2 up 2, D4 up 5)
+ok    roll view: ... notes added: the window moves to the lowest holding the most (D4 up)
+ok    roll view: ... one removed: C4 up holds as many as D4 up: the view stays (no jump)
+ok    roll view: ... opened afresh: the lowest of the equal windows (C4 up)
+ok    roll view: one low note under a high riff: the riff stays in view (C5 on the bottom row)
+ok    roll view: ... the low note a 1 px mark on the bottom edge
+ok    roll view, step record: the cursor's note (C4) in the view: no move
+ok    roll view, step record: ... G4 still in it: no move
+ok    roll view, step record: ... C7 out of it: the view moves only as far as C7 needs (C7 the top row)
+ok    roll view, step record: ... a rest moves nothing
+ok    roll view, step record: ... G4 out of it again: back to the best window, G4 in it
+ok    roll view: a KEYS key under the view: the view stays, the strip's bottom row lit
+ok    roll view: ... let go: the bottom row back to its key
+ok    roll view: a KEYS key over the view: the strip's top row lit, the view stays
+ok    roll view: chosen only when the graph changes, not every idle frame
+ok    roll view: ... a step changed: chosen again
+ok    roll: C-1 (NOTE 0) on the bottom row, its label whole (from x 0, not clipped)
+ok    roll: a slide out of the bank's last column stays inside the grid
+ok    footer: in a song, the row's step (as the roll / grid show it): F4 SLD
+ok    footer: ... no song: the track's own (no note shown without step record or a held step)
+ok    roll: step record's cursor framed (step 3)
+ok    roll: the playhead a 1 px line through the playing step (5)
+ok    footer: a step key just pressed (maybe a tap) shows no note
+ok    footer: a step held on the grid shows its note (a drum's new step: C4, not the last key note)
+ok    footer: accented with OCT+, held: C4 ACC
+ok    footer: nothing held: no note
+ok    footer: step record's cursor step, a TIE: the note it holds (step 2's C#4, not its own unused C#3)
+ok    drum grid: step record's cursor framed (step 3)
+ok    footer: ... a slide: C4 SLD
+ok    drum grid: a transposed step (NOTE != C4) a small mark under its bar; a C4 step none
+ok    ACID graph: RESO 0 nothing over 0 dB, RESO 127 a peak at the cutoff
+ok    ACID graph: the peak follows CUTOF (40 -> 100: right)
+ok    ACID graph: the filter envelope falls over DECAY (30 ms: down within 10 px; 3 s: still in the upper half)
+     ui: heaviest frame 0 host instructions (STEP, the ACID piano roll, playing)
+ok    ui frame cost, the piano roll: under 4,000,000 host instructions (as every page)
+ok    roll, KEYS off: KNOB 1 with step 3 held sets its PROB
+ok    roll: nothing held: the band above the roll empty
+ok    roll: a step held: its line (STEP 3  100%  RATCH 1) in the band above the roll
+ok    roll: a plain bar whole (9 x 2 px)
+ok    roll: a PROB bar hatched (some of its pixels dark)
+ok    roll: the step let go: the band cleared
+ok    live record onto a TIE step: ON, the TIE cleared
+ok    KEYS live record: LEN cut under the held note's start: the loop's notes stay
+ok    KEYS live record: ... the key's own note on step 7
+ok    step record: EDIT's rest clears PROB, RATCH, ACC, SLIDE, MICRO
+ok    step record: a key on that rest: a plain note (no old PROB / RATCH)
+ok    KEYS, STEP, stopped: the hint names REC: STEP RECORD
+ok    KEYS, STEP, playing: no REC: STEP RECORD (a REC tap arms)
+ok    step record: a chord in one frame writes one step: the highest key (E4), no SLIDE
+ok    step record: ... its release moves the cursor on
+ok    step record: ... the other key's release moves nothing
+ok    KEYS + sequencer: rests leave the key's gate open
+ok    KEYS + sequencer: an ON step takes the voice over: restarted (no glide from the key's note), G4, its gate counting
+ok    KEYS + sequencer: the step's gate closes, the key still held
+ok    KEYS + sequencer: the key let go then: nothing (gate closed, nothing counting)
+     acid: screens in build/ui_shots/acid
+ok    PRIO: every model's SOUND list ends CHOKE, PRIO (SAMPLE's before its ATK SUS REL LOOP page)
+ok    PRIO: its knob sets LOW (the selected track), HIGH back
+ok    PRIO: ... and HIGH again
+ok    CPU icon: none before a shed; the chip right of T<n> (x 166..190) after one
+ok    CPU icon: shown for 2 s, then gone
+ok    CPU icon: each shed shows it 2 s from then
+ok    CPU icon: ... and it goes
+ok    CPU icon: in step record it keeps clear of STEP REC nn and T<n>
+ok    BACKLIGHT OFF, nothing breathing: ui_leds writes fm1_led, no dimming (the hook idle)
+ok    BACKLIGHT OFF, STEP (2 banks): the hook on for OCT+'s breath alone (item 5): the keys full or dark, no dim
+ok    BACKLIGHT ON, STEP: on steps full, off beats 1 5 9 13 at 25 %, the other keys at 5 %
+ok    BACKLIGHT ON (DIM LO): the buttons: SEQ lit, the idle ones at 5 % (SAVE, OCT-: no bank before), OCT+ breathing
+ok    BACKLIGHT ON, bank 2: the beats are 17 21 25 29 (keys 1 5 9 13); step 21 on: full
+ok    BACKLIGHT OFF again: the full and breath layers as with it ON, nothing dim
+ok    BACKLIGHT ON, playing: the playhead lights an off step full; on an on step it dims (5 %, a beat 25 %)
+ok    BACKLIGHT ON, HOME (the keys play): a held key and the selected track's (item 2) full, every other key 5 %
+ok    BACKLIGHT ON, MUTE screen: audible tracks and the mode key full, every other key 5 %
+ok    BACKLIGHT ON, PERFORM: its lit keys full, every other key 5 %
+ok    BACKLIGHT ON in safe start: all LEDs off, the hook idle
+ok    BACKLIGHT ON, every page and the HOME screen, KEYS off / on, armed or not: where the keys are steps (every SEQ page, TRACKS unarmed) on steps full, the unlit beats 1 5 9 13 at 25 % in bank 1 and bank 2, the rest 5 %
+ok    BACKLIGHT ON: where the keys are not steps (EDIT FX LFO GLOBAL SAVE GRIDS COMP, the HOME screen, KEYS, TRACKS armed) no key at 25 %
+ok    BACKLIGHT ON, over STEP: the menu, the MUTE screen and PERFORM show no beat marks; back on STEP they do
+ok    menu: BACKLIGHT is a row (after ACCEL), a list of six levels (not ON / OFF)
+ok    BACKLIGHT: KNOB 1 steps OFF .. INV HI and stops at the ends, OCT+ steps on; the LEDs follow at once
+ok    BACKLIGHT: OCT+ from INV HI wraps to OFF
+ok    menu: ten rows, BACK's drawn above the hints
+ok    boot: two tones only, in every theme
+ok    boot: the downbeat bar full (52 px over the line, 52 under), solid
+ok    boot: a dithered bar beside it (+ its peak dot), the dotted centre line between
+ok    boot: HORTATOR under the mark, the 1 px frame
+ok    themes: 6, RED BLUE GREEN each with its INV (ink and ground swapped, the colours as the base's)
+ok    themes: shown RED, RED INV, BLUE, BLUE INV, GREEN, GREEN INV
+ok    COLOR: every stored value of an older Hortator loads as the theme it was (0..4, 0x10..0x13; else MD RED)
+ok    COLOR: the new inverses stored as 0x14, 0x15 (BLUE INV, GREEN INV), kept across a restart
+ok    COLOR: a new device is RED; OCT+ steps RED > RED INV > BLUE > BLUE INV > GREEN > GREEN INV > RED (every theme once); KNOB 1 left steps back, right on, both wrap
+ok    MENU: COLOR shows the theme's name (RED .. GREEN INV) right-aligned as the other rows' values, cursor or not
+ok    MENU: COLOR draws no boxes (nothing between the label and the name)
+ok    theme change: the whole screen repaints in the new theme (no MD RED pixel left)
+ok    top bar: an ink bar (rows 0..15 >= 80 % ink)
+ok    top bar: stopped: a solid 10x10 square
+ok    top bar: playing: the play triangle
+ok    top bar: recording (the selected track armed): a solid circle
+ok    top bar: REC armed elsewhere: an outlined circle
+ok    top bar: a PERFORM knob effect on: the FX tag after the BPM
+ok    breadcrumb: an ink bar (>= 70 % ink)
+ok    breadcrumb: text on the left (T1...) and the page number at the right
+ok    trig strip: an accent solid (box 1 at x 6, y 186)
+ok    trig strip: a plain trig outline + dither (box 5 at x 64)
+ok    trig strip: an empty step an outline (box 2 at x 20)
+ok    message: a popup window over the graph area, its 2 px shadow edge
+ok    message: the top bar stays (ink bar with the BPM in BG)
+ok    message: gone after its time (its shadow edge repainted away)
+ok    cell: FILTER TYPE (an enum) is text, no knob (no tick / ring at x 17)
+ok    cell: CUT (continuous) a knob: the tick and the ring's top at x 75
+ok    cell: labels in ink on the theme's ground
+ok    cell touched: the value inverted (an ink box behind it)
+ok    cell touched: the breadcrumb shows the parameter's full value (CUT ... HZ, the page number gone)
+ok    cell touched: both return when the touch times out
+ok    cell touched, then another page: nothing inverted there
+ok    cell: a long value fits right of the knob (x 86 clear, ink in x 87..117, nothing at x 118..119)
+ok    SOUND: the model's name in F3 at 4x (20 px tall), left, on the theme's ground
+ok    STEP: an accent a solid bar
+ok    STEP: a plain trig an outline + dither (40..75 % ink)
+ok    PROJECT: the cursor's slot row an inverted bar
+ok    SONG: the cursor's row an inverted bar, the other plain
+ok    FILTER OFF: OFF in F3 at 6x, a 3-row dither band above and below it
+ok    COMP: the GR meter's tick dashes every 6 px above it (x 36, 42, 48; none between)
+ok    LFO: the wave's area dithered down to the zero line (half the column under the crest), nothing above it
+ok    TRACKS row: the number + model in ink (x 2..60)
+ok    TRACKS row: step 1 a cell, steps 2..16 baselines
+ok    TRACKS row: the level a solid bar over a dithered box
+ok    TRACKS: a loud track's live peak marks its level box
+ok    MUTE: 8 boxes, an audible track's solid; muting track 3 makes its box an outline
+ok    PERFORM: a button an outline, held: solid (ink with its name in BG)
+ok    HOME strip: the project box inverted (x 2..60, y 30..53)
+ok    HOME strip: 4 bar boxes (fix 6: not a box per bank), the playing bar (2: step 20) solid
+ok    HOME strip: rules at x 62 / 87 and y 68
+ok    HOME strip: each knob a ring (r 7 at y 41), its value under it (y 54)
+ok    HOME: the scope fills rows 69..180 (its wave reaches y 72..95 and 160..178)
+ok    confirm: a popup over the page (the knob row and the top bar still drawn)
+ok    confirm: the popup's 2 px shadow edge at x 210..211, its title tab over the top edge
+ok    TEMPO: changing BPM opens the TEMPO popup (its shadow edge at x 208..209)
+ok    TEMPO: gone when bpm_t runs out
+ok    MENU: the cursor's row an inverted bar
+ok    NAME: an ink title bar; the cursor a solid block under its slot (after PROJECT A: slot 10)
+ok    theme sheet: 16 screens in each of the 6 themes, every pixel the theme's BG or INK
+ok    cell: PAN fully left shows -100 whole (4 glyphs, 30 px), not -10
+ok    ZOOM on HOME: the touched value in a popup over the scope (its shadow edge at x 152..153)
+ok    message: a shorter one replacing it leaves no edge of the longer popup
+ok    TEMPO over a playing TRACKS: the rows under it are not redrawn (no flicker), the popup stays
+ok    TEMPO gone: the rows redrawn again
+ok    HOME LEV: the level setting a 10 px marker (x 70..79), wider than the 6 px bar
+ok    HOME LEV: silent: no bar above the marker
+ok    HOME LEV: a loud hit raises the bar over the setting (live level)
+ok    HOME LEV: ... and it falls back when the sound stops
+ok    PRESETS: the power-on track's voice is its first preset
+ok    PRESETS one detent right: the next preset loaded at once (MODEL and the 8 knobs), not edited; the popup up
+ok    PRESETS popup: the preset in the middle, the two loadable ones before and after around it
+ok    PRESETS popup: drawn over the graph (its preset row lit)
+ok    PRESETS popup: still up 1 s after the detent
+ok    PRESETS popup: gone ~1.5 s after the last detent (the graph back)
+ok    PRESETS one detent left: the one before (the first again)
+ok    PRESETS with no preset: the first detent (either way) loads the voice's first preset
+ok    PRESETS across banks: MACHINEDRUM's last -> MODERN's first
+ok    PRESETS on TRACKS: loads, the popup over the rows, TRACKS stays
+ok    PRESETS on TRACKS: the rows back
+ok    PRESETS: 40 detents in 2 s while 8 tracks play every step: each detent's preset loaded at once
+ok    PRESETS fast while playing: the output sounds and stays inside 16 bits
+ok    PRESETS fast while playing: stopped, every voice ends (none stuck)
+ok    PRESETS with ACID on 2 tracks: the detent past ACID's presets to the one after them
+ok    PRESETS with ACID on 2 tracks: the popup leaves them out
+ok    PRESETS with ACID on 2 tracks: back past it too
+ok    list with ACID on 2 tracks: the cursor on ACID's preset auditions nothing (ACID: 2 TRACKS MAX)
+ok    list with ACID on 2 tracks: LOAD on ACID's preset refused (ACID: 2 TRACKS MAX), the voice kept, the list too
+ok    list: once a place frees, LOAD gives the 3rd track ACID (the list closed)
+ok    EDIT held: the PRESETS list, its cursor on the track's preset
+ok    list SAVE on a factory preset: the voice into the first free user slot, now the track's (not edited)
+ok    list SAVE: auto-named (K909 01), said in the title
+ok    list SAVE on a used user slot: armed only (SAVE AGAIN), the slot as it was
+ok    list SAVE again: saved over it
+ok    PRESETS in the list: the cursor, one per detent (an empty slot: nothing auditioned)
+ok    list SAVE on an empty user slot: saved there at once
+ok    list OCT- on a used user slot: armed only (DELETE AGAIN)
+ok    list OCT- again: deleted; the track keeps its knobs and its reference (shown as -)
+ok    list KNOB 2 left: the bank before, on its first (CLASSIC)
+ok    list SAVE off the user bank: the first free slot (2: 1 used, 4 deleted)
+ok    list OCT+ (LOAD): the preset under the cursor on the track, the list closed
+ok    (the list again, on it)
+ok    list OCT- on a factory preset: nothing deleted
+ok    list KNOB 1: the cursor
+ok    list SAVE while playing: in the list at once (slot 3), flash at the next STOP; the sound saved the track's, not the auditioned one
+ok    list: STOP writes it (nothing left pending)
+ok    list EDIT: closed, back where the hold began (HOME)
+ok    list HOME: closed
+ok    EDIT tap: SOUND at once, no list
+ok    EDIT held 0.3 s: a tap (the next SOUND page), no list
+ok    EDIT held 0.8 s: the list, the page under it the one before the press
+ok    EDIT in the list: back to that page
+ok    step record on
+ok    step record: EDIT held = one rest, the cursor on; no list
+ok    step record: an EDIT tap still a rest
+ok    (MIDI LEARN on)
+ok    LEARN: an EDIT tap opens SOUND as always, LEARN stays on
+ok    LEARN: EDIT held opens no list (the press a tap), LEARN stays on
+ok    LEARN off: EDIT held opens the list again
+ok    SOUND: the track's preset named above the voice
+ok    SOUND: a SOUND knob turned marks the preset edited (*)
+ok    TRACKSSegmentation fault (core dumped)
