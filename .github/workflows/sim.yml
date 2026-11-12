@@ -24,7 +24,8 @@ jobs:
         continue-on-error: true
         run: |
           git tag -f drum-v1.0.1 44c9ad4 || true
-          tools/build_sim.sh 2>&1 | tail -60
+          set -o pipefail
+          tools/build_sim.sh 2>&1 | tee /tmp/sim-log.txt | tail -60
       - name: Publish to the sim branch
         if: steps.sim.outcome == 'success'
         run: |
@@ -36,3 +37,12 @@ jobs:
       - uses: actions/upload-artifact@v4
         if: steps.sim.outcome == 'success'
         with: {name: Hortator-simulator, path: build/sim}
+      - name: Log to build-logs
+        if: always()
+        continue-on-error: true
+        run: |
+          rm -rf /tmp/bl && mkdir /tmp/bl && cd /tmp/bl && git init -q && git config user.name build && git config user.email build@users.noreply.github.com
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          git fetch -q --depth 1 origin build-logs && git checkout -q -b build-logs FETCH_HEAD
+          { echo "commit: $GITHUB_SHA"; echo "outcome: ${{ steps.sim.outcome }}"; tail -150 /tmp/sim-log.txt; } > sim-latest.txt
+          git add -A && git commit -q -m "sim log ${GITHUB_SHA::7}" && git push -q origin build-logs
