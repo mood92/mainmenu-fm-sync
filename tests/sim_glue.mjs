@@ -602,11 +602,11 @@ test('features reel: a clip per chapter (not Bluetooth: no page), each over 5 s,
 
 test('lab ids: the models by their shown names, each in its bank, the MODEL list MD -> MODERN -> CLASSIC; every DM the pages name exists', () => {
   const ids = JSON.parse(readFileSync(join(DIR, 'lab_ids.json'), 'utf8'));
-  assert.equal(ids.models.length, 45);
+  assert.equal(ids.models.length, 48);
   for (const m of ids.models) assert.equal(ids.DM[m.name], m.id, m.name);
   const banks = ids.list.map(id => ids.models[id].bank);
   assert.deepEqual(ids.banks, ['MACHINEDRUM', 'MODERN', 'CLASSIC']);
-  assert.deepEqual([0, 1, 2].map(b => banks.filter(x => x === b).length), [21, 10, 14]);
+  assert.deepEqual([0, 1, 2].map(b => banks.filter(x => x === b).length), [21, 13, 14]);
   assert.deepEqual(banks, [...banks].sort((a, b) => a - b), 'the list runs bank by bank');
   assert.equal(ids.models[ids.list[0]].name, 'BDTRX');
   assert.deepEqual([ids.presets.factory, ids.presets.user], [179, 96]);
