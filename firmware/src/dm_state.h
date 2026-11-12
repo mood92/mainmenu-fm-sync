@@ -158,6 +158,14 @@ typedef struct {
     uint8_t co[SPP_K1][3], fi[2][SPP_K2][3];
     int16_t buf[SPP_B];
 } smpl_loop_t;
+/* ORGAN (dm_organ.c): 4 chord notes x 4 drawbar partials */
+#define ORG_NN 4                                        /* chord notes at most */
+#define ORG_NP 4                                        /* partials per note */
+typedef struct {
+    uint32_t ph[ORG_NN][ORG_NP], inc[ORG_NN], lfo;
+    int32_t g[ORG_NP], scale, ramp, rinc, click, cprev, vib;
+    uint8_t nn;
+} organ_t;
 typedef union {
     int32_t raw[2];
     smpl_loop_t sl;
@@ -182,4 +190,5 @@ typedef union {
     cbefm_t cbe;
     hhefm_t hhe;
     cyefm_t cye;
+    organ_t org;
 } dm_state_t;

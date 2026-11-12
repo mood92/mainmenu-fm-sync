@@ -70,6 +70,16 @@ jobs:
         run: |
           ls tests | head -30
           (make -C tests 2>&1 || true) | tail -20
+      - name: Host tests (drum suite; clang as cc, Linux stand-in for the macOS libproc.h)
+        id: tst
+        continue-on-error: true
+        shell: bash
+        run: |
+          mkdir -p /tmp/rep /tmp/shim && ln -sf "$(which clang)" /tmp/shim/cc
+          export PATH=/tmp/shim:$PATH CPATH=$PWD/tests/linux_stub
+          sh tests/run_drum_tests.sh > /tmp/rep/host_tests.log 2>&1; rc=$?
+          grep -a -E "^FAIL|passed|FAILED|error:" /tmp/rep/host_tests.log | head -40 > /tmp/rep/host_tests_summary.txt
+          exit $rc
       - name: Build (Bluetooth package, then plain)
         id: bld
         continue-on-error: true
@@ -106,7 +116,7 @@ jobs:
           mkdir -p /tmp/rep
           {
             echo "commit: $GITHUB_SHA"; echo "job status: ${{ job.status }}"
-            echo "outcomes: toolchain=${{ steps.tc.outcome }} sdk=${{ steps.sdk.outcome }} build=${{ steps.bld.outcome }}"; echo
+            echo "outcomes: toolchain=${{ steps.tc.outcome }} sdk=${{ steps.sdk.outcome }} tests=${{ steps.tst.outcome }} build=${{ steps.bld.outcome }}"; cat /tmp/rep/host_tests_summary.txt 2>/dev/null; echo
             echo "== SDK tags seen"; cat /tmp/rep/sdk_tags.txt 2>/dev/null; cat /tmp/rep/sdk120_missing.txt 2>/dev/null
             echo; echo "== build log (last 150 lines)"; tail -n 150 build.log 2>/dev/null || echo "(no build.log)"
             echo; echo "== images"; ls -l build/*.bin build/*.fwsc out/* 2>&1 || true
@@ -116,5 +126,5 @@ jobs:
           git init -q; git config user.name build; git config user.email build@users.noreply.github.com
           git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
           if git fetch -q --depth 1 origin build-logs 2>/dev/null; then git checkout -q -b build-logs FETCH_HEAD; else git checkout -q --orphan build-logs; fi
-          cp /tmp/rep/report.txt "hortator-${GITHUB_SHA::7}.txt"; cp /tmp/rep/report.txt hortator-latest.txt; cp /tmp/rep/size_plain.txt size-plain.txt 2>/dev/null; cp /tmp/rep/size_ble.txt size-ble.txt 2>/dev/null
+          cp /tmp/rep/report.txt "hortator-${GITHUB_SHA::7}.txt"; cp /tmp/rep/report.txt hortator-latest.txt; cp /tmp/rep/size_plain.txt size-plain.txt 2>/dev/null; cp /tmp/rep/size_ble.txt size-ble.txt 2>/dev/null; cp /tmp/rep/host_tests.log host-tests.txt 2>/dev/null
           git add -A; git commit -q -m "hortator build report ${GITHUB_SHA::7}"; git push -q origin build-logs
