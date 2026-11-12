@@ -108,6 +108,18 @@ jobs:
         if: steps.bld.outcome == 'success'
         run: |
           mkdir -p out; find build -name '*.fwsc' -exec cp {} out/ \; ; ls -l out
+      - name: Publish the packages to the builds branch
+        if: steps.bld.outcome == 'success'
+        continue-on-error: true
+        shell: bash
+        run: |
+          rm -rf /tmp/bp && mkdir /tmp/bp && cd /tmp/bp
+          git init -q; git config user.name build; git config user.email build@users.noreply.github.com
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          if git fetch -q --depth 1 origin builds 2>/dev/null; then git checkout -q -b builds FETCH_HEAD; else git checkout -q --orphan builds; fi
+          for f in $GITHUB_WORKSPACE/out/*.fwsc; do cp "$f" "$(basename "$f" .fwsc)-${GITHUB_SHA::7}.fwsc"; done
+          ls -t *.fwsc | tail -n +9 | xargs -r git rm -q -f      # keep the 8 newest
+          git add -A; git commit -q -m "packages ${GITHUB_SHA::7}"; git push -q origin builds
       - uses: actions/upload-artifact@v4
         if: steps.bld.outcome == 'success'
         with: { name: Hortator-packages, path: out/, if-no-files-found: error }
