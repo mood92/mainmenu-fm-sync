@@ -1,0 +1,38 @@
+name: simulator
+on:
+  push:
+    branches: [group-sync]
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sim-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  sim:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+        with: {fetch-depth: 0}
+      - uses: actions/setup-node@v4
+        with: {node-version: 20}
+      - name: Python deps
+        run: pip install Pillow
+      - name: Build the simulator (firmware compiled to WebAssembly)
+        id: sim
+        continue-on-error: true
+        run: |
+          git tag -f drum-v1.0.1 44c9ad4 || true
+          tools/build_sim.sh 2>&1 | tail -60
+      - name: Publish to the sim branch
+        if: steps.sim.outcome == 'success'
+        run: |
+          du -sh build/sim; ls build/sim | head -40
+          rm -rf /tmp/sp && mkdir /tmp/sp && cp -r build/sim/. /tmp/sp/ && rm -rf /tmp/sp/emcache /tmp/sp/src /tmp/sp/host /tmp/sp/gen
+          cd /tmp/sp && git init -q && git config user.name build && git config user.email build@users.noreply.github.com
+          git checkout -q --orphan sim && git add -A && git commit -q -m "simulator ${GITHUB_SHA::7}"
+          git push -q -f "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git" sim
+      - uses: actions/upload-artifact@v4
+        if: steps.sim.outcome == 'success'
+        with: {name: Hortator-simulator, path: build/sim}
