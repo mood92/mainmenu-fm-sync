@@ -3617,5 +3617,149 @@ tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
  1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
       |     ^
 1 warning generated.
-FAIL  INFO: HORTATOR, the firmware version without DRUM-, protocol 1.3, LIVE and UPR2 only (no backup / pattern files), the sizes, the state block
-editor_test: 1 FAILED
+editor_test: all passed
+In file included from tests/editor_xcheck.c:23:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    117 firmware frames (37 kinds) decoded by proto.mjs and re-encoded byte for byte; INFO = device_data.json
+ok    xcheck: 217 requests and 8 push checkpoints through the firmware (tests/editor_xcheck.c) and the mock device, 225 the same byte for byte
+In file included from tests/editor_pattern_test.c:12:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+editor_pattern_test: all passed
+In file included from tests/editor_backup_test.c:14:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+editor_backup_test: all passed
+In file included from tests/editor_sample_test.c:16:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+editor_sample_test: all passed
+sample xcheck: the page's samples play on the firmware as previewed
+In file included from tests/slot_test.c:13:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+tests/slot_test.c:294:24: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  294 |         static int32_t la[SECS(0.5)];
+      |                        ^
+tests/slot_test.c:351:20: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  351 |     static int32_t a[2][SECS(0.5)];
+      |                    ^
+tests/slot_test.c:406:24: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+  406 |         static int32_t b[SECS(0.5)];
+      |                        ^
+4 warnings generated.
+slot_test: ok (0 failed)
+In file included from tests/sampenv_test.c:14:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+sampenv_test: ok (0 failed)
+In file included from tests/xbuild_test.c:22:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+In file included from tests/xbuild_test.c:22:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+xbuild_test std-make: all passed
+xbuild_test ble: all passed
+xbuild_test std-check: all passed
+xbuild_test ble-alone: all passed
+In file included from tests/cue_test.c:12:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+     switch block (host instructions): variation 0, slot 0 / 0; the heaviest normal block of the bar 0 (over it: +0, +0 / +0)
+ok    cue: the switch block's extra cost, worst case (every step on, 1000 locks, dense variations): a variation switch within 10 % of a normal block, a slot switch within its ceiling
+     cue map LEDs, a frame (B queued): 0 host instructions
+ok    cue map: the 12 keys' states computed once a frame, cheaply (was ~690k host instructions)
+cue_test (cost): all passed
+ok    comp overflow: makeup extremes, all tracks ducked at LEVEL 127, master max: no signed overflow
+screens: build/ui_shots
+themes: build/ui_shots/themes/index.html (16 screens x 6 themes)
+selftest: 0 of 126 bad
+tests/drum_fidelity.c:24:16: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+   24 | static int32_t buf[NREN + CTL];
+      |                ^
+tests/drum_fidelity.c:25:14: warning: variable length array folded to constant array as an extension [-Wgnu-folding-constant]
+   25 | static float y[NREN + CTL];
+      |              ^
+2 warnings generated.
+ok    fidelity: KBOOM grid at the old knob defaults (tests/drum_ref_grid.h = tests/old_defs.h)
+     KBOOM: strict 161 / 162, loose 162 / 162 (strict misses: build/drum_fidelity.txt)
+ok    fidelity: KBOOM within the loose tolerances on all 162 renders, bounded
+ok    fidelity: KPUNC grid at the old knob defaults (tests/drum_ref_grid.h = tests/old_defs.h)
+     KPUNC: strict 158 / 162, loose 162 / 162 (strict misses: build/drum_fidelity.txt)
+ok    fidelity: KPUNC within the loose tolerances on all 162 renders, bounded
+ok    fidelity: SSNAP grid at the old knob defaults (tests/drum_ref_grid.h = tests/old_defs.h)
+     SSNAP: strict 146 / 162, loose 162 / 162 (strict misses: build/drum_fidelity.txt)
+ok    fidelity: SSNAP within the loose tolerances on all 162 renders, bounded
+ok    fidelity: SCRAK grid at the old knob defaults (tests/drum_ref_grid.h = tests/old_defs.h)
+     SCRAK: strict 162 / 162, loose 162 / 162 (strict misses: build/drum_fidelity.txt)
+ok    fidelity: SCRAK within the loose tolerances on all 162 renders, bounded
+ok    fidelity: HMETL grid at the old knob defaults (tests/drum_ref_grid.h = tests/old_defs.h)
+     HMETL: strict 146 / 162, loose 162 / 162 (strict misses: build/drum_fidelity.txt)
+ok    fidelity: HMETL within the loose tolerances on all 162 renders, bounded
+ok    fidelity: HNOIS grid at the old knob defaults (tests/drum_ref_grid.h = tests/old_defs.h)
+     HNOIS: strict 157 / 162, loose 162 / 162 (strict misses: build/drum_fidelity.txt)
+ok    fidelity: HNOIS within the loose tolerances on all 162 renders, bounded
+ok    fidelity: all six M1-C models are built
+ok    fidelity: no Q24 product overflowed in any render
+fidelity: 6 of 6 models built
+drum_fidelity: all passed
+ok    grids fidelity: 316 cases x 96 steps identical to the original (MAP + EUCLID)
+ok    comp fidelity: 216 cases x 3 signals x 4096 samples identical to Streams
+phys_ref: 144 cases (DaisySP float vs fixed point, 36 informational): worst peak 4.87 ct (limit 5), worst decay 21.4 % (limit 10 % + 1 dB; without the dispersion noise), level -1.3 .. +0.0 dB; 0 failed
+check_untouched: tag frozen-base-11 is missing, pinned 33ef0f3f2e2461d9092fb2394896aa48352f2294 (moving the baseline is the user's decision)
+guard: clean tree reported dirty
