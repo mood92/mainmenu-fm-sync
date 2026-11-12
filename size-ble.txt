@@ -1,0 +1,185 @@
+sections: .text 549444, .data 2112, .bss 90784, .pool 335360
+
+== .text: 538951 B in sized symbols; by group
+    426482  other
+     45755  bluetooth (ble_/bt_)
+     28519  fx/filter/comp/dsp
+     17328  libc/runtime
+      8460  drum models (dm_)
+      4231  editor/usb/ota
+      3244  sequencer/song
+      3196  samples/presets/tables
+      1736  ui/lcd/gfx/pages
+  -- biggest 40 symbols in .text
+     74424  SMP_DATA
+     26338  fm1_main
+     17926  ui_input
+     13944  graph_paint
+     13246  ed_dispatch
+      8460  DMODELS
+      8196  RS_PER
+      8192  PITCH_INC
+      7142  draw_graph
+      6808  fm1_alnk0_irq
+      5802  draw_columns
+      4392  fm1_timer5_irq_main
+      4096  GRIDS_EUCLID
+      4066  ed_service
+      4064  SMP_SEEK_P
+      3778  wf_rf_common_init
+      3208  LK_NONE
+      2992  wf_phy_init
+      2890  sm_run
+      2718  PRE_FACTORY
+      2700  draw_foot
+      2560  COMP_LP_COEF
+      2466  perf_block
+      2436  att_handle_request
+      2400  GRIDS_NODE
+      2384  btstack_task
+      2048  SINE
+      2048  wl_rfd_ram_lut_40M
+      2048  wl_rfd_ram_lut
+      2032  SMP_SEEK_I
+      2006  lfo_track
+      1952  trxm_render
+      1866  ble_service
+      1862  l2cap_packet_handler
+      1852  sm_event_packet_handler
+      1810  gatt_client_att_packet_handler
+      1802  cbtrx_render
+      1784  proj_fetch
+      1680  scrak_trigger
+      1640  TP
+
+== .data: 2091 B in sized symbols; by group
+      1851  other
+       226  bluetooth (ble_/bt_)
+        10  ui/lcd/gfx/pages
+         4  fx/filter/comp/dsp
+  -- biggest 40 symbols in .data
+      1028  rf
+       196  pf
+       172  le_param
+       168  rx_flt_vga_gain
+       162  hci_param
+       100  m_s
+        44  stack_configs_app
+        24  bt_task_thread
+        21  BLE_ADV_DATA
+        20  cdc
+        20  btstack_stack
+        14  remote_info_hdl
+        14  BLE_RSP_DATA
+         7  pa_config_res
+         6  last_a2dp_active_addr
+         4  comp_was
+         4  led_glow_w
+         4  led_mid_ph
+         4  lim_env
+         4  metal_blk
+         4  mix_fade
+         4  mix_fade_at
+         4  rng_state
+         4  adv_hdl
+         4  current_conn
+         4  g_ble_fp
+         4  g_dut_hdl
+         4  init_hdl
+         4  is_btstack_lowpower_active
+         4  le_data_length.6
+         4  le_data_length.7
+         4  scan_hdl
+         4  stack_run_loop_head
+         4  ble_loops_per_us
+         4  cur
+         4  err_text
+         2  led_br_ph
+         2  le_att_mtu_size
+         2  ll_update_handle
+         1  perf_rate
+
+== .bss: 90663 B in sized symbols; by group
+     81590  other
+      3956  editor/usb/ota
+      3300  bluetooth (ble_/bt_)
+       788  ui/lcd/gfx/pages
+       397  fx/filter/comp/dsp
+       336  libc/runtime
+       164  samples/presets/tables
+       132  sequencer/song
+  -- biggest 40 symbols in .bss
+     20128  trk
+     12832  lk_slot
+      6040  mo
+      4196  bd_base
+      4096  abuf
+      4096  cho_buf
+      3840  proj_old
+      3840  st_buf
+      2048  cdc_out
+      2048  ua_ring
+      1344  usr_zone
+      1340  att_ram
+      1024  graph_scope.snap
+      1024  ota_stage.hdr
+      1024  scope_buf
+      1020  ui
+       640  ota_dec
+       640  sx_frame
+       592  lmp_acl_link
+       560  chain
+       556  le_hci_stack
+       512  bt_fml
+       512  ota_stage.b
+       512  ota_stage.mine
+       512  rg_add.p
+       512  rg_add.q
+       512  ble_rf_trim_load.buf
+       512  search_ram
+       484  scan
+       480  lcd_fillbuf
+       448  fq
+       448  timers
+       408  ed
+       366  rg
+       344  btp
+       332  __user_info
+       320  sl
+       296  bt_st
+       272  mo
+       256  cdc_in
+
+== .pool: 335351 B in sized symbols; by group
+    308951  other
+     23552  bluetooth (ble_/bt_)
+      2848  libc/runtime
+  -- biggest 40 symbols in .pool
+    131072  dly_buf
+     65536  sl_buf
+     59520  cv_px
+     23552  ble_heap
+     21632  rs_buf
+      9874  rev_comb
+      7440  tasks
+      2848  memb_body
+      2756  vg.10
+      2756  vg.11
+      2516  vg_trk
+      2080  bench
+      1996  rev_u
+       708  hl
+       400  ed_out
+       356  vg_memb
+       136  vg.12
+       136  vg.13
+         4  vg.0
+         4  vg.1
+         4  vg.2
+         4  vg.3
+         4  vg.4
+         4  vg.5
+         4  vg.6
+         4  vg.7
+         4  vg.8
+         1  vg.9
