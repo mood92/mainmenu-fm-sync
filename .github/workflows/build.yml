@@ -1,3 +1,4 @@
+# (retrigger)
 # (size audit published to build-logs: size-plain.txt, size-ble.txt)
 # Build the Hortator firmware (plain + Bluetooth package) on GitHub: the JieLi compiler runs on Linux x86-64 only.
 # Every push to group-sync builds; a short report goes to the `build-logs` branch (latest.txt), so a failed or
