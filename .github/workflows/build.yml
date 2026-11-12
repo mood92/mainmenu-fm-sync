@@ -19,8 +19,12 @@ jobs:
       - name: Python packages
         run: python3 -m pip install Pillow
       - name: JieLi toolchain
+        id: tc
+        continue-on-error: true
         run: sh tools/get_toolchain.sh
       - name: JieLi AC79 SDK (V1.2.1 for the package files, V1.2.0 for the pinned Bluetooth libraries)
+        id: sdk
+        continue-on-error: true
         shell: bash
         run: |
           mkdir -p /tmp/rep
@@ -55,6 +59,8 @@ jobs:
           ls tests | head -30
           (make -C tests 2>&1 || true) | tail -20
       - name: Build (Bluetooth package, then plain)
+        id: bld
+        continue-on-error: true
         shell: bash
         run: |
           set -o pipefail
@@ -63,17 +69,22 @@ jobs:
           python3 tools/ble_libs.py libs 2>&1 | tail -8 || true
           DRUM_PACKAGE=1 DRUM_BUNDLE=1 ./build.sh 2>&1 | tee build.log
       - name: Packages
+        if: steps.bld.outcome == 'success'
         run: |
           mkdir -p out; find build -name '*.fwsc' -exec cp {} out/ \; ; ls -l out
       - uses: actions/upload-artifact@v4
+        if: steps.bld.outcome == 'success'
         with: { name: Hortator-packages, path: out/, if-no-files-found: error }
       - name: Publish a build report to the build-logs branch
         if: always()
+        continue-on-error: true
         shell: bash
         run: |
+          set +e
           mkdir -p /tmp/rep
           {
-            echo "commit: $GITHUB_SHA"; echo "job status: ${{ job.status }}"; echo
+            echo "commit: $GITHUB_SHA"; echo "job status: ${{ job.status }}"
+            echo "outcomes: toolchain=${{ steps.tc.outcome }} sdk=${{ steps.sdk.outcome }} build=${{ steps.bld.outcome }}"; echo
             echo "== SDK tags seen"; cat /tmp/rep/sdk_tags.txt 2>/dev/null; cat /tmp/rep/sdk120_missing.txt 2>/dev/null
             echo; echo "== build log (last 150 lines)"; tail -n 150 build.log 2>/dev/null || echo "(no build.log)"
             echo; echo "== images"; ls -l build/*.bin build/*.fwsc out/* 2>&1 || true
