@@ -1621,6 +1621,193 @@
     ],
     "source": "designed",
     "note": "conga pitched down, driven (SLOT 13/16)"
+   },
+   {
+    "uid": 152,
+    "name": "ORGSTAB",
+    "model": "ORGAN",
+    "k": [
+     0,
+     52,
+     4,
+     80,
+     40,
+     20,
+     8,
+     40
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "the M1-organ house stab: minor-7 chord, bright drawbars, a little click and rotary wobble (the default)"
+   },
+   {
+    "uid": 153,
+    "name": "SHOWME",
+    "model": "ORGAN",
+    "k": [
+     0,
+     46,
+     2,
+     100,
+     30,
+     10,
+     4,
+     50
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "1990s piano-house organ riff: minor triad, bright full drawbars, tight stab"
+   },
+   {
+    "uid": 154,
+    "name": "DEEPSTAB",
+    "model": "ORGAN",
+    "k": [
+     -5,
+     58,
+     4,
+     70,
+     20,
+     25,
+     6,
+     40
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "deep house stab: minor 7 a fourth down, warm drawbars, soft rotary"
+   },
+   {
+    "uid": 155,
+    "name": "MIN9JAZZ",
+    "model": "ORGAN",
+    "k": [
+     -2,
+     64,
+     5,
+     60,
+     25,
+     30,
+     10,
+     35
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "jazzy minor-9 voicing (root, b3, b7, 9), a longer stab, gentle wobble"
+   },
+   {
+    "uid": 156,
+    "name": "GARAGE",
+    "model": "ORGAN",
+    "k": [
+     0,
+     70,
+     6,
+     90,
+     40,
+     15,
+     4,
+     50
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "90s garage / early-2000s house organ: major 7, bright, medium ring"
+   },
+   {
+    "uid": 157,
+    "name": "DUBCHORD",
+    "model": "ORGAN",
+    "k": [
+     -7,
+     100,
+     4,
+     30,
+     0,
+     50,
+     70,
+     20
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "dub-techno chord: soft drawbars, slow attack, long ring, deep wobble"
+   },
+   {
+    "uid": 158,
+    "name": "SOFTORG",
+    "model": "ORGAN",
+    "k": [
+     0,
+     90,
+     3,
+     15,
+     5,
+     40,
+     30,
+     20
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "mellow flute organ pad chord, slow attack"
+   },
+   {
+    "uid": 159,
+    "name": "SUSPAD",
+    "model": "ORGAN",
+    "k": [
+     -5,
+     85,
+     7,
+     50,
+     10,
+     35,
+     40,
+     30
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "suspended 4th chord, slow bloom, for deep-house breakdowns"
+   },
+   {
+    "uid": 160,
+    "name": "RMNSTAB",
+    "model": "ORGAN",
+    "k": [
+     0,
+     24,
+     1,
+     55,
+     60,
+     0,
+     2,
+     60
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "Romanian-minimal stab: root + octave, very tight, clicky, no wobble"
+   },
+   {
+    "uid": 161,
+    "name": "ELECTRO",
+    "model": "ORGAN",
+    "k": [
+     -12,
+     30,
+     0,
+     110,
+     70,
+     0,
+     0,
+     70
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "minimal-electro organ blip: single note, bright, short, sharp click"
+   },
+   {
+    "uid": 162,
+    "name": "ORGBASS",
+    "model": "ORGAN",
+    "k": [
+     -24,
+     40,
+     0,
+     25,
+     20,
+     0,
+     2,
+     40
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "deep-house organ bass: two octaves down, soft drawbars, short"
    }
   ]
  },
