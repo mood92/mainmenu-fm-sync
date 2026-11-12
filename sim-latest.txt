@@ -1,53 +1,152 @@
-commit: 5a85816523e9c054efe80f92afec610c425533bd
+commit: 8fcc9cf93f5c3f45104da43c43f5c7440747d134
 outcome: failure
-In file included from ./tests/sim_host.h:149,
-                 from ./tests/sim_core.c:7,
-                 from ./tests/sim_test.c:4:
-./tests/../firmware/src/ui_draw.c: In function ‘graph_signature’:
-./tests/../firmware/src/ui_draw.c:1889:84: warning: suggest parentheses around arithmetic in operand of ‘^’ [-Wparentheses]
- 1888 |             h = (h ^ (uint32_t)song.g[i] + (uint32_t)song.g[G_DMODE] * 7u + (uint32_t)song.g[G_RTYPE] * 11u +
-      |                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
- 1889 |                  (uint32_t)song.g[G_RSIZE] * 13u + (uint32_t)song.g[G_RDAMP] * 17u + (uint32_t)song.g[G_BPM] * 19u) *
-      |                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-./tests/../firmware/src/ui_draw.c:1902:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
- 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
-      |     ^~
-./tests/../firmware/src/ui_draw.c:1904:9: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+./tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
  1904 |         h ^= (held_step() + 1u) * 977u;
       |         ^
-In file included from /usr/include/stdio.h:980,
-                 from ./tests/sim_test.c:5:
-/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘sprintf’:
-/usr/include/x86_64-linux-gnu/bits/stdio2.h:30:10: error: invalid use of ‘__builtin_va_arg_pack ()’
-   30 |   return __builtin___sprintf_chk (__s, __USE_FORTIFY_LEVEL - 1,
-      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   31 |                                   __glibc_objsize (__s), __fmt,
-      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   32 |                                   __va_arg_pack ());
-      |                                   ~~~~~~~~~~~~~~~~~
-/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘snprintf’:
-/usr/include/x86_64-linux-gnu/bits/stdio2.h:54:10: error: invalid use of ‘__builtin_va_arg_pack ()’
-   54 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
-      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   55 |                                    __glibc_objsize (__s), __fmt,
-      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   56 |                                    __va_arg_pack ());
-      |                                    ~~~~~~~~~~~~~~~~~
-/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘fprintf’:
-/usr/include/x86_64-linux-gnu/bits/stdio2.h:79:10: error: invalid use of ‘__builtin_va_arg_pack ()’
-   79 |   return __fprintf_chk (__stream, __USE_FORTIFY_LEVEL - 1, __fmt,
-      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-   80 |                         __va_arg_pack ());
-      |                         ~~~~~~~~~~~~~~~~~
-/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘printf’:
-/usr/include/x86_64-linux-gnu/bits/stdio2.h:86:10: error: invalid use of ‘__builtin_va_arg_pack ()’
-   86 |   return __printf_chk (__USE_FORTIFY_LEVEL - 1, __fmt, __va_arg_pack ());
-      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘dprintf’:
-/usr/include/x86_64-linux-gnu/bits/stdio2.h:117:10: error: invalid use of ‘__builtin_va_arg_pack ()’
-  117 |   return __dprintf_chk (__fd, __USE_FORTIFY_LEVEL - 1, __fmt,
-      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-  118 |                         __va_arg_pack ());
-      |                         ~~~~~~~~~~~~~~~~~
-At top level:
-cc1: note: unrecognized command-line option ‘-Wno-macro-redefined’ may have been intended to silence earlier diagnostics
+./tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    boot: the screen draws
+ok    a button (EDIT) changes the screen
+ok    an encoder turn (KNOB 1) changes the screen
+ok    a note key (track 2's white key) selects track 2 and changes the screen
+ok    before PLAY: silent
+ok    PLAY: the transport runs
+ok    PLAY: audio within 1 s
+ok    PLAY's LED blinks while playing
+ok    MASTER at 0: much quieter
+ok    PLAY again: stopped
+ok    stopped: silent once the tails decay
+ok    power-on: HOME's TRACKS mode, its button LED lit, the key LEDs track 1's steps (demo 1: the kick)
+ok    HOME (mode 2): its button LED lit, only the selected track's key lit (track 1) and the playing variation's
+ok    a held note key lights its LED
+ok    a held high key (F5) lights its own LED, besides the selected track's
+ok    released: only the selected track's key stays lit (and the playing variation's)
+ok    TRACKS: a step key just pressed changes nothing yet
+ok    TRACKS: let go after ~0.05 s (a tap): step 1 toggled
+ok    TRACKS: an off step held past STEP_HOLD_MS: on while still held
+ok    TRACKS: .. let go: stays on
+ok    TRACKS: an on step held and let go: still on
+ok    demos: four used project slots
+ok    demos: the current project is demo 1 (track 1 has steps)
+ok    demos: PLAY grooves at once
+ok    demos: the fresh boot left dirty flash sectors
+ok    demos: slot 1 is the remembered project
+ok    sim_flash_clean clears them
+ok    a save dirties sectors
+ok    round trip: a boot from flash makes slot 1 the current project, with the saved change
+ok    round trip: slot 1 remembered and loaded at power-on (LOADED), no LOAD FAILED question
+ok    returning visit: the last project saved (slot 2) loads, as on the device
+ok    hostile flash: boots and runs
+ok    drift: felucca.c and sim_host.h read
+ok    drift: every firmware source is in the simulator or left out on purpose
+ok    fm1_ms follows the audio clock
+ok    HOME held opens the menu
+ok    SELECT reaches HARDWARE CALIBRATION
+ok    calibration times out and comes back, the panel table kept
+ok    out of the menu, the machine still plays
+info  UI frame (full redraw): 55 us
+sim_test: all ok
+In file included from ./tests/sim_lab_test.c:4:
+In file included from ./tests/sim_core.c:7:
+In file included from ./tests/sim_host.h:149:
+./tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+./tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+ok    voices: every model's hit is heard (sample slots may be empty)
+ok    voices: the 909 kick is not the 808 kick
+ok    voices: DECAY at max rings longer than at min
+ok    reson: STRNG rings longer than the dry hit
+ok    grids: the lanes differ between two corners of the map
+ok    comp: keyed by the kick, the probes show gain reduction
+ok    lfo: track 2's LFO 1 moves over a bar
+ok    dice: 50 % hats fire, but not every one every bar
+ok    perform: REVERSE held changes the output
+ok    mute at the next bar: queued, the hats play on to the bar line, then not
+ok    motion: the knob recorded at step 4 plays back there; the base elsewhere
+ok    reset: a playing transport stops (each piece starts from its own PLAY)
+ok    reset: the pages start as at power-on (FX five times reaches the same page again)
+sim_lab_test: all ok
+In file included from ./tests/sim_ids.c:6:
+In file included from ./tests/sim_core.c:7:
+In file included from ./tests/sim_host.h:149:
+./tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+./tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+In file included from ./tests/sim_record.c:8:
+In file included from ./tests/sim_core.c:7:
+In file included from ./tests/sim_host.h:149:
+./tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+./tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+sim_record: 510 frames at 15 fps -> build/sim/reel.bin
+sim_font: 210 glyphs, 4996 B -> build/sim/terminus.woff
+In file included from ./tests/sim_feature_reel.c:7:
+In file included from ./tests/sim_core.c:7:
+In file included from ./tests/sim_host.h:149:
+./tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+./tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+sim_feature_reel: 7 clips, 990 frames at 15 fps -> build/sim/features.bin
+Unable to find image 'emscripten/emsdk:6.0.11' locally
+6.0.11: Pulling from emscripten/emsdk
+a60ef8ec184e: Pulling fs layer
+2277fe0db95b: Pulling fs layer
+7560908a61ce: Pulling fs layer
+eed0d1a7b1a9: Pulling fs layer
+eed0d1a7b1a9: Waiting
+a60ef8ec184e: Verifying Checksum
+a60ef8ec184e: Download complete
+eed0d1a7b1a9: Verifying Checksum
+eed0d1a7b1a9: Download complete
+7560908a61ce: Verifying Checksum
+7560908a61ce: Download complete
+a60ef8ec184e: Pull complete
+2277fe0db95b: Verifying Checksum
+2277fe0db95b: Download complete
+2277fe0db95b: Pull complete
+7560908a61ce: Pull complete
+eed0d1a7b1a9: Pull complete
+Digest: sha256:cdefec943f04fd4b2b2fe23b0a1a346be9fc560ef5784a83faa27dd351381372
+Status: Downloaded newer image for emscripten/emsdk:6.0.11
+build_sim: page stamped ?v=ee8e61cf91
+....................
+.............X.
+
+Failed tests:
+
+✖ lab ids: the models by their shown names, each in its bank, the MODEL list MD -> MODERN -> CLASSIC; every DM the pages name exists (1.664153ms)
+  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+  
+  48 !== 45
+  
+      at TestContext.<anonymous> (file:///home/runner/work/mainmenu-fm-sync/mainmenu-fm-sync/tests/sim_glue.mjs:605:10)
+      at Test.runInAsyncScope (node:async_hooks:206:9)
+      at Test.run (node:internal/test_runner/test:796:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:526:18)
+      at Test.postRun (node:internal/test_runner/test:889:19)
+      at Test.run (node:internal/test_runner/test:835:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:526:7) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: 48,
+    expected: 45,
+    operator: 'strictEqual'
+  }
