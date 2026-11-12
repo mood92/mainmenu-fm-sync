@@ -141,6 +141,16 @@ static void shot(const char *path)                  /* the framebuffer as binary
 {
     FILE *f = fopen(path, "wb");
     uint32_t i;
+    if (!f) {                                       /* a fresh checkout has no build/ui_shots/<dir>: make it (group-sync CI) */
+        char cmd[400], *sl = strrchr(path, '/');
+        if (sl && (size_t)(sl - path) < 300) {
+            snprintf(cmd, sizeof cmd, "mkdir -p '%.*s'", (int)(sl - path), path);
+            if (system(cmd) == 0)
+                f = fopen(path, "wb");
+        }
+    }
+    if (!f)
+        return;
     fprintf(f, "P6\n240 240\n255\n");
     for (i = 0; i < 240u * 240u; i++) {
         uint16_t c = fb[i];
