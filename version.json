@@ -1,0 +1,16 @@
+{
+ "version": "1.0.1",
+ "commit": "8a85785",
+ "date": "2026-11-12",
+ "since": [],
+ "release": {
+  "version": "1.0.1",
+  "date": "2026-11-03",
+  "notes": [
+   {
+    "title": "Newer FM-1s save again",
+    "text": "Newer FM-1s save again: FM-1s sold recently come with a different flash chip of the same size. Hortator now recognises it, so projects, presets and settings are saved on these units instead of staying in memory with a flash error."
+   }
+  ]
+ }
+}
