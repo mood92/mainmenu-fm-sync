@@ -662,7 +662,7 @@ static const uint8_t MODEL_LIST[NMODELS] = {
     DM_KBOOM, DM_KPUNC, DM_SSNAP, DM_SCRAK, DM_HMETL, DM_HNOIS, DM_MEMB, DM_FM, DM_ACID, DM_SMPL,
     DM_K808, DM_K909, DM_S808, DM_S909, DM_C808, DM_C909, DM_HATC, DM_HATO, DM_CYMB, DM_COWB, DM_TOM, DM_CONGA, DM_RIM,
     DM_CLAVE,
-    DM_ORGAN,                                          /* the group-sync fork's new house sounds: appended, the old order untouched */
+    DM_ORGAN, DM_FMBASS, DM_EPIANO,                                          /* the group-sync fork's new house sounds: appended, the old order untouched */
 };
 static uint32_t model_list_idx(uint32_t m)           /* m's place in MODEL_LIST, from 0 (0: not in it) */
 {

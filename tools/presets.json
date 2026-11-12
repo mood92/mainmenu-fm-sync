@@ -1808,6 +1808,295 @@
     ],
     "source": "designed (group-sync fork)",
     "note": "deep-house organ bass: two octaves down, soft drawbars, short"
+   },
+   {
+    "uid": 163,
+    "name": "FMBASS",
+    "model": "FMBASS",
+    "k": [
+     0,
+     58,
+     50,
+     1,
+     45,
+     50,
+     20,
+     50
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "house FM bass: carrier + ratio 1, an index that closes over the note, a sub an octave down, a little drive (the default)"
+   },
+   {
+    "uid": 164,
+    "name": "M1BASS",
+    "model": "FMBASS",
+    "k": [
+     0,
+     50,
+     70,
+     3,
+     35,
+     40,
+     35,
+     60
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "the classic early-90s house organ-bass family: ratio 2, quick pluck, drive"
+   },
+   {
+    "uid": 165,
+    "name": "SUBWUB",
+    "model": "FMBASS",
+    "k": [
+     -5,
+     80,
+     35,
+     1,
+     60,
+     90,
+     10,
+     40
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "deep-house sub with a slow wub: low index, long decay, heavy sub"
+   },
+   {
+    "uid": 166,
+    "name": "ELBASS",
+    "model": "FMBASS",
+    "k": [
+     -2,
+     38,
+     95,
+     3,
+     20,
+     30,
+     40,
+     70
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "minimal-electro bass: bright pluck, ratio 2, short"
+   },
+   {
+    "uid": 167,
+    "name": "RMNBASS",
+    "model": "FMBASS",
+    "k": [
+     -5,
+     32,
+     45,
+     1,
+     25,
+     70,
+     25,
+     40
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "Romanian-minimal bass: a short round thump"
+   },
+   {
+    "uid": 168,
+    "name": "PLUCKBS",
+    "model": "FMBASS",
+    "k": [
+     0,
+     45,
+     85,
+     3,
+     28,
+     35,
+     15,
+     60
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "90s garage / early-2000s house pluck bass"
+   },
+   {
+    "uid": 169,
+    "name": "ACIDFM",
+    "model": "FMBASS",
+    "k": [
+     0,
+     44,
+     100,
+     4,
+     40,
+     20,
+     70,
+     70
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "harder FM bass: ratio 3, high index, driven"
+   },
+   {
+    "uid": 170,
+    "name": "DUBBASS",
+    "model": "FMBASS",
+    "k": [
+     -12,
+     95,
+     25,
+     1,
+     70,
+     100,
+     5,
+     30
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "dub-techno bass: a low sine, long decay, deep sub"
+   },
+   {
+    "uid": 171,
+    "name": "EPIANO",
+    "model": "EPIANO",
+    "k": [
+     0,
+     70,
+     0,
+     40,
+     60,
+     30,
+     25,
+     60
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "DX-style electric piano, one note (the default)"
+   },
+   {
+    "uid": 172,
+    "name": "EPCHORD",
+    "model": "EPIANO",
+    "k": [
+     0,
+     78,
+     4,
+     38,
+     50,
+     28,
+     28,
+     55
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "electric-piano minor-7 chord, the house chord"
+   },
+   {
+    "uid": 173,
+    "name": "EPMIN9",
+    "model": "EPIANO",
+    "k": [
+     -2,
+     85,
+     5,
+     36,
+     45,
+     26,
+     30,
+     50
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "jazzy minor-9 electric-piano voicing"
+   },
+   {
+    "uid": 174,
+    "name": "RHODES",
+    "model": "EPIANO",
+    "k": [
+     0,
+     80,
+     0,
+     25,
+     35,
+     40,
+     50,
+     40
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "a warm, tremolo Rhodes-like single note"
+   },
+   {
+    "uid": 175,
+    "name": "DEEPEP",
+    "model": "EPIANO",
+    "k": [
+     -5,
+     52,
+     4,
+     45,
+     70,
+     35,
+     10,
+     60
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "deep-house electric-piano stab: minor 7, short and clicky"
+   },
+   {
+    "uid": 176,
+    "name": "EPMAJ7",
+    "model": "EPIANO",
+    "k": [
+     0,
+     75,
+     6,
+     40,
+     55,
+     30,
+     35,
+     55
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "garage / early-2000s house electric-piano major-7"
+   },
+   {
+    "uid": 177,
+    "name": "EPDREAM",
+    "model": "EPIANO",
+    "k": [
+     -5,
+     105,
+     7,
+     30,
+     25,
+     50,
+     60,
+     35
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "slow suspended chord, deep tremolo, for breakdowns"
+   },
+   {
+    "uid": 178,
+    "name": "EPBELL",
+    "model": "EPIANO",
+    "k": [
+     12,
+     60,
+     0,
+     30,
+     110,
+     50,
+     0,
+     75
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "bright bell-tine note, an octave up"
+   },
+   {
+    "uid": 179,
+    "name": "EPMIN",
+    "model": "EPIANO",
+    "k": [
+     0,
+     60,
+     2,
+     45,
+     65,
+     30,
+     20,
+     70
+    ],
+    "source": "designed (group-sync fork)",
+    "note": "90s house keys: a minor triad, snappy"
    }
   ]
  },

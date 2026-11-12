@@ -9072,7 +9072,7 @@ static void test_model_list_order(void)
         "B2TRX", "BDEFM", "SDEFM", "TMEFM", "CPEFM", "RSEFM", "CBEFM", "HHEFM", "CYEFM",
         "BOOM", "PUNCH", "SNAP", "CRACK", "METAL", "HISS", "SKIN", "FM", "ACID", "SAMPL",
         "K808", "K909", "S808", "S909", "C808", "C909", "HATC", "HATO", "CYMB", "COWB", "TOM", "CONGA", "RIM", "CLAVE",
-        "ORGAN"};                                    /* the group-sync fork's new sounds come last, the old order untouched */
+        "ORGAN", "FMBAS", "EPIAN"};                                    /* the group-sync fork's new sounds come last, the old order untouched */
     uint32_t i, ok = 1, okb = 1, okp = 1;
     ui_host_init();
     song.sel = 0;
@@ -9088,11 +9088,11 @@ static void test_model_list_order(void)
         model_step(-1);
         okb &= str_eq(N_MODEL[TSEL->p[P_MODEL]], WANT[i]);
     }
-    check("MODEL list: MD (BDTRX .. CYEFM), MODERN (BOOM .. SAMPL), CLASSIC (K808 .. CLAVE), then ORGAN, which wraps to BDTRX", ok);
-    check("MODEL list: the same order backwards (BDTRX back to ORGAN)", okb);
+    check("MODEL list: MD (BDTRX .. CYEFM), MODERN (BOOM .. SAMPL), CLASSIC (K808 .. CLAVE), then ORGAN, FMBAS, EPIAN, which wraps to BDTRX", ok);
+    check("MODEL list: the same order backwards (BDTRX back to EPIAN)", okb);
     check("MODEL list: each voice on its first preset, not edited", okp);
     check("models keep their numbers (projects store them): K808 0, ACID 23, BDTRX 24, CYEFM 44",
-          DM_K808 == 0 && DM_ACID == 23 && DM_KTRX == 24 && DM_CYEFM == 44 && DM_ORGAN == 45 && NMODELS == 46);
+          DM_K808 == 0 && DM_ACID == 23 && DM_KTRX == 24 && DM_CYEFM == 44 && DM_ORGAN == 45 && DM_FMBASS == 46 && DM_EPIANO == 47 && NMODELS == 48);
 }
 
 /* the renamed engines (owner, fixes 9): the MODEL message, the engine view's title (DMODELS' name) and N_MODEL agree,
@@ -9150,8 +9150,8 @@ static int graph_has_text(const char *s)
 static void test_engine_number(void)
 {
     static const struct { uint8_t m; const char *s; } C[] = {
-        {DM_KTRX, "#01/46"}, {DM_FM, "#29/46"}, {DM_ACID, "#30/46"}, {DM_K808, "#32/46"}, {DM_CLAVE, "#45/46"},
-        {DM_ORGAN, "#46/46"}};
+        {DM_KTRX, "#01/48"}, {DM_FM, "#29/48"}, {DM_ACID, "#30/48"}, {DM_K808, "#32/48"}, {DM_CLAVE, "#45/48"},
+        {DM_ORGAN, "#46/48"}, {DM_FMBASS, "#47/48"}, {DM_EPIANO, "#48/48"}};
     uint32_t i, ok = 1, okall = 1;
     char want[12];
     ui_host_init();
@@ -9166,13 +9166,13 @@ static void test_engine_number(void)
             printf("      %s: no %s\n", N_MODEL[C[i].m], C[i].s);
         }
     }
-    check("engine view: KTRX #01/46 (the first), FM #29, ACID #30, K808 #32 (a Classic), CLAVE #45, ORGAN #46/46 (the last)", ok);
+    check("engine view: KTRX #01/48 (the first), FM #29, ACID #30, K808 #32 (a Classic), CLAVE #45, ORGAN #46, FMBAS #47, EPIAN #48/48 (the last)", ok);
     old_set_model(TSEL, DM_K808);
     ui.force = 1;
     ui_frame();
     check("engine view: K808 (enum 0) is not #01 (the list's place, not the model's number)",
-          !graph_has_text("#01/46"));
-    check("engine view: the total is the MODEL list's length", sizeof MODEL_LIST / sizeof MODEL_LIST[0] == 46u);
+          !graph_has_text("#01/48"));
+    check("engine view: the total is the MODEL list's length", sizeof MODEL_LIST / sizeof MODEL_LIST[0] == 48u);
     for (i = 0; i < NMODELS; i++) {
         old_set_model(TSEL, MODEL_LIST[i]);
         TSEL->p[P_CHOKE] = 2;

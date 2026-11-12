@@ -116,7 +116,7 @@ static int8_t slot_fx(uint32_t slot, uint32_t id)       /* user slot's stored FX
  * characters; every knob within its model's range; at most 4 per voice, each in its voice's bank */
 static uint32_t bank_of_model(uint32_t m)
 {
-    return m == DM_ORGAN ? (uint32_t)PB_MODERN        /* the group-sync fork's house sounds live in MODERN */
+    return m >= DM_ORGAN ? (uint32_t)PB_MODERN        /* the group-sync fork's house sounds live in MODERN */
            : m >= DM_KTRX ? (uint32_t)PB_MD : m <= DM_CLAVE ? (uint32_t)PB_CLASSIC : (uint32_t)PB_MODERN;
 }
 static void test_defaults_are_first_presets(void)
@@ -138,20 +138,20 @@ static void test_defaults_are_first_presets(void)
         }
     }
     check("every model's default knobs = its first preset's (MATRX, CLTRX: no preset)", ok);
-    ok = PRE_NFACT == 162u && PRE_BANK_START[PB_MD] == 0u && PRE_BANK_START[PB_MODERN] == 55u &&
-         PRE_BANK_START[PB_CLASSIC] == 106u && PRE_BANK_START[PB_USER] == PRE_NFACT &&
+    ok = PRE_NFACT == 179u && PRE_BANK_START[PB_MD] == 0u && PRE_BANK_START[PB_MODERN] == 55u &&
+         PRE_BANK_START[PB_CLASSIC] == 123u && PRE_BANK_START[PB_USER] == PRE_NFACT &&
          PRE_BANK_START[PB_N] == PRE_NFACT + PRE_NUSER;          /* (fix 8: MACHINEDRUM, MODERN, CLASSIC) */
     for (i = 0; i < PRE_NFACT; i++)
-        ok &= preset_get(i, &p) && preset_bank_of(i) == (i < 55u ? (uint32_t)PB_MD : i < 106u ? (uint32_t)PB_MODERN
+        ok &= preset_get(i, &p) && preset_bank_of(i) == (i < 55u ? (uint32_t)PB_MD : i < 123u ? (uint32_t)PB_MODERN
                                                                                               : (uint32_t)PB_CLASSIC);
     ok &= PRE_NUSER == 96u && preset_bank_of(user_id(0)) == PB_USER && preset_bank_of(user_id(95)) == PB_USER &&
           preset_bank_of(user_id(96)) == PB_N && !preset_get(user_id(96), &p) && !preset_get(PRE_NONE, &p);
-    check("banks: MACHINEDRUM 55, MODERN 51 (40 + 11 ORGAN), CLASSIC 56, then USER 96; a bad id: none", ok);
+    check("banks: MACHINEDRUM 55, MODERN 68 (40 + the fork's ORGAN, FMBAS, EPIAN), CLASSIC 56, then USER 96; a bad id: none", ok);
     for (i = 0, ok = 1; i < PRE_NFACT; i++) {
         uint32_t len = (uint32_t)strnlen(PRE_FACTORY[i].name, sizeof PRE_FACTORY[i].name);
         p = PRE_FACTORY[i];
         ok &= p.model < NMODELS && len >= 1u && len <= 8u && bank_of_model(p.model) == preset_bank_of(i) &&
-              ++n[p.model] <= (p.model == DM_ORGAN ? 12u : 4u);     /* ORGAN: a house palette, up to 12 */
+              ++n[p.model] <= (p.model >= DM_ORGAN ? 12u : 4u);    /* the fork's house sounds: a palette, up to 12 */
         for (j = 0; j < 8u; j++)
             ok &= p.k[j] >= DMODELS[p.model].edit[j].min && p.k[j] <= DMODELS[p.model].edit[j].max;
         for (j = 0; j < i; j++) {
@@ -164,7 +164,7 @@ static void test_defaults_are_first_presets(void)
         }
     }
     check("every preset: a name of 1..8 characters, unique; its knobs in its model's ranges; in its voice's bank; "
-          "<= 4 per voice (ORGAN: 12)", ok);
+          "<= 4 per voice (ORGAN, FMBAS, EPIAN: 12)", ok);
     ok = preset_get(0, &p) && p.model == DM_KTRX && !strcmp(p.name, "SUBTHUMP") &&
          preset_get(preset_first_of(DM_CPEFM), &p) && !strcmp(p.name, "BUZZCLAP") && p.k[0] == 24 &&
          preset_get(PRE_BANK_START[PB_CLASSIC], &p) && p.model == DM_K808 && !strcmp(p.name, "ROUNDBD") &&

@@ -62,7 +62,7 @@ static const preset_t PRE_FACTORY[] = {
     {DM_CYEFM, {-15, 77, 57, 44, 0, 0, 0, 0}, "LOWCHIME"},
     {DM_CYEFM, {0, 25, 64, 0, 127, 127, 127, 0}, "FMSPLASH"},
     {DM_CYEFM, {5, 81, 126, 119, 8, 40, 91, 0}, "SIZZRIDE"},
-    /* MODERN / PLAITS (ACID, SMPL included): 51 */
+    /* MODERN / PLAITS (ACID, SMPL included): 68 */
     {DM_KBOOM, {0, 64, 64, 32, 0, 0, 0, 0}, "BOOMBD"},
     {DM_KBOOM, {-4, 110, 40, 20, 0, 0, 0, 0}, "LONGBOOM"},
     {DM_KBOOM, {2, 50, 90, 100, 0, 0, 0, 0}, "PUNCHER"},
@@ -114,6 +114,23 @@ static const preset_t PRE_FACTORY[] = {
     {DM_ORGAN, {0, 24, 1, 55, 60, 0, 2, 60}, "RMNSTAB"},
     {DM_ORGAN, {-12, 30, 0, 110, 70, 0, 0, 70}, "ELECTRO"},
     {DM_ORGAN, {-24, 40, 0, 25, 20, 0, 2, 40}, "ORGBASS"},
+    {DM_FMBASS, {0, 58, 50, 1, 45, 50, 20, 50}, "FMBASS"},
+    {DM_FMBASS, {0, 50, 70, 3, 35, 40, 35, 60}, "M1BASS"},
+    {DM_FMBASS, {-5, 80, 35, 1, 60, 90, 10, 40}, "SUBWUB"},
+    {DM_FMBASS, {-2, 38, 95, 3, 20, 30, 40, 70}, "ELBASS"},
+    {DM_FMBASS, {-5, 32, 45, 1, 25, 70, 25, 40}, "RMNBASS"},
+    {DM_FMBASS, {0, 45, 85, 3, 28, 35, 15, 60}, "PLUCKBS"},
+    {DM_FMBASS, {0, 44, 100, 4, 40, 20, 70, 70}, "ACIDFM"},
+    {DM_FMBASS, {-12, 95, 25, 1, 70, 100, 5, 30}, "DUBBASS"},
+    {DM_EPIANO, {0, 70, 0, 40, 60, 30, 25, 60}, "EPIANO"},
+    {DM_EPIANO, {0, 78, 4, 38, 50, 28, 28, 55}, "EPCHORD"},
+    {DM_EPIANO, {-2, 85, 5, 36, 45, 26, 30, 50}, "EPMIN9"},
+    {DM_EPIANO, {0, 80, 0, 25, 35, 40, 50, 40}, "RHODES"},
+    {DM_EPIANO, {-5, 52, 4, 45, 70, 35, 10, 60}, "DEEPEP"},
+    {DM_EPIANO, {0, 75, 6, 40, 55, 30, 35, 55}, "EPMAJ7"},
+    {DM_EPIANO, {-5, 105, 7, 30, 25, 50, 60, 35}, "EPDREAM"},
+    {DM_EPIANO, {12, 60, 0, 30, 110, 50, 0, 75}, "EPBELL"},
+    {DM_EPIANO, {0, 60, 2, 45, 65, 30, 20, 70}, "EPMIN"},
     /* CLASSIC 808 / 909: 56 */
     {DM_K808, {0, 80, 40, 40, 30, 0, 0, 0}, "ROUNDBD"},
     {DM_K808, {-3, 120, 20, 20, 20, 0, 0, 0}, "SUBBOOM"},
@@ -173,7 +190,7 @@ static const preset_t PRE_FACTORY[] = {
     {DM_CLAVE, {-2, 60, 20, 100, 0, 0, 0, 0}, "BLIP"},
 };
 #define PRE_NFACT ((uint32_t)(sizeof PRE_FACTORY / sizeof PRE_FACTORY[0]))
-typedef char pre_nfact_is[PRE_NFACT == 162u ? 1 : -1];
+typedef char pre_nfact_is[PRE_NFACT == 179u ? 1 : -1];
 /* each factory preset's uid (the same order): a project's reference (append-only: never reused) */
 static const uint16_t PRE_UID[] = {
     1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16,
@@ -182,12 +199,13 @@ static const uint16_t PRE_UID[] = {
     49, 50, 51, 52, 53, 54, 55, 112, 113, 114, 115, 116, 117, 118, 119, 120,
     121, 122, 123, 124, 125, 126, 127, 128, 129, 130, 131, 132, 133, 134, 135, 136,
     137, 138, 139, 140, 141, 142, 143, 144, 145, 146, 147, 148, 149, 150, 151, 152,
-    153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 56, 57, 58, 59, 60, 61,
-    62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76, 77,
-    78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92, 93,
-    94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108, 109,
-    110, 111,
+    153, 154, 155, 156, 157, 158, 159, 160, 161, 162, 163, 164, 165, 166, 167, 168,
+    169, 170, 171, 172, 173, 174, 175, 176, 177, 178, 179, 56, 57, 58, 59, 60,
+    61, 62, 63, 64, 65, 66, 67, 68, 69, 70, 71, 72, 73, 74, 75, 76,
+    77, 78, 79, 80, 81, 82, 83, 84, 85, 86, 87, 88, 89, 90, 91, 92,
+    93, 94, 95, 96, 97, 98, 99, 100, 101, 102, 103, 104, 105, 106, 107, 108,
+    109, 110, 111,
 };
 typedef char pre_uid_n[sizeof PRE_UID / sizeof PRE_UID[0] == PRE_NFACT ? 1 : -1];
 /* each bank's first id; PRE_BANK_START[PB_N]: the end of the user bank */
-static const uint16_t PRE_BANK_START[PB_N + 1] = {0, 55, 106, PRE_NFACT, PRE_NFACT + PRE_NUSER};
+static const uint16_t PRE_BANK_START[PB_N + 1] = {0, 55, 123, PRE_NFACT, PRE_NFACT + PRE_NUSER};

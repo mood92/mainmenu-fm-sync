@@ -166,6 +166,7 @@ typedef struct {
     int32_t g[ORG_NP], scale, ramp, rinc, click, cprev, vib;
     uint8_t nn;
 } organ_t;
+typedef struct { uint32_t ph[ORG_NN], inc[ORG_NN], lfo; int32_t scale, body, tine, trem; uint8_t nn; } epiano_t;   /* EPIANO (dm_epiano.c) */
 typedef union {
     int32_t raw[2];
     smpl_loop_t sl;
@@ -191,4 +192,5 @@ typedef union {
     hhefm_t hhe;
     cyefm_t cye;
     organ_t org;
+    epiano_t ep;
 } dm_state_t;
