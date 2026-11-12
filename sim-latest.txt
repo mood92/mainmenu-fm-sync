@@ -1,0 +1,53 @@
+commit: 5a85816523e9c054efe80f92afec610c425533bd
+outcome: failure
+In file included from ./tests/sim_host.h:149,
+                 from ./tests/sim_core.c:7,
+                 from ./tests/sim_test.c:4:
+./tests/../firmware/src/ui_draw.c: In function ‘graph_signature’:
+./tests/../firmware/src/ui_draw.c:1889:84: warning: suggest parentheses around arithmetic in operand of ‘^’ [-Wparentheses]
+ 1888 |             h = (h ^ (uint32_t)song.g[i] + (uint32_t)song.g[G_DMODE] * 7u + (uint32_t)song.g[G_RTYPE] * 11u +
+      |                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+ 1889 |                  (uint32_t)song.g[G_RSIZE] * 13u + (uint32_t)song.g[G_RDAMP] * 17u + (uint32_t)song.g[G_BPM] * 19u) *
+      |                  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+./tests/../firmware/src/ui_draw.c:1902:5: warning: this ‘if’ clause does not guard... [-Wmisleading-indentation]
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^~
+./tests/../firmware/src/ui_draw.c:1904:9: note: ...this statement, but the latter is misleadingly indented as if it were guarded by the ‘if’
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+In file included from /usr/include/stdio.h:980,
+                 from ./tests/sim_test.c:5:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘sprintf’:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:30:10: error: invalid use of ‘__builtin_va_arg_pack ()’
+   30 |   return __builtin___sprintf_chk (__s, __USE_FORTIFY_LEVEL - 1,
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   31 |                                   __glibc_objsize (__s), __fmt,
+      |                                   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   32 |                                   __va_arg_pack ());
+      |                                   ~~~~~~~~~~~~~~~~~
+/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘snprintf’:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:54:10: error: invalid use of ‘__builtin_va_arg_pack ()’
+   54 |   return __builtin___snprintf_chk (__s, __n, __USE_FORTIFY_LEVEL - 1,
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   55 |                                    __glibc_objsize (__s), __fmt,
+      |                                    ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   56 |                                    __va_arg_pack ());
+      |                                    ~~~~~~~~~~~~~~~~~
+/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘fprintf’:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:79:10: error: invalid use of ‘__builtin_va_arg_pack ()’
+   79 |   return __fprintf_chk (__stream, __USE_FORTIFY_LEVEL - 1, __fmt,
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+   80 |                         __va_arg_pack ());
+      |                         ~~~~~~~~~~~~~~~~~
+/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘printf’:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:86:10: error: invalid use of ‘__builtin_va_arg_pack ()’
+   86 |   return __printf_chk (__USE_FORTIFY_LEVEL - 1, __fmt, __va_arg_pack ());
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/usr/include/x86_64-linux-gnu/bits/stdio2.h: In function ‘dprintf’:
+/usr/include/x86_64-linux-gnu/bits/stdio2.h:117:10: error: invalid use of ‘__builtin_va_arg_pack ()’
+  117 |   return __dprintf_chk (__fd, __USE_FORTIFY_LEVEL - 1, __fmt,
+      |          ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+  118 |                         __va_arg_pack ());
+      |                         ~~~~~~~~~~~~~~~~~
+At top level:
+cc1: note: unrecognized command-line option ‘-Wno-macro-redefined’ may have been intended to silence earlier diagnostics
