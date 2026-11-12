@@ -1,27 +1,5 @@
-commit: 8fcc9cf93f5c3f45104da43c43f5c7440747d134
+commit: 281f07623fc641f23de43bf9adfeb0395974dccd
 outcome: failure
-./tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
- 1904 |         h ^= (held_step() + 1u) * 977u;
-      |         ^
-./tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
- 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
-      |     ^
-1 warning generated.
-ok    boot: the screen draws
-ok    a button (EDIT) changes the screen
-ok    an encoder turn (KNOB 1) changes the screen
-ok    a note key (track 2's white key) selects track 2 and changes the screen
-ok    before PLAY: silent
-ok    PLAY: the transport runs
-ok    PLAY: audio within 1 s
-ok    PLAY's LED blinks while playing
-ok    MASTER at 0: much quieter
-ok    PLAY again: stopped
-ok    stopped: silent once the tails decay
-ok    power-on: HOME's TRACKS mode, its button LED lit, the key LEDs track 1's steps (demo 1: the kick)
-ok    HOME (mode 2): its button LED lit, only the selected track's key lit (track 1) and the playing variation's
-ok    a held note key lights its LED
-ok    a held high key (F5) lights its own LED, besides the selected track's
 ok    released: only the selected track's key stays lit (and the playing variation's)
 ok    TRACKS: a step key just pressed changes nothing yet
 ok    TRACKS: let go after ~0.05 s (a tap): step 1 toggled
@@ -46,7 +24,7 @@ ok    HOME held opens the menu
 ok    SELECT reaches HARDWARE CALIBRATION
 ok    calibration times out and comes back, the panel table kept
 ok    out of the menu, the machine still plays
-info  UI frame (full redraw): 55 us
+info  UI frame (full redraw): 56 us
 sim_test: all ok
 In file included from ./tests/sim_lab_test.c:4:
 In file included from ./tests/sim_core.c:7:
@@ -126,27 +104,49 @@ a60ef8ec184e: Pull complete
 eed0d1a7b1a9: Pull complete
 Digest: sha256:cdefec943f04fd4b2b2fe23b0a1a346be9fc560ef5784a83faa27dd351381372
 Status: Downloaded newer image for emscripten/emsdk:6.0.11
-build_sim: page stamped ?v=ee8e61cf91
+build_sim: page stamped ?v=6a02b0ea4c
 ....................
 .............X.
 
 Failed tests:
 
-✖ lab ids: the models by their shown names, each in its bank, the MODEL list MD -> MODERN -> CLASSIC; every DM the pages name exists (1.664153ms)
-  AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
+✖ lab ids: the models by their shown names, each in its bank, the MODEL list MD -> MODERN -> CLASSIC; every DM the pages name exists (3.031981ms)
+  AssertionError [ERR_ASSERTION]: the list runs bank by bank
+  + actual - expected ... Lines skipped
   
-  48 !== 45
-  
-      at TestContext.<anonymous> (file:///home/runner/work/mainmenu-fm-sync/mainmenu-fm-sync/tests/sim_glue.mjs:605:10)
+    [
+      0,
+  ...
+      1,
+      1,
+  +   2,
+  +   2,
+  +   2,
+  -   1,
+  -   1,
+  -   1,
+      2,
+      2,
+  ...
+      2,
+      2,
+  +   1,
+  +   1,
+  +   1
+  -   2,
+  -   2,
+  -   2
+    ]
+      at TestContext.<anonymous> (file:///home/runner/work/mainmenu-fm-sync/mainmenu-fm-sync/tests/sim_glue.mjs:610:10)
       at Test.runInAsyncScope (node:async_hooks:206:9)
       at Test.run (node:internal/test_runner/test:796:25)
       at Test.processPendingSubtests (node:internal/test_runner/test:526:18)
       at Test.postRun (node:internal/test_runner/test:889:19)
       at Test.run (node:internal/test_runner/test:835:12)
       at async Test.processPendingSubtests (node:internal/test_runner/test:526:7) {
-    generatedMessage: true,
+    generatedMessage: false,
     code: 'ERR_ASSERTION',
-    actual: 48,
-    expected: 45,
-    operator: 'strictEqual'
+    actual: [Array],
+    expected: [Array],
+    operator: 'deepStrictEqual'
   }
