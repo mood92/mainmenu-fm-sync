@@ -3761,5 +3761,4 @@ drum_fidelity: all passed
 ok    grids fidelity: 316 cases x 96 steps identical to the original (MAP + EUCLID)
 ok    comp fidelity: 216 cases x 3 signals x 4096 samples identical to Streams
 phys_ref: 144 cases (DaisySP float vs fixed point, 36 informational): worst peak 4.87 ct (limit 5), worst decay 21.4 % (limit 10 % + 1 dB; without the dispersion noise), level -1.3 .. +0.0 dB; 0 failed
-check_untouched: tag frozen-base-11 is missing, pinned 33ef0f3f2e2461d9092fb2394896aa48352f2294 (moving the baseline is the user's decision)
-guard: clean tree reported dirty
+ALL DRUM HOST TESTS PASSED
