@@ -11,6 +11,9 @@ on:
     paths: ['firmware/**', 'tools/**', 'assets/**', 'tests/**', 'build.sh', '.github/workflows/build.yml']
 permissions:
   contents: write
+concurrency:
+  group: build-${{ github.ref }}
+  cancel-in-progress: true
 jobs:
   firmware:
     runs-on: ubuntu-latest
@@ -30,18 +33,19 @@ jobs:
       - name: JieLi AC79 SDK (V1.2.1 for the package files, V1.2.0 for the pinned Bluetooth libraries)
         id: sdk
         continue-on-error: true
+        timeout-minutes: 20
         shell: bash
         run: |
           mkdir -p /tmp/rep
           for h in https://gitee.com/Jieli-Tech/fw-AC79_AIoT_SDK.git https://github.com/Jieli-Tech/fw-AC79_AIoT_SDK.git; do
             echo "# $h" >> /tmp/rep/sdk_tags.txt
-            git ls-remote $h 2>&1 | grep -i -E 'refs/heads|V1\.2\.0|release' | head -60 >> /tmp/rep/sdk_tags.txt || true
+            timeout 60 git ls-remote $h 2>&1 | grep -i -E 'refs/heads|V1\.2\.0|release' | head -60 >> /tmp/rep/sdk_tags.txt || true
           done
           clone() {  # clone <dest> <ref>...
             d=$1; shift
             for ref in "$@"; do
               for i in 1 2 3 4 5 6; do
-                git clone --depth 1 --branch "$ref" https://gitee.com/Jieli-Tech/fw-AC79_AIoT_SDK.git "$d" && return 0
+                timeout 150 git clone --depth 1 --branch "$ref" https://gitee.com/Jieli-Tech/fw-AC79_AIoT_SDK.git "$d" && return 0
                 rm -rf "$d"; sleep 30
               done
             done
@@ -51,7 +55,7 @@ jobs:
           clone120() {
             for u in https://gitee.com/Jieli-Tech/fw-AC79_AIoT_SDK.git https://github.com/Jieli-Tech/fw-AC79_AIoT_SDK.git; do
               for ref in release-AC79NN_SDK_V1.2.0 release/AC79NN_SDK_V1.2.0 AC79NN_SDK_V1.2.0 V1.2.0; do
-                git clone --depth 1 --branch "$ref" $u ~/sdk120 2>/dev/null && { echo "V1.2.0 clone: $u $ref" >> /tmp/rep/sdk_tags.txt; return 0; }; rm -rf ~/sdk120
+                timeout 150 git clone --depth 1 --branch "$ref" $u ~/sdk120 2>/dev/null && { echo "V1.2.0 clone: $u $ref" >> /tmp/rep/sdk_tags.txt; return 0; }; rm -rf ~/sdk120
               done
             done
             return 1
