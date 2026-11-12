@@ -241,7 +241,7 @@ static void t_info(void)
           "sizes, the state block",
           rc_is(f, 0, 0) && ends_ok(f, &r) && !strcmp(magic, "HORTATOR") && !strcmp(fw, "DEV") && v[0] == 1u &&
               v[1] == ED_PROTO_MINOR && ED_PROTO_MINOR == 3u && v[2] == (ED_CAP_LIVE | ED_CAP_UPR2) && v[3] == 8u && v[4] == 64u && v[5] == P_COUNT && v[6] == G_COUNT &&
-              v[7] == NMODELS && v[8] == 151u && v[9] == 96u && v[10] == 3u && v[11] == 4u && v[12] == 8u &&
+              v[7] == NMODELS && v[8] == PRE_NFACT && v[9] == 96u && v[10] == 3u && v[11] == 4u && v[12] == 8u &&
               v[13] == 640u && v[14] == 0u && f->b[f->n - 1u - ED_STATE_N + 1u] == ED_NONE &&
               f->b[f->n - 1u - ED_STATE_N + 5u] == song.sel);
     rq_begin(ED_INFO, 3);

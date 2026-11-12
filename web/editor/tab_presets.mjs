@@ -74,7 +74,7 @@ export class PresetsModel {
   get canRead() { return this.s.has(CMD.BACKUP_GET); }
   get canWrite() { return this.s.has(CMD.RESTORE) && !!((this.s.info?.caps ?? 0) & CAP.UPR2); }
   get track() { return this.s.state?.sel ?? 0; }
-  get nfact() { return this.s.info?.nfact ?? 151; }
+  get nfact() { return this.s.info?.nfact ?? 162; }
 
   /** what the tab shows: the model names, the factory banks, the FM-1's user slots */
   async load() {

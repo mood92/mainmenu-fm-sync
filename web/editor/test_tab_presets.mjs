@@ -3,7 +3,7 @@
 //
 // The Presets tab's logic (tab_presets.mjs PresetsModel) against the mock device: node, no browser, no hardware.
 //   node web/editor/test_tab_presets.mjs          (also run by node web/test_web.mjs)
-// - the factory banks (151: MACHINEDRUM 55, MODERN 40, CLASSIC 56), search, PRESET_LOAD onto the selected track
+// - the factory banks (162: MACHINEDRUM 55, MODERN 51, CLASSIC 56), search, PRESET_LOAD onto the selected track
 // - the user list read from flash (object 0), a presets file round trip byte for byte
 // - rename / reorder / delete / "Save track N here" -> the right UPR2 record on the FM-1 (and on another FM-1)
 // - each user preset's FX shown and edited, kept or dropped (the voice only)
@@ -43,8 +43,8 @@ export async function runPresetsTests(log = console.log) {
     const { m, s, pm } = await open();
     sessions.push(s);
     ok(pm.banks.map((b) => `${b.name} ${b.presets.length}`).join() === "MACHINEDRUM 55,MODERN 40,CLASSIC 56"
-      && pm.factory().length === 151 && pm.factory().every((p, i) => p.id === i && p.name === data.presets[i].name),
-    "factory: 151 presets in three banks, the device's names and ids");
+      && pm.factory().length === 162 && pm.factory().every((p, i) => p.id === i && p.name === data.presets[i].name),
+    "factory: 162 presets in three banks, the device's names and ids");
     const k808 = pm.factory("k808");
     ok(k808.length > 0 && k808.every((p) => pm.modelNames[p.model] === "K808" || /K808/.test(p.name))
       && pm.factory("", 1).length === 40 && pm.factory("", 1).every((p) => p.bank === 1) && pm.factory("zzzq").length === 0,

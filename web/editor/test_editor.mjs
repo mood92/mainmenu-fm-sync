@@ -194,7 +194,7 @@ const q = (cmd, args) => m.request(cmd, args);
 {
   const info = q(CMD.INFO);
   ok(info.rc === 0 && info.magic === "HORTATOR" && info.major === 1 && info.minor === 3 && info.caps === 0xff && info.ntrk === 8 && info.pcount === 82
-    && info.gcount === 42 && info.nmodels === 45 && info.nfact === 151 && info.nuser === 96 && info.maxreq === 640
+    && info.gcount === 42 && info.nmodels === 46 && info.nfact === 162 && info.nuser === 96 && info.maxreq === 640
     && info.state.slot === 0 && info.state.used === 7 && info.state.dirty === 0 && P.checkInfo(info).ok, "INFO: the device, A loaded, nothing unsaved");
   ok(info.state.vmask[0] === 0b10111 && info.state.vmask[1] === 0b11 && info.state.vmask[3] === 1, "INFO: the variations used per slot");
   ok(P.classifyPort("Hortator") === "fm1" && P.classifyPort("Hortator 8ch MIDI 1") === "fm1" && P.classifyPort("Felucca") === "fm1"
@@ -259,7 +259,7 @@ const q = (cmd, args) => m.request(cmd, args);
     && q(CMD.NAMES, { bank: 3, first: 0 }).rc === RC.BAD, "NAMES: the three factory banks by id, the user bank refused");
   const pl = q(CMD.PRESET_LOAD, { track: 5, id: 60 }), emptyUser = m.upr.findIndex((x) => !x);
   ok(pl.model === data.presets[60].model && q(CMD.DUMP, { track: 5 }).preset === 60
-    && q(CMD.PRESET_LOAD, { track: 5, id: 151 + emptyUser }).detail === DETAIL.PRESET_EMPTY, "PRESET_LOAD: factory preset loaded, an empty user slot refused");
+    && q(CMD.PRESET_LOAD, { track: 5, id: 162 + emptyUser }).detail === DETAIL.PRESET_EMPTY, "PRESET_LOAD: factory preset loaded, an empty user slot refused");
 }
 
 /* patterns: steps, switch-to-edit, locks, cue, save --------------------------------------------- */
