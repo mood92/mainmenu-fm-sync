@@ -52,6 +52,15 @@ jobs:
             return 1
           }
           clone120 || echo "V1.2.0 not found" | tee /tmp/rep/sdk120_missing.txt
+          if [ -d ~/sdk120 ]; then
+            (cd ~/sdk120 && git fetch -q --unshallow origin 2>&1 | tail -1
+             PIN=885cd53747753488b380f761318bf30d691f75541dd28adc72457690aa51506a
+             for c in $(git rev-list HEAD -- cpu/wl82/liba/btctrler.a); do
+               h=$(git show $c:cpu/wl82/liba/btctrler.a | sha256sum | cut -d' ' -f1)
+               echo "btctrler.a at $c: $h" >> /tmp/rep/sdk_tags.txt
+               if [ "$h" = "$PIN" ]; then git checkout -q $c && echo "PINNED COMMIT $c" >> /tmp/rep/sdk_tags.txt; break; fi
+             done)
+          fi
           for d in ~/sdk120 ~/fw-AC79_AIoT_SDK; do
             echo "== $d" >> /tmp/rep/sdk_tags.txt
             (cd $d && git log -1 --format='%H %d' ; ls -l cpu/wl82/liba/btctrler.a; sha256sum cpu/wl82/liba/btctrler.a; head -c 120 cpu/wl82/liba/btctrler.a | head -3) >> /tmp/rep/sdk_tags.txt 2>&1
