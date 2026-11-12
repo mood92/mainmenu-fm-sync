@@ -1,0 +1,74 @@
+# Build the Hortator firmware (plain + Bluetooth package) on GitHub: the JieLi compiler runs on Linux x86-64 only.
+# Every push to group-sync builds; a short report goes to the `build-logs` branch (latest.txt), so a failed or
+# too-big build can be read without opening the Actions page. GPL-3.0-only, as the rest of the repo.
+name: build
+on:
+  workflow_dispatch:
+  push:
+    branches: [group-sync]
+    paths: ['firmware/**', 'tools/**', 'assets/**', 'tests/**', 'build.sh', '.github/workflows/build.yml']
+permissions:
+  contents: write
+jobs:
+  firmware:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.x' }
+      - name: Python packages
+        run: python3 -m pip install Pillow
+      - name: JieLi toolchain
+        run: sh tools/get_toolchain.sh
+      - name: JieLi AC79 SDK (V1.2.1 for the package files, V1.2.0 for the pinned Bluetooth libraries)
+        shell: bash
+        run: |
+          mkdir -p /tmp/rep
+          git ls-remote --tags https://gitee.com/Jieli-Tech/fw-AC79_AIoT_SDK.git 2>&1 | grep -i 'V1\.2' > /tmp/rep/sdk_tags.txt || true
+          clone() {  # clone <dest> <ref>...
+            d=$1; shift
+            for ref in "$@"; do
+              for i in 1 2 3; do
+                git clone --depth 1 --branch "$ref" https://gitee.com/Jieli-Tech/fw-AC79_AIoT_SDK.git "$d" && return 0
+                rm -rf "$d"; sleep 15
+              done
+            done
+            return 1
+          }
+          clone ~/fw-AC79_AIoT_SDK AC79NN_SDK_V1.2.1_2023-12-13
+          clone ~/sdk120 release-AC79NN_SDK_V1.2.0 AC79NN_SDK_V1.2.0 || echo "V1.2.0 not found" | tee /tmp/rep/sdk120_missing.txt
+          echo "AC79_BT_SDK=$HOME/sdk120" >> "$GITHUB_ENV"
+      - name: Regression (every sound hashed against tests/golden.txt)
+        shell: bash
+        run: |
+          ls tests | head -30
+          (make -C tests 2>&1 || true) | tail -20
+      - name: Build (Bluetooth package, then plain)
+        shell: bash
+        run: |
+          set -o pipefail
+          tools/build_sim.sh >/dev/null 2>&1 || true
+          DRUM_PACKAGE=1 DRUM_BUNDLE=1 ./build.sh 2>&1 | tee build.log
+      - name: Packages
+        run: |
+          mkdir -p out; find build -name '*.fwsc' -exec cp {} out/ \; ; ls -l out
+      - uses: actions/upload-artifact@v4
+        with: { name: Hortator-packages, path: out/, if-no-files-found: error }
+      - name: Publish a build report to the build-logs branch
+        if: always()
+        shell: bash
+        run: |
+          mkdir -p /tmp/rep
+          {
+            echo "commit: $GITHUB_SHA"; echo "job status: ${{ job.status }}"; echo
+            echo "== SDK tags seen"; cat /tmp/rep/sdk_tags.txt 2>/dev/null; cat /tmp/rep/sdk120_missing.txt 2>/dev/null
+            echo; echo "== build log (last 150 lines)"; tail -n 150 build.log 2>/dev/null || echo "(no build.log)"
+            echo; echo "== images"; ls -l build/*.bin build/*.fwsc out/* 2>&1 || true
+            for e in $(find build -name '*.elf' | head -4); do echo; echo "== $e"; readelf -S -W $e | head -30; done
+          } > /tmp/rep/report.txt
+          rm -rf /tmp/bl && mkdir /tmp/bl && cd /tmp/bl
+          git init -q; git config user.name build; git config user.email build@users.noreply.github.com
+          git remote add origin "https://x-access-token:${{ github.token }}@github.com/${{ github.repository }}.git"
+          if git fetch -q --depth 1 origin build-logs 2>/dev/null; then git checkout -q -b build-logs FETCH_HEAD; else git checkout -q --orphan build-logs; fi
+          cp /tmp/rep/report.txt "hortator-${GITHUB_SHA::7}.txt"; cp /tmp/rep/report.txt hortator-latest.txt
+          git add -A; git commit -q -m "hortator build report ${GITHUB_SHA::7}"; git push -q origin build-logs
