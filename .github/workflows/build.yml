@@ -39,9 +39,9 @@ jobs:
           clone() {  # clone <dest> <ref>...
             d=$1; shift
             for ref in "$@"; do
-              for i in 1 2 3; do
+              for i in 1 2 3 4 5 6; do
                 git clone --depth 1 --branch "$ref" https://gitee.com/Jieli-Tech/fw-AC79_AIoT_SDK.git "$d" && return 0
-                rm -rf "$d"; sleep 15
+                rm -rf "$d"; sleep 30
               done
             done
             return 1
