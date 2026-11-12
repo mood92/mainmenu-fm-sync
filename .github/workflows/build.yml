@@ -14,6 +14,9 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Release base tag (the fork has none; 44c9ad4 is upstream drum-v1.0.1)
+        run: git tag drum-v1.0.1 44c9ad4
       - uses: actions/setup-python@v5
         with: { python-version: '3.x' }
       - name: Python packages
