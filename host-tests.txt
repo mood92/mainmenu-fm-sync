@@ -3449,10 +3449,9 @@ tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
  1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
       |     ^
 1 warning generated.
-      model ORGAN
-FAIL  every model's default knobs = its first preset's (MATRX, CLTRX: no preset)
-ok    banks: MACHINEDRUM 55, MODERN 40, CLASSIC 56, then USER 96; a bad id: none
-ok    every preset: a name of 1..8 characters, unique; its knobs in its model's ranges; in its voice's bank; <= 4 per voice
+ok    every model's default knobs = its first preset's (MATRX, CLTRX: no preset)
+ok    banks: MACHINEDRUM 55, MODERN 51 (40 + 11 ORGAN), CLASSIC 56, then USER 96; a bad id: none
+ok    every preset: a name of 1..8 characters, unique; its knobs in its model's ranges; in its voice's bank; <= 4 per voice (ORGAN: 12)
 ok    SUBTHUMP first, BUZZCLAP CPEFM's default (TUNE +24), BOOMBD, ROUNDBD each bank's first, BLIP last
 ok    bank names, in order
 ok    a factory load: MODEL + 8 knobs = the preset's; FX (FILTER, INSERT, RESON, sends, SRR), SLICER, LEVEL, PAN, CHOKE 3, NOTE, LFO, steps unchanged
@@ -3585,4 +3584,38 @@ ok    (the UPR1 record: 1284 B)
 ok    an older bank with only 98 and 111: into slots 1 and 2
 ok    (the UPR1 record: 1284 B)
 ok    one dropped: "1 PRESET LOST"
-preset_test: 1 FAILED
+preset_test: all passed
+audio ISR: in_audio first, nested TIMER5 time excluded ok
+audio ISR: BENCH hold silent, live timed and muted, no shedding, a rest after a heavy half ok
+audio ISR: sheds above 85 % of a half (4934 us), not at 80 % or 85 %; counted ok
+In file included from tests/boot_test.c:10:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+boot_test: all passed
+In file included from tests/cue_test.c:12:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+cue_test: all passed
+In file included from tests/editor_test.c:14:
+In file included from tests/ui_host.h:87:
+tests/../firmware/src/ui_draw.c:1904:9: warning: misleading indentation; statement is not part of the previous 'if' [-Wmisleading-indentation]
+ 1904 |         h ^= (held_step() + 1u) * 977u;
+      |         ^
+tests/../firmware/src/ui_draw.c:1902:5: note: previous statement is here
+ 1902 |     if (pg->graph == GR_STEPS || pg->graph == GR_GRID)
+      |     ^
+1 warning generated.
+FAIL  INFO: HORTATOR, the firmware version without DRUM-, protocol 1.3, LIVE and UPR2 only (no backup / pattern files), the sizes, the state block
+editor_test: 1 FAILED

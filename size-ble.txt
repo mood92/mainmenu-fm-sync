@@ -1,19 +1,19 @@
-sections: .text 550896, .data 2112, .bss 90784, .pool 335360
+sections: .text 551104, .data 2112, .bss 90784, .pool 335360
 
-== .text: 540366 B in sized symbols; by group
-    427709  other
+== .text: 540594 B in sized symbols; by group
+    427933  other
      45755  bluetooth (ble_/bt_)
      28519  fx/filter/comp/dsp
      17328  libc/runtime
       8648  drum models (dm_)
       4231  editor/usb/ota
       3244  sequencer/song
-      3196  samples/presets/tables
+      3200  samples/presets/tables
       1736  ui/lcd/gfx/pages
   -- biggest 40 symbols in .text
      74424  SMP_DATA
      26338  fm1_main
-     17926  ui_input
+     17928  ui_input
      13944  graph_paint
      13246  ed_dispatch
       8648  DMODELS
@@ -29,8 +29,8 @@ sections: .text 550896, .data 2112, .bss 90784, .pool 335360
       3778  wf_rf_common_init
       3208  LK_NONE
       2992  wf_phy_init
+      2916  PRE_FACTORY
       2890  sm_run
-      2718  PRE_FACTORY
       2700  draw_foot
       2560  COMP_LP_COEF
       2466  perf_block
